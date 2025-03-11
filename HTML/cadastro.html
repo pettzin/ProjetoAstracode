@@ -57,7 +57,7 @@
                     <label for="senha" class="form-label">Senha</label><span style="color: red;">*</span>
                     <div class="input-group">
                         <input type="password" class="form-control" id="senha" autocomplete="off" placeholder="Informe sua senha" minlength="8" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$" title="A senha deve ter pelo menos 8 caracteres, incluindo letras maiúsculas e minúsculas, um número e um caractere especial (!@#$%^&*)">
-                        <button type="button" class="btn btn-outline-dark" id="visibilidadeSenha" onclick="visibilidadeSenha()"><span id="iconSenha" class="material-symbols-outlined">visibility</span></button>
+                        <button type="button" class="btn btn-outline-dark" id="toggleSenha" onclick="visibilidadeSenha()"><span id="iconSenha" class="material-symbols-outlined">visibility</span></button>
                     </div>
                     <small class="form-text text-muted">Não compartilhe sua senha com ninguém.</small>
                 </div>
@@ -65,7 +65,7 @@
                     <label for="confirmSenha" class="form-label">Confirmar Senha</label><span style="color: red;">*</span>
                     <div class="input-group">
                         <input type="password" class="form-control" id="confirmSenha" autocomplete="off" placeholder="Confirme sua senha" minlength="8" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$" title="As senhas devem ser iguais" required>
-                        <button type="button" class="btn btn-outline-dark" id="visibilidadeSenhaConfirm" onclick="visibilidadeSenhaConfirm()"><span id="iconConfirmSenha" class="material-symbols-outlined">visibility</span></button>
+                        <button type="button" class="btn btn-outline-dark" id="toggleConfirmSenha" onclick="visibilidadeSenhaConfirm()"><span id="iconConfirmSenha" class="material-symbols-outlined">visibility</span></button>
                     </div>
                 </div>
                 <div class="mb-2">
