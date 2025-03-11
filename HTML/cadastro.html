@@ -5,51 +5,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="Estilos/style.css">
+    <!-- Link para carregar todos os ícones "Material Symbols" -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <title>Astracode</title>
+    <style>
+        /* Ajuste no layout para evitar a barra de rolagem */
+        body {
+            background-color: #f8f9fa;
+            overflow-y: hidden; /*Esconde Barra de rolagem*/
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .card {
+            height: 98vh;
+            max-width: 360px;
+            width: 100%;
+        }
+        .form-label {
+            font-size: 0.9rem;
+        }
+        .form-control {
+            font-size: 0.9rem;
+        }
+        .input-group-btn {
+            font-size: 0.9rem;
+        }
+        .btn-outline-dark {
+            font-size: 0.8rem;
+        }
+    </style>
 </head>
-<body class="d-flex justify-content-center align-items-center vh-100 bg-light">
+<body>
     <div class="container">
-        <div class="card p-4 shadow-lg mx-auto" style="max-width: 400px;">
+        <div class="card p-4 shadow-lg mx-auto">
             <h2 class="text-center">Cadastro</h2>
             <form id="cadastroForm">
                 <div class="mb-2">
-                    <label for="nome" class="form-label">Nome Completo  </label><span style="color: red;">*</span>
+                    <label for="nome" class="form-label">Nome Completo</label><span style="color: red;">*</span>
                     <input type="text" class="form-control" id="nome" autocomplete="off" placeholder="Nome Completo" required pattern="^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$" title="Apenas letras e espaços são permitidos." minlength="5" disabled>
                 </div>
                 <div class="mb-2">
-                    <label for="email" class="form-label">E-mail </label><span style="color: red;">*</span>
+                    <label for="email" class="form-label">E-mail</label><span style="color: red;">*</span>
                     <input type="email" class="form-control" id="email" autocomplete="off" placeholder="exemplo@dominio.com" required disabled>
-                    <small class="form-text text-muted">Nós nunca compartilharemos seu e-mail com ninguém.</small>
                 </div>
                 <div class="mb-2">
-                    <label for="senha" class="form-label">Senha </label><span style="color: red;">*</span>
+                    <label for="senha" class="form-label">Senha</label><span style="color: red;">*</span>
                     <div class="input-group">
-                        <input type="password" class="form-control" id="senha" autocomplete="off" placeholder="Informe sua senha" minlength="8" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
-                        title="A senha deve ter pelo menos 8 caracteres, incluindo letras maiúsculas e minúsculas, um número e um caractere especial (!@#$%^&*)">
-                        <button type="button" class="btn btn-outline-secondary" id="toggleSenha" onclick="visibilidadeSenha()">👁️</button>
+                        <input type="password" class="form-control" id="senha" autocomplete="off" placeholder="Informe sua senha" minlength="8" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$" title="A senha deve ter pelo menos 8 caracteres, incluindo letras maiúsculas e minúsculas, um número e um caractere especial (!@#$%^&*)">
+                        <button type="button" class="btn btn-outline-dark" id="toggleSenha" onclick="visibilidadeSenha()"><span id="iconSenha" class="material-symbols-outlined">visibility</span></button>
                     </div>
                     <small class="form-text text-muted">Não compartilhe sua senha com ninguém.</small>
                 </div>
                 <div class="mb-2">
-                    <label for="confirmSenha" class="form-label">Confirmar Senha </label><span style="color: red;">*</span>
+                    <label for="confirmSenha" class="form-label">Confirmar Senha</label><span style="color: red;">*</span>
                     <div class="input-group">
-                        <input type="password" class="form-control" id="confirmSenha" autocomplete="off" placeholder="Confirme sua senha" minlength="8" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
-                        title="As senhas devem ser iguais" required>
-                        <button type="button" class="btn btn-outline-secondary" id="toggleConfirmSenha" onclick="visibilidadeSenhaConfirm()">👁️</button>
+                        <input type="password" class="form-control" id="confirmSenha" autocomplete="off" placeholder="Confirme sua senha" minlength="8" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$" title="As senhas devem ser iguais" required>
+                        <button type="button" class="btn btn-outline-dark" id="toggleConfirmSenha" onclick="visibilidadeSenhaConfirm()"><span id="iconConfirmSenha" class="material-symbols-outlined">visibility</span></button>
                     </div>
                 </div>
                 <div class="mb-2">
-                    <label for="telefone" class="form-label">Telefone </label><span style="color: red;">*</span>
+                    <label for="telefone" class="form-label">Telefone</label><span style="color: red;">*</span>
                     <input type="tel" class="form-control" id="telefone" autocomplete="off" placeholder="+55 (xx) xxxxx-xxxx" required>
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
             </form>
-            <p class="text-center mt-3">Já tem conta? <a href="login.html">Faça login</a></p>
+            <p class="text-center mt-2">Já tem conta? <a href="login.html">Faça login</a></p>
         </div>
     </div>
 
-    <script>    
+    <script>
         // Validação personalizada de email
         document.getElementById("cadastroForm").addEventListener("submit", function(e) {
             e.preventDefault(); // Impede o envio do formulário para validação
@@ -79,42 +108,34 @@
         // Função para alternar a visibilidade da senha
         function visibilidadeSenha() {
             const senha = document.getElementById("senha");
+            const iconSenha = document.getElementById("iconSenha");
+
             var tipo = senha.type === "password" ? "text" : "password";
             senha.type = tipo;
+
+            // Alterando o ícone
+            if (senha.type === "password") {
+                iconSenha.textContent = "visibility"; // Exibe o ícone 'visibility'
+            } else {
+                iconSenha.textContent = "visibility_off"; // Exibe o ícone 'visibility_off'
+            }
         }
 
+        // Função para alternar a visibilidade da senha confirmada
         function visibilidadeSenhaConfirm() {
             const confirmSenha = document.getElementById("confirmSenha");
+            const iconConfirmSenha = document.getElementById("iconConfirmSenha");
+
             var tipo = confirmSenha.type === "password" ? "text" : "password";
             confirmSenha.type = tipo;
+
+            // Alterando o ícone
+            if (confirmSenha.type === "password") {
+                iconConfirmSenha.textContent = "visibility"; // Exibe o ícone 'visibility'
+            } else {
+                iconConfirmSenha.textContent = "visibility_off"; // Exibe o ícone 'visibility_off'
+            }
         }
     </script>
 </body>
 </html>
-
-
-
-    <!--<script>
-        // Máscara para telefone (formato: +55 (XX) XXXXX-XXXX)
-        document.getElementById("telefone").addEventListener("input", function(e) {
-            let valor = e.target.value.replace(/\D/g, ""); // Remove tudo que não for número
-            let formato = "+55 "; // Código do país fixo
-
-            // Verificar o formato para o DDD
-            if (valor.length > 2) {
-                formato += `(${valor.substring(0, 2)}) `;
-            } else if (valor.length > 0) {
-                formato += `(${valor.substring(0, 2)}`;
-            }
-
-            // Adicionar a parte do número do telefone
-            if (valor.length > 2) {
-                formato += valor.substring(2, 7); // Parte do número
-            }
-            if (valor.length > 6) {
-                formato += `-${valor.substring(7, 11)}`; // Finaliza o número
-            }
-
-            e.target.value = formato; // Atualiza o valor no campo
-        });
-    </script> -->
