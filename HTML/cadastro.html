@@ -19,25 +19,80 @@
                 </div>
                 <div class="mb-2">
                     <label for="email" class="form-label">E-mail </label><span style="color: red;">*</span>
-                    <input type="email" class="form-control" id="email" autocomplete="off" placeholder="exemplo@dominio.com" pattern="^[a-z0-9.-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                    title="Digite um e-mail válido (exemplo@dominio.com)" required>
+                    <input type="email" class="form-control" id="email" autocomplete="off" placeholder="exemplo@dominio.com" required disabled>
                     <small class="form-text text-muted">Nós nunca compartilharemos seu e-mail com ninguém.</small>
                 </div>
                 <div class="mb-2">
                     <label for="senha" class="form-label">Senha </label><span style="color: red;">*</span>
-                    <input type="password" class="form-control" id="senha" autocomplete="off" placeholder="Informe sua senha" minlength="8" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
-                    title="A senha deve ter pelo menos 8 caracteres, incluindo letras maiúsculas e minúsculas, um número e um caractere especial (!@#$%^&*)">
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="senha" autocomplete="off" placeholder="Informe sua senha" minlength="8" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
+                        title="A senha deve ter pelo menos 8 caracteres, incluindo letras maiúsculas e minúsculas, um número e um caractere especial (!@#$%^&*)">
+                        <button type="button" class="btn btn-outline-secondary" id="toggleSenha" onclick="visibilidadeSenha()">👁️</button>
+                    </div>
                     <small class="form-text text-muted">Não compartilhe sua senha com ninguém.</small>
                 </div>
                 <div class="mb-2">
+                    <label for="confirmSenha" class="form-label">Confirmar Senha </label><span style="color: red;">*</span>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="confirmSenha" autocomplete="off" placeholder="Confirme sua senha" minlength="8" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
+                        title="As senhas devem ser iguais" required>
+                        <button type="button" class="btn btn-outline-secondary" id="toggleConfirmSenha" onclick="visibilidadeSenhaConfirm()">👁️</button>
+                    </div>
+                </div>
+                <div class="mb-2">
                     <label for="telefone" class="form-label">Telefone </label><span style="color: red;">*</span>
-                    <input type="tel" class="form-control" id="telefone" autocomplete="off" placeholder="+55 (xx) xxxxx-xxxx" required disabled>
+                    <input type="tel" class="form-control" id="telefone" autocomplete="off" placeholder="+55 (xx) xxxxx-xxxx" required>
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
             </form>
             <p class="text-center mt-3">Já tem conta? <a href="login.html">Faça login</a></p>
         </div>
     </div>
+
+    <script>    
+        // Validação personalizada de email
+        document.getElementById("cadastroForm").addEventListener("submit", function(e) {
+            e.preventDefault(); // Impede o envio do formulário para validação
+
+            let email = document.getElementById("email").value;
+            const emailRegex = /^[a-z0-9._-]+@[a-z0-9.-]+\.(com|br|gov|org)$/; // Permitido apenas letras minúsculas, números e um ponto antes do @, e terminação .com ou .br
+            
+            // Verificando se o email é válido
+            if (!email.match(emailRegex)) {
+                alert("O e-mail deve ser em letras minúsculas, não pode ter caracteres especiais além de '@' e '.' e deve terminar com '.com', '.br', '.gov' ou '.org'.");
+                return false; // Bloqueia o envio do formulário se o e-mail não for válido
+            } 
+
+            // Validando a senha e a confirmação de senha
+            let senha = document.getElementById("senha").value;
+            let confirmSenha = document.getElementById("confirmSenha").value;
+            if (senha !== confirmSenha) {
+                alert("As senhas não coincidem!");
+                return false;
+            }
+
+            // Se o email e as senhas forem válidos, submete o formulário
+            alert("Cadastro realizado com sucesso!");
+            this.submit(); // Envia o formulário
+        });
+
+        // Função para alternar a visibilidade da senha
+        function visibilidadeSenha() {
+            const senha = document.getElementById("senha");
+            var tipo = senha.type === "password" ? "text" : "password";
+            senha.type = tipo;
+        }
+
+        function visibilidadeSenhaConfirm() {
+            const confirmSenha = document.getElementById("confirmSenha");
+            var tipo = confirmSenha.type === "password" ? "text" : "password";
+            confirmSenha.type = tipo;
+        }
+    </script>
+</body>
+</html>
+
+
 
     <!--<script>
         // Máscara para telefone (formato: +55 (XX) XXXXX-XXXX)
@@ -62,7 +117,4 @@
 
             e.target.value = formato; // Atualiza o valor no campo
         });
-    </script>->
-
-</body>
-</html>
+    </script> -->
