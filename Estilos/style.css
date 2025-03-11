@@ -5,9 +5,31 @@
     margin: 0;
 }
 
-body, html {
+/* Ajuste no layout para evitar a barra de rolagem */
+body {
+    background: linear-gradient(to right, #f8ea6f, #64b5f6);
+    overflow-y: hidden; /*Esconde Barra de rolagem*/
+}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 100vh;
-    width: 100vw;
-    background-color: rgb(255, 0, 0);
-    font-family: 'Open Sans',sans-serif;
+}
+.card {
+    
+    max-width: 360px;
+    width: 100%;
+}
+.form-label {
+    font-size: 0.9rem;
+}
+.form-control {
+    font-size: 0.9rem;
+}
+.input-group-btn {
+    font-size: 0.9rem;
+}
+.btn-outline-dark {
+    font-size: 0.8rem;
 }
