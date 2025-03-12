@@ -67,6 +67,23 @@ function visibilidadeSenhaConfirm() {
     iconConfirmSenha.textContent = confirmSenha.type === "password" ? "visibility" : "visibility_off";
 }
 
+
+// Função para alternar a visibilidade da senha no login
+function togglePassword() {
+    const senha = document.getElementById("loginSenha");
+    const iconSenha = document.getElementById("iconSenha");
+
+    var tipo = senha.type === "password" ? "text" : "password";
+    senha.type = tipo;
+
+    // Alterando o ícone
+    if (senha.type === "password") {
+        iconSenha.textContent = "visibility"; // Exibe o ícone 'visibility'
+    } else {
+        iconSenha.textContent = "visibility_off"; // Exibe o ícone 'visibility_off'
+    }
+}
+
 // Função para o login
 document.getElementById("loginForm").addEventListener("submit", function (event) {
     event.preventDefault();
@@ -88,4 +105,4 @@ document.getElementById("loginForm").addEventListener("submit", function (event)
     } else {
         alert("E-mail ou senha incorretos!");
     }
-});
+}); 
