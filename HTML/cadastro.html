@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <title>Astracode</title>
-    
 </head>
 <body>
     <div class="container">
@@ -18,17 +17,17 @@
             <form id="cadastroForm">
                 <div class="mb-2">
                     <label for="nome" class="form-label">Nome Completo</label><span style="color: red;">*</span>
-                    <input type="text" class="form-control" id="nome" autocomplete="off" placeholder="Nome Completo" required pattern="^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$" title="Apenas letras e espaços são permitidos." minlength="5" >
+                    <input  type="text" class="form-control" id="nome" autocomplete="off" placeholder="Nome Completo" required pattern="^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$" title="Apenas letras e espaços são permitidos." minlength="5" >
                 </div>
                 <div class="mb-2">
                     <label for="email" class="form-label">E-mail</label><span style="color: red;">*</span>
-                    <input type="email" class="form-control" id="email" autocomplete="off" placeholder="exemplo@dominio.com" required >
+                    <input  type="email" class="form-control" id="email" autocomplete="off" placeholder="exemplo@dominio.com" required>
                 </div>
                 <div class="mb-2">
                     <label for="senha" class="form-label">Senha</label><span style="color: red;">*</span>
                     <div class="input-group">
                         <input type="password" class="form-control" id="senha" autocomplete="off" placeholder="Informe sua senha" minlength="8" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$" title="A senha deve ter pelo menos 8 caracteres, incluindo letras maiúsculas e minúsculas, um número e um caractere especial (!@#$%^&*)">
-                        <button type="button" class="btn btn-outline-dark" id="toggleSenha" onclick="visibilidadeSenha()"><span id="iconSenha" class="material-symbols-outlined">visibility</span></button>
+                        <button type="button" class="btn btn-outline-dark" id="senhaPrincipal" onclick="visibilidadeSenha()"><span id="iconSenha" class="material-symbols-outlined">visibility</span></button>
                     </div>
                     <small class="form-text text-muted">Não compartilhe sua senha com ninguém.</small>
                 </div>
@@ -36,77 +35,19 @@
                     <label for="confirmSenha" class="form-label">Confirmar Senha</label><span style="color: red;">*</span>
                     <div class="input-group">
                         <input type="password" class="form-control" id="confirmSenha" autocomplete="off" placeholder="Confirme sua senha" minlength="8" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$" title="As senhas devem ser iguais" required>
-                        <button type="button" class="btn btn-outline-dark" id="toggleConfirmSenha" onclick="visibilidadeSenhaConfirm()"><span id="iconConfirmSenha" class="material-symbols-outlined">visibility</span></button>
+                        <button type="button" class="btn btn-outline-dark" id="confirmarSenha" onclick="visibilidadeSenhaConfirm()"><span id="iconConfirmSenha" class="material-symbols-outlined">visibility</span></button>
                     </div>
                 </div>
                 <div class="mb-2">
                     <label for="telefone" class="form-label">Telefone</label><span style="color: red;">*</span>
                     <input type="tel" class="form-control" id="telefone" autocomplete="off" placeholder="+55 (xx) xxxxx-xxxx" required>
                 </div>
-                <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
+            <button type="submit" class="btn btn-primary w-100" onclick=" fakeBD()"> <a href="login.html" style="color: rgb(255, 255, 255); text-decoration: none;">Cadastrar</a></button>
             </form>
             <p class="text-center mt-2">Já tem conta? <a href="login.html">Faça login</a></p>
         </div>
-    </div>
+    </div>        
 
-    <script>
-        // Validação personalizada de email
-        document.getElementById("cadastroForm").addEventListener("submit", function(e) {
-            e.preventDefault(); // Impede o envio do formulário para validação
-
-            let email = document.getElementById("email").value;
-            const emailRegex = /^[a-z0-9._-]+@[a-z0-9.-]+\.(com|br|gov|org)$/; // Permitido apenas letras minúsculas, números e um ponto antes do @, e terminação .com ou .br
-            
-            // Verificando se o email é válido
-            if (!email.match(emailRegex)) {
-                alert("O e-mail deve ser em letras minúsculas, não pode ter caracteres especiais além de '@' e '.' e deve terminar com '.com', '.br', '.gov' ou '.org'.");
-                return false; // Bloqueia o envio do formulário se o e-mail não for válido
-            } 
-
-            // Validando a senha e a confirmação de senha
-            let senha = document.getElementById("senha").value;
-            let confirmSenha = document.getElementById("confirmSenha").value;
-            if (senha !== confirmSenha) {
-                alert("As senhas não coincidem!");
-                return false;
-            }
-
-            // Se o email e as senhas forem válidos, submete o formulário
-            alert("Cadastro realizado com sucesso!");
-            this.submit(); // Envia o formulário
-        });
-
-        // Função para alternar a visibilidade da senha
-        function visibilidadeSenha() {
-            const senha = document.getElementById("senha");
-            const iconSenha = document.getElementById("iconSenha");
-
-            var tipo = senha.type === "password" ? "text" : "password";
-            senha.type = tipo;
-
-            // Alterando o ícone
-            if (senha.type === "password") {
-                iconSenha.textContent = "visibility"; // Exibe o ícone 'visibility'
-            } else {
-                iconSenha.textContent = "visibility_off"; // Exibe o ícone 'visibility_off'
-            }
-        }
-
-        // Função para alternar a visibilidade da senha confirmada
-        function visibilidadeSenhaConfirm() {
-            const confirmSenha = document.getElementById("confirmSenha");
-            const iconConfirmSenha = document.getElementById("iconConfirmSenha");
-
-            var tipo = confirmSenha.type === "password" ? "text" : "password";
-            confirmSenha.type = tipo;
-
-            // Alterando o ícone
-            if (confirmSenha.type === "password") {
-                iconConfirmSenha.textContent = "visibility"; // Exibe o ícone 'visibility'
-            } else {
-                iconConfirmSenha.textContent = "visibility_off"; // Exibe o ícone 'visibility_off'
-            }
-        }
-    </script>
+     <script src="../js/cadastroelogin.js"></script>
 </body>
 </html>
