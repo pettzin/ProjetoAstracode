@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Exibindo o alerta e redirecionando
         alert("Cadastro realizado com sucesso!");
-        window.location.href = "login.html"; // Redireciona para a página de login
+        window.location.href = "index.html"; // Redireciona para a página de login
     })
 });
 

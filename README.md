@@ -1,3 +1,3 @@
 # Astracode
  Projeto Astracode Faculdade
- Login e Cadastro prontos,correção e finalização das abas.
+ Atualização e renomeio de aba login.html para index.html
