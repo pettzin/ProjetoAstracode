@@ -7,7 +7,7 @@
 
 /* Ajuste no layout para evitar a barra de rolagem */
 body {
-    background: linear-gradient(to right, #f8ea6f, #64b5f6);
+    background-image: radial-gradient( #f8ea6f 0%, #64b5f6 70%);
     overflow-y: hidden; /*Esconde Barra de rolagem*/
 }
 .container {
@@ -32,4 +32,18 @@ body {
 }
 .btn-outline-dark {
     font-size: 0.8rem;
+}
+footer {
+    position: absolute; /* Faz o rodapé ficar fixo na parte inferior */
+    bottom: 10px; /* Ajuste o valor para colocar mais ou menos próximo da borda inferior */
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+footer p {
+    font-family: Arial, sans-serif; /* Fonte normal (Arial) */
+    font-size: 15px; /* Tamanho da fonte */
+    color: #000000; /* Cor escura para contrastar com o fundo */
+    margin: 0;
 }
