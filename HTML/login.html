@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../Estilos/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Login</title>
+</head>
+<body>
+    <div class="container">
+        <div class="card p-4 shadow-lg mx-auto">
+            <h2 class="text-center">Login</h2>
+            <form id="loginForm">
+                <div class="mb-3">
+                    <label for="loginEmail" class="form-label">E-mail</label>
+                    <input type="email" class="form-control" id="loginEmail" placeholder="exemplo@dominio.com" required>
+                </div>
+                <div class="mb-3">
+                    <label for="loginSenha" class="form-label">Senha</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="loginSenha" placeholder="Digite sua senha" required>
+                        <button type="button" class="btn btn-outline-dark" id="toggleSenha" onclick="togglePassword()">
+                            <i id="iconSenha" class="fa fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Entrar</button>
+            </form>
+            <p class="text-center mt-2">Ainda não tem conta? <a href="cadastro.html">Cadastre-se</a></p>
+        </div>
+    </div>
+    
+    <script>
+        function togglePassword() {
+            const senha = document.getElementById("loginSenha");
+            const iconSenha = document.getElementById("iconSenha");
+            
+            if (senha.type === "password") {
+                senha.type = "text";
+                iconSenha.classList.remove("fa-eye");
+                iconSenha.classList.add("fa-eye-slash");
+            } else {
+                senha.type = "password";
+                iconSenha.classList.remove("fa-eye-slash");
+                iconSenha.classList.add("fa-eye");
+            }
+        }
+        
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const email = document.getElementById("loginEmail").value;
+            const senha = document.getElementById("loginSenha").value;
+            const senhaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+            
+            if (!senha.match(senhaRegex)) {
+                alert("A senha deve conter pelo menos uma letra maiúscula, uma minúscula e um símbolo especial (!@#$%^&*). ");
+                return;
+            }
+            
+            // Verifica se os dados estão cadastrados no localStorage
+            const savedEmail = localStorage.getItem("email");
+            const savedSenha = localStorage.getItem("senha");
+            
+            if (email === savedEmail && senha === savedSenha) {
+                alert("Login realizado com sucesso!");
+                window.location.href = "dashboard.html"; // Redirecionamento pós-login
+            } else {
+                alert("E-mail ou senha incorretos! Verifique seus dados e tente novamente.");
+            }
+        });
+    </script>
+</body>
+</html>
