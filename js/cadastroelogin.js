@@ -55,10 +55,66 @@ function visibilidadeSenhaConfirm() {
             iconConfirmSenha.textContent = "visibility_off"; // Exibe o ícone 'visibility_off'
         }
     }
-    
-    function fakeBD() {
-        var senha = document.getElementById("senha").value;
-        var email = document.getElementById("email").value;
-    
-        window.alert(email + " " + senha).value
+
+// Função para alternar a visibilidade da senha no login
+function togglePassword() {
+    const senha = document.getElementById("loginSenha");
+    const iconSenha = document.getElementById("iconSenha");
+
+    var tipo = senha.type === "password" ? "text" : "password";
+    senha.type = tipo;
+
+    // Alterando o ícone
+    if (senha.type === "password") {
+        iconSenha.textContent = "visibility"; // Exibe o ícone 'visibility'
+    } else {
+        iconSenha.textContent = "visibility_off"; // Exibe o ícone 'visibility_off'
     }
+}
+    
+
+
+document.getElementById("cadastroForm").addEventListener("submit", function (e) {
+e.preventDefault();
+    
+    let nome = document.getElementById("nome").value;
+    let email = document.getElementById("email").value;
+    let senha = document.getElementById("senha").value;
+
+    // Criando objeto para armazenar os dados do usuário
+    let usuario = {
+        nome: nome,
+        email: email,
+        senha: senha
+    };
+
+    // Salvando no localStorage
+    localStorage.setItem("usuario", JSON.stringify(usuario));
+    console.log(usuario(nome))
+
+    alert("Cadastro realizado com sucesso!");
+    window.location.href = "login.html"; // Redireciona para a página de login
+});
+
+
+document.getElementById("loginForm").addEventListener("submit", function (event) {
+event.preventDefault();
+
+    let email = document.getElementById("loginEmail").value;
+    let senha = document.getElementById("loginSenha").value;
+
+    // Recuperando os dados do usuário
+    let usuario = JSON.parse(localStorage.getItem("usuario"));
+
+    if (!usuario) {
+        alert("Nenhum usuário cadastrado!");
+        return;
+    }
+
+    if (email === usuario.email && senha === usuario.senha) {
+        alert("Login realizado com sucesso!");
+        window.location.href = "index.html"; // Redireciona para a página inicial
+    } else {
+        alert("E-mail ou senha incorretos!");
+    }
+});
