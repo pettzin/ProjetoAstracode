@@ -5,11 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Astracode</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/css/home.css">
 </head>
 <body>
-
     <div class="header">
         <button class="menu-icon" onclick="home()">🏠</button>
         <div class="title">ASTRACODE</div>
@@ -22,7 +20,6 @@
             </div>
         </div>
     </div>
-
     <div class="cadastro">
         <button id="openDialog">Cadastrar Contato</button>
 
@@ -40,66 +37,40 @@
         <h2>Lista de Contatos</h2>
         <ul id="contactList"></ul>
     
-    </div>
+        <script>
+            const openDialogButton = document.getElementById('openDialog');
+            const contactDialog = document.getElementById('contactDialog');
+            const closeDialogButton = document.getElementById('closeDialog');
+            const contactForm = document.getElementById('contactForm');
+            const contactList = document.getElementById('contactList');
+    
+            openDialogButton.addEventListener('click', () => {
+                contactDialog.showModal();
+            });
+    
+            closeDialogButton.addEventListener('click', () => {
+                contactDialog.close();
+            });
+    
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+    
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const phone = document.getElementById('phone').value;
+    
+                if (name && email && phone) {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `Nome: ${name}, E-mail: ${email}, Telefone: ${phone}`;
+                    contactList.appendChild(listItem);
+    
+                    contactForm.reset();
+                    contactDialog.close();
+                }
+            });
+        </script>
 
     <script>
-        const openDialogButton = document.getElementById('openDialog');
-        const contactDialog = document.getElementById('contactDialog');
-        const closeDialogButton = document.getElementById('closeDialog');
-        const contactForm = document.getElementById('contactForm');
-        const contactList = document.getElementById('contactList');
-        const phoneInput = document.getElementById('phone');
-    
-        openDialogButton.addEventListener('click', () => {
-            contactDialog.showModal();
-        });
-    
-        closeDialogButton.addEventListener('click', () => {
-            contactDialog.close();
-        });
-    
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-    
-            const name = document.getElementById('name').value;
-    
-            if (name) {
-                const listItem = document.createElement('li');
-                listItem.classList.add('contact-item');
-                
-                // Criando o ícone de pessoa usando FontAwesome
-                const icon = document.createElement('i');
-                icon.classList.add('fas', 'fa-user'); // Ícone de pessoa do FontAwesome
-                icon.classList.add('contact-icon'); // Estilo do ícone
-    
-                const link = document.createElement('a');
-                link.href = "#";
-                link.textContent = name;
-                link.classList.add('contact-link');
-                
-                listItem.appendChild(icon); // Adicionando o ícone à lista
-                listItem.appendChild(link); // Adicionando o nome à lista
-                contactList.appendChild(listItem);
-    
-                contactForm.reset();
-                contactDialog.close();
-            }
-        });
-    
-        phoneInput.addEventListener('input', (e) => {
-            let value = e.target.value.replace(/\D/g, "");
-            value = value.substring(0, 11);
-            
-            if (value.length > 2) {
-                value = "(" + value.substring(0, 2) + ") " + value.substring(2);
-            }
-            if (value.length > 9) {
-                value = value.substring(0, 10) + "-" + value.substring(10);
-            }
-            
-            e.target.value = value;
-        });
-        
         const settingsIcon = document.querySelector('.settings-icon');
         const profileMenu = document.getElementById('profileMenu');
 
@@ -117,6 +88,5 @@
             alert('Botão Home clicado!');
         }
     </script>
-
 </body>
 </html>
