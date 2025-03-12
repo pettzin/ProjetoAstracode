@@ -5,17 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Astracode</title>
-    <!-- Importa o arquivo CSS externo -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/css/home.css">
 </head>
 <body>
-    <!-- Cabeçalho da Aplicação -->
+
     <div class="header">
-        <!-- Botão Home -->
         <button class="menu-icon" onclick="home()">🏠</button>
-        <!-- Título Principal -->
         <div class="title">ASTRACODE</div>
-        <!-- Menu de Perfil com Ícone de Configurações -->
         <div class="profile">
             <div class="settings-icon">⚙️</div>
             <div class="dropdown" id="profileMenu">
@@ -26,96 +23,100 @@
         </div>
     </div>
 
-    <!-- Seção de Cadastro e Lista de Contatos -->
     <div class="cadastro">
-        <!-- Botão para abrir o formulário de cadastro -->
         <button id="openDialog">Cadastrar Contato</button>
 
-        <!-- Modal de Cadastro de Contatos -->
         <dialog id="contactDialog">
             <h1>Cadastro de Contatos</h1>
             <form id="contactForm">
                 <input type="text" id="name" placeholder="Nome" required>
                 <input type="email" id="email" placeholder="E-mail" required>
                 <input type="text" id="phone" placeholder="Telefone" required>
-                <select name="Grupo" id="seletor">
-                    <option value="t1">Familia</option>
-                    <option value="t2">Trabalho</option>
-                    <option value="t3">Alunos</option>
-                    <option value="t4">Nenhum</option>
-                </select>
                 <button type="submit">Cadastrar</button>
                 <button type="button" id="closeDialog">Cancelar</button>
             </form>
         </dialog>
-
-        <!-- Exibição da Lista de Contatos -->
+    
         <h2>Lista de Contatos</h2>
         <ul id="contactList"></ul>
-
-        <!-- JavaScript para Manipulação de Contatos -->
-        <script>
-            // Seleção dos Elementos
-            const openDialogButton = document.getElementById('openDialog');
-            const contactDialog = document.getElementById('contactDialog');
-            const closeDialogButton = document.getElementById('closeDialog');
-            const contactForm = document.getElementById('contactForm');
-            const contactList = document.getElementById('contactList');
-
-            // Abre o Modal de Cadastro
-            openDialogButton.addEventListener('click', () => {
-                contactDialog.showModal();
-            });
-
-            // Fecha o Modal de Cadastro
-            closeDialogButton.addEventListener('click', () => {
-                contactDialog.close();
-            });
-
-            // Manipula o Envio do Formulário
-            contactForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-
-                // Coleta os dados preenchidos
-                const name = document.getElementById('name').value;
-                const email = document.getElementById('email').value;
-                const phone = document.getElementById('phone').value;
-
-                if (name && email && phone) {
-                    // Cria um novo item na lista de contatos
-                    const listItem = document.createElement('li');
-                    listItem.textContent = `Nome: ${name}, E-mail: ${email}, Telefone: ${phone}`;
-                    contactList.appendChild(listItem);
-
-                    // Limpa o formulário e fecha o modal
-                    contactForm.reset();
-                    contactDialog.close();
-                }
-            });
-        </script>
-
-        <!-- JavaScript para o Menu de Perfil -->
-        <script>
-            const settingsIcon = document.querySelector('.settings-icon');
-            const profileMenu = document.getElementById('profileMenu');
-
-            // Alterna a visibilidade do menu de perfil
-            settingsIcon.addEventListener('click', () => {
-                profileMenu.style.display = profileMenu.style.display === 'block' ? 'none' : 'block';
-            });
-
-            // Fecha o menu de perfil se clicar fora dele
-            window.addEventListener('click', (event) => {
-                if (!settingsIcon.contains(event.target) && !profileMenu.contains(event.target)) {
-                    profileMenu.style.display = 'none';
-                }
-            });
-
-            // Função do Botão Home
-            function home() {
-                alert('Botão Home clicado!');
-            }
-        </script>
+    
     </div>
+
+    <script>
+        const openDialogButton = document.getElementById('openDialog');
+        const contactDialog = document.getElementById('contactDialog');
+        const closeDialogButton = document.getElementById('closeDialog');
+        const contactForm = document.getElementById('contactForm');
+        const contactList = document.getElementById('contactList');
+        const phoneInput = document.getElementById('phone');
+    
+        openDialogButton.addEventListener('click', () => {
+            contactDialog.showModal();
+        });
+    
+        closeDialogButton.addEventListener('click', () => {
+            contactDialog.close();
+        });
+    
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+    
+            const name = document.getElementById('name').value;
+    
+            if (name) {
+                const listItem = document.createElement('li');
+                listItem.classList.add('contact-item');
+                
+                // Criando o ícone de pessoa usando FontAwesome
+                const icon = document.createElement('i');
+                icon.classList.add('fas', 'fa-user'); // Ícone de pessoa do FontAwesome
+                icon.classList.add('contact-icon'); // Estilo do ícone
+    
+                const link = document.createElement('a');
+                link.href = "#";
+                link.textContent = name;
+                link.classList.add('contact-link');
+                
+                listItem.appendChild(icon); // Adicionando o ícone à lista
+                listItem.appendChild(link); // Adicionando o nome à lista
+                contactList.appendChild(listItem);
+    
+                contactForm.reset();
+                contactDialog.close();
+            }
+        });
+    
+        phoneInput.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, "");
+            value = value.substring(0, 11);
+            
+            if (value.length > 2) {
+                value = "(" + value.substring(0, 2) + ") " + value.substring(2);
+            }
+            if (value.length > 9) {
+                value = value.substring(0, 10) + "-" + value.substring(10);
+            }
+            
+            e.target.value = value;
+        });
+        
+        const settingsIcon = document.querySelector('.settings-icon');
+        const profileMenu = document.getElementById('profileMenu');
+
+        settingsIcon.addEventListener('click', () => {
+            profileMenu.style.display = profileMenu.style.display === 'block' ? 'none' : 'block';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (!settingsIcon.contains(event.target) && !profileMenu.contains(event.target)) {
+                profileMenu.style.display = 'none';
+            }
+        });
+
+        function home() {
+            alert('Botão Home clicado!');
+        }
+    </script>
+
 </body>
 </html>

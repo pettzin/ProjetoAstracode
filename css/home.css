@@ -4,7 +4,6 @@ body {
     background-color: #f0f0f0;
 }
 
-
 .header {
     display: flex;
     justify-content: space-between;
@@ -31,11 +30,12 @@ body {
     position: absolute;
     top: 40px;
     right: 0;
-    background-color: rgb(255, 255, 255);
+    background-color: white;
     border-radius: 4px;
     padding: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: none;
+    text-wrap: nowrap;
 }
 
 .dropdown a {
@@ -95,10 +95,44 @@ button:hover {
     background-color: #003d82;
 }
 
+#openDialog {
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#openDialog:hover {
+    background-color: #2980b9;
+}
+
 /* LISTA DE CONTATOS */
 ul {
     list-style-type: none;
     padding: 0;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    background: #e9ecef;
+    margin: 8px 0;
+    padding: 12px;
+    border-radius: 5px;
+}
+
+.contact-icon {
+    font-size: 30px; /* Ajuste o tamanho do ícone */
+    color: #0056b3; /* Cor do ícone */
+    margin-right: 10px; /* Espaçamento entre ícone e nome */
+}
+
+.contact-link {
+    font-size: 16px;
+    color: #000;
+    text-decoration: none;
 }
 
 li {
