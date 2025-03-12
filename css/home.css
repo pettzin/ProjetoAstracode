@@ -31,11 +31,12 @@ body {
     position: absolute;
     top: 40px;
     right: 0;
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     border-radius: 4px;
     padding: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: none;
+    text-wrap: nowrap;
 }
 
 .dropdown a {
