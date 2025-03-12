@@ -1,27 +1,46 @@
-// Validação personalizada de email
-document.getElementById("cadastroForm").addEventListener("submit", function(e) {
+document.getElementById("cadastroForm").addEventListener("submit", function (e) {
     e.preventDefault(); // Impede o envio do formulário para validação
 
+    // Capturando os dados
+    let nome = document.getElementById("nome").value;
     let email = document.getElementById("email").value;
-    const emailRegex = /^[a-z0-9._-]+@[a-z0-9.-]+\.(com|br|gov|org)$/; // Permitido apenas letras minúsculas, números e um ponto antes do @, e terminação .com ou .br
-    
-    // Verificando se o email é válido
-    if (!email.match(emailRegex)) {
-        alert("O e-mail deve ser em letras minúsculas, não pode ter caracteres especiais além de '@' e '.' e deve terminar com '.com', '.br', '.gov' ou '.org'.");
-        return false; // Bloqueia o envio do formulário se o e-mail não for válido
-    } 
-
-    // Validando a senha e a confirmação de senha
     let senha = document.getElementById("senha").value;
     let confirmSenha = document.getElementById("confirmSenha").value;
-    if (senha !== confirmSenha) {
-        alert("As senhas não coincidem!");
-        return false;
+    let telefone = document.getElementById("telefone").value;
+
+    // Validação do email
+    const emailRegex = /^[a-z0-9._-]+@[a-z0-9.-]+\.(com|br|gov|org)$/;
+    if (!email.match(emailRegex)) {
+        alert("O e-mail deve ser em letras minúsculas, não pode ter caracteres especiais além de '@' e '.' e deve terminar com '.com', '.br', '.gov' ou '.org'.");
+        return; // Interrompe o envio se o email for inválido
     }
 
-    // Se o email e as senhas forem válidos, submete o formulário
+    // Validação da senha e confirmação de senha
+    if (senha !== confirmSenha) {
+        alert("As senhas não coincidem!");
+        return; // Interrompe o envio se as senhas não coincidirem
+    }
+
+    // Validação dos campos obrigatórios
+    if (!nome || !telefone) {
+        alert("Todos os campos obrigatórios devem ser preenchidos!");
+        return; // Interrompe o envio se algum campo obrigatório estiver vazio
+    }
+
+    // Criando objeto para armazenar os dados do usuário
+    let usuario = {
+        nome: nome,
+        email: email,
+        senha: senha,
+        telefone: telefone
+    };
+
+    // Salvando no localStorage
+    localStorage.setItem("usuario", JSON.stringify(usuario));
+
+    // Exibindo o alerta e redirecionando
     alert("Cadastro realizado com sucesso!");
-    this.submit(); // Envia o formulário
+    window.location.href = "login.html"; // Redireciona para a página de login
 });
 
 // Função para alternar a visibilidade da senha
@@ -33,72 +52,24 @@ function visibilidadeSenha() {
     senha.type = tipo;
 
     // Alterando o ícone
-    if (senha.type === "password") {
-        iconSenha.textContent = "visibility"; // Exibe o ícone 'visibility'
-    } else {
-        iconSenha.textContent = "visibility_off"; // Exibe o ícone 'visibility_off'
-    }
+    iconSenha.textContent = senha.type === "password" ? "visibility" : "visibility_off";
 }
 
 // Função para alternar a visibilidade da senha confirmada
 function visibilidadeSenhaConfirm() {
-        const confirmSenha = document.getElementById("confirmSenha");
-        const iconConfirmSenha = document.getElementById("iconConfirmSenha");
-    
-        var tipo = confirmSenha.type === "password" ? "text" : "password";
-        confirmSenha.type = tipo;
-    
-        // Alterando o ícone
-        if (confirmSenha.type === "password") {
-            iconConfirmSenha.textContent = "visibility"; // Exibe o ícone 'visibility'
-        } else {
-            iconConfirmSenha.textContent = "visibility_off"; // Exibe o ícone 'visibility_off'
-        }
-    }
+    const confirmSenha = document.getElementById("confirmSenha");
+    const iconConfirmSenha = document.getElementById("iconConfirmSenha");
 
-// Função para alternar a visibilidade da senha no login
-function togglePassword() {
-    const senha = document.getElementById("loginSenha");
-    const iconSenha = document.getElementById("iconSenha");
-
-    var tipo = senha.type === "password" ? "text" : "password";
-    senha.type = tipo;
+    var tipo = confirmSenha.type === "password" ? "text" : "password";
+    confirmSenha.type = tipo;
 
     // Alterando o ícone
-    if (senha.type === "password") {
-        iconSenha.textContent = "visibility"; // Exibe o ícone 'visibility'
-    } else {
-        iconSenha.textContent = "visibility_off"; // Exibe o ícone 'visibility_off'
-    }
+    iconConfirmSenha.textContent = confirmSenha.type === "password" ? "visibility" : "visibility_off";
 }
-    
 
-
-document.getElementById("cadastroForm").addEventListener("submit", function (e) {
-e.preventDefault();
-    
-    let nome = document.getElementById("nome").value;
-    let email = document.getElementById("email").value;
-    let senha = document.getElementById("senha").value;
-
-    // Criando objeto para armazenar os dados do usuário
-    let usuario = {
-        nome: nome,
-        email: email,
-        senha: senha
-    };
-
-    // Salvando no localStorage
-    localStorage.setItem("usuario", JSON.stringify(usuario));
-    console.log(usuario(nome))
-
-    alert("Cadastro realizado com sucesso!");
-    window.location.href = "login.html"; // Redireciona para a página de login
-});
-
-
+// Função para o login
 document.getElementById("loginForm").addEventListener("submit", function (event) {
-event.preventDefault();
+    event.preventDefault();
 
     let email = document.getElementById("loginEmail").value;
     let senha = document.getElementById("loginSenha").value;
