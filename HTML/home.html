@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/css/home.css">
 </head>
+</head>
 <body>
   <div class="header">
     <button class="menu-icon" onclick="home()">🏠</button>
@@ -59,11 +60,11 @@
       <input type="text" id="editName" placeholder="Nome" required>
       <input type="email" id="editEmail" placeholder="E-mail" required>
       <input type="text" id="editPhone" placeholder="Telefone" required>
-      <input type="mensagem" id="boxmensagem" placeholder="Digite aqui sua mensagem">
+      <input type="text" id="boxmensagem" placeholder="Digite aqui sua mensagem">
       <button type="submit">Salvar</button>
       <button type="button" id="cancelEdit">Cancelar</button>
       <button type="button" id="deleteContact" style="background-color: #c0392b; margin-top:10px;">Excluir Contato</button>
-      <button type="button" id="btmsg" style="color: rgb(255, 255, 255); margin: 5px">Enviar</button>
+      <button type="button" id="btmsg" style="color: #fff; margin-top:5px;">Enviar</button>
     </form>
   </dialog>
 
@@ -110,10 +111,7 @@
       link.classList.add('contact-link');
       
       listItem.appendChild(icon);
-      listItem.appendChild(link);
-      
-      // Removemos o ícone de exclusão daqui para que a exclusão ocorra via edição
-      
+      listItem.appendChild(link);      
       // Ao clicar no item, abre o diálogo de edição com os dados preenchidos
       listItem.addEventListener('click', (e) => {
         const contactData = JSON.parse(listItem.dataset.contact);
@@ -169,6 +167,29 @@
         saveContactsToLocalStorage();
         document.getElementById('contactDetailDialog').close();
       }
+    });
+    
+    // Evento para enviar a mensagem via WhatsApp
+    document.getElementById('btmsg').addEventListener('click', () => {
+      // Pega o número do telefone do campo de edição
+      const phone = document.getElementById('editPhone').value.trim();
+      // Pega a mensagem do campo de mensagem
+      const message = document.getElementById('boxmensagem').value.trim();
+      
+      if (!phone) {
+        alert("Número de telefone inválido!");
+        return;
+      }
+      if (!message) {
+        alert("Por favor, digite uma mensagem.");
+        return;
+      }
+      
+      // Cria a URL para enviar via WhatsApp (encodeURIComponent substitui espaços por %20)
+      const waLink = "https://wa.me/" + phone + "/?text=" + encodeURIComponent(message);
+      
+      // Abre a URL em uma nova aba
+      window.open(waLink, "_blank");
     });
     
     // Manipulação do diálogo de cadastro
