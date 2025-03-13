@@ -9,7 +9,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 11px 20px;
-    background-color: #0369d6;
+    background: linear-gradient(to right, #faf61a, #05a6db);
     color: white;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
@@ -65,7 +65,6 @@ body {
 form {
     display: flex;
     flex-direction: column;
-    
 }
 
 input {
@@ -77,13 +76,13 @@ input {
 }
 
 input:focus {
-    border-color: #0050a5;
+    border-color: #024a97;
     outline: none;
 }
 
 button {
     padding: 12px;
-    background-color: #005ec2;
+    background-color: #0557ad;
     color: rgb(255, 255, 255);
     border: none;
     border-radius: 5px;
@@ -93,13 +92,13 @@ button {
 }
 
 button:hover {
-    background-color: #004799;
+    background-color: #00489b;
 }
 
 #openDialog {
     margin-bottom: 20px;
     padding: 10px 20px;
-    background-color: #007fd4;
+    background-color: #000000;
     color: white;
     border: none;
     cursor: pointer;
@@ -119,7 +118,7 @@ ul {
     display: flex;
     align-items: center;
     background: #e4e4e4;
-    margin: 8px ;
+    margin: 8px;
     padding: 12px;
     border-radius: 5px;
     width: 200px;
@@ -144,27 +143,18 @@ li {
     border-radius: 5px;
 }
 
+/* ÍCONE DE LIXEIRA */
+.trash-icon {
+    cursor: pointer;
+    font-size: 20px;
+    color: #000000; /* Cor preta */
+    margin-left: auto; /* Coloca a lixeira na extremidade direita */
+}
+
 /* DIALOGO */
 dialog {
     border: none;
     border-radius: 8px;
     padding: 20px;
     width: 300px;
-    
 }
-
-.botaocad {
-    padding: 10px 20px;
-    margin-top: 20px;
-    background-color: #0870df;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.botaocad:hover {
-    background-color: #003f88;
-}
-

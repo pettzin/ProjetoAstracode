@@ -50,73 +50,140 @@
         const contactForm = document.getElementById('contactForm');
         const contactList = document.getElementById('contactList');
         const phoneInput = document.getElementById('phone');
-    
+
+        // Função para validar o nome (apenas letras)
+        function validateName(name) {
+            const regex = /^[a-zA-Z\s]+$/; // Permite apenas letras e espaços
+            return regex.test(name);
+        }
+
+        // Função para validar o e-mail (minúsculas, sem caracteres especiais além de @ e ., termina com .com, .br, .gov, ou .org e tem domínio como gmail, outlook, etc.)
+        function validateEmail(email) {
+            const regex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.(com|br|gov|org)$/; 
+            const validDomains = ['gmail', 'outlook', 'yahoo', 'hotmail', 'icloud']; // Exemplo de domínios válidos
+            const emailDomain = email.split('@')[1]?.split('.')[0];
+
+            if (!regex.test(email)) {
+                return false; // Caso o e-mail não passe na regex
+            }
+
+            // Verifica se o domínio está na lista de domínios válidos
+            return validDomains.includes(emailDomain);
+        }
+
         openDialogButton.addEventListener('click', () => {
             contactDialog.showModal();
         });
-    
+
         closeDialogButton.addEventListener('click', () => {
             contactDialog.close();
         });
-    
+
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
-    
+
             const name = document.getElementById('name').value;
-    
-            if (name) {
+            const email = document.getElementById('email').value;
+
+            // Valida o nome e e-mail
+            if (!validateName(name)) {
+                alert('Nome deve conter apenas letras e espaços!');
+                return;
+            }
+
+            // Converte o e-mail para minúsculas
+            const emailLowerCase = email.toLowerCase();
+            document.getElementById('email').value = emailLowerCase; // Atualiza o campo de email
+
+            if (!validateEmail(emailLowerCase)) {
+                alert('E-mail inválido! Verifique o formato e o domínio.');
+                return;
+            }
+
+            const listItem = document.createElement('li');
+            listItem.classList.add('contact-item');
+            
+            // Criando o ícone de pessoa usando FontAwesome
+            const icon = document.createElement('i');
+            icon.classList.add('fas', 'fa-user'); // Ícone de pessoa do FontAwesome
+            icon.classList.add('contact-icon'); // Estilo do ícone
+
+            const link = document.createElement('a');
+            link.href = "#";
+            link.textContent = name;
+            link.classList.add('contact-link');
+            
+            listItem.appendChild(icon); // Adicionando o ícone à lista
+            listItem.appendChild(link); // Adicionando o nome à lista
+            
+            // Criando o ícone de lixeira
+            const trashIcon = document.createElement('i');
+            trashIcon.classList.add('fas', 'fa-trash'); // Ícone de lixeira do FontAwesome
+            trashIcon.classList.add('trash-icon'); // Estilo do ícone
+
+            // Adiciona a lixeira à lista
+            trashIcon.addEventListener('click', () => {
+                listItem.remove();
+                saveContactsToLocalStorage();
+            });
+
+            listItem.appendChild(trashIcon);
+            contactList.appendChild(listItem);
+
+            contactForm.reset();
+            contactDialog.close();
+            saveContactsToLocalStorage();
+        });
+
+        // Função para salvar os contatos no localStorage
+        function saveContactsToLocalStorage() {
+            const contacts = [];
+            const contactItems = document.querySelectorAll('.contact-item');
+
+            contactItems.forEach(item => {
+                const name = item.querySelector('.contact-link').textContent;
+                contacts.push(name);
+            });
+
+            localStorage.setItem('contacts', JSON.stringify(contacts));
+        }
+
+        // Função para carregar os contatos salvos no localStorage
+        function loadContactsFromLocalStorage() {
+            const contacts = JSON.parse(localStorage.getItem('contacts')) || [];
+
+            contacts.forEach(name => {
                 const listItem = document.createElement('li');
                 listItem.classList.add('contact-item');
                 
-                // Criando o ícone de pessoa usando FontAwesome
                 const icon = document.createElement('i');
-                icon.classList.add('fas', 'fa-user'); // Ícone de pessoa do FontAwesome
-                icon.classList.add('contact-icon'); // Estilo do ícone
-    
+                icon.classList.add('fas', 'fa-user');
+                icon.classList.add('contact-icon');
+                
                 const link = document.createElement('a');
                 link.href = "#";
                 link.textContent = name;
                 link.classList.add('contact-link');
                 
-                listItem.appendChild(icon); // Adicionando o ícone à lista
-                listItem.appendChild(link); // Adicionando o nome à lista
+                listItem.appendChild(icon);
+                listItem.appendChild(link);
+                
+                const trashIcon = document.createElement('i');
+                trashIcon.classList.add('fas', 'fa-trash');
+                trashIcon.classList.add('trash-icon');
+                
+                trashIcon.addEventListener('click', () => {
+                    listItem.remove();
+                    saveContactsToLocalStorage();
+                });
+
+                listItem.appendChild(trashIcon);
                 contactList.appendChild(listItem);
-    
-                contactForm.reset();
-                contactDialog.close();
-            }
-        });
-    
-        phoneInput.addEventListener('input', (e) => {
-            let value = e.target.value.replace(/\D/g, "");
-            value = value.substring(0, 11);
-            
-            if (value.length > 2) {
-                value = "(" + value.substring(0, 2) + ") " + value.substring(2);
-            }
-            if (value.length > 9) {
-                value = value.substring(0, 10) + "-" + value.substring(10);
-            }
-            
-            e.target.value = value;
-        });
-        
-        const settingsIcon = document.querySelector('.settings-icon');
-        const profileMenu = document.getElementById('profileMenu');
-
-        settingsIcon.addEventListener('click', () => {
-            profileMenu.style.display = profileMenu.style.display === 'block' ? 'none' : 'block';
-        });
-
-        window.addEventListener('click', (event) => {
-            if (!settingsIcon.contains(event.target) && !profileMenu.contains(event.target)) {
-                profileMenu.style.display = 'none';
-            }
-        });
-
-        function home() {
-            alert('Botão Home clicado!');
+            });
         }
+
+        // Carregar contatos ao iniciar
+        window.addEventListener('DOMContentLoaded', loadContactsFromLocalStorage);
     </script>
 
 </body>
