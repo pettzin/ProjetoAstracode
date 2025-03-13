@@ -7,8 +7,9 @@
 
 /* Ajuste no layout para evitar a barra de rolagem */
 body {
-    background-image: radial-gradient( #f8ea6f 0%, #64b5f6 70%);
+    background: url("../img/blue.jpg") no-repeat center center fixed;
     overflow-y: hidden; /*Esconde Barra de rolagem*/
+    background-size: cover;
 }
 .container {
     display: flex;
@@ -17,7 +18,11 @@ body {
     height: 100vh;
 }
 .card {
-    
+    border: 2px solid rgba(255, 255, 255, .2);
+    background: transparent;
+    backdrop-filter: blur(30px);
+    box-shadow: 0 0 10px rgba(0, 0 , 0, .2);
+    color: #fff;
     max-width: 360px;
     width: 100%;
 }
@@ -26,12 +31,17 @@ body {
 }
 .form-control {
     font-size: 0.9rem;
+    background: transparent;
+
 }
 .input-group-btn {
     font-size: 0.9rem;
+
 }
 .btn-outline-dark {
     font-size: 0.8rem;
+    color: #fff;
+    outline: #fff;
 }
 footer {
     position: absolute; /* Faz o rodapé ficar fixo na parte inferior */
@@ -47,3 +57,4 @@ footer p {
     color: #000000; /* Cor escura para contrastar com o fundo */
     margin: 0;
 }
+
