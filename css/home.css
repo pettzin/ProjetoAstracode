@@ -1,10 +1,24 @@
-body {
+ /* Reset e box-sizing */
+ * {
+    box-sizing: border-box;
+  }
+  
+  /* Layout global com grid para header e conteúdo principal */
+  body {
     margin: 0;
-    font-family: 'Arial', sans-serif;
+    font-family: Arial, sans-serif;
     background-color: #f0f0f0;
-}
-
-.header {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      "header"
+      "main";
+    min-height: 100vh;
+  }
+  
+  /* Cabeçalho */
+  .header {
+    grid-area: header;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -12,154 +26,173 @@ body {
     background: linear-gradient(to right, #faf61a, #05a6db);
     color: white;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.menu-icon {
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
-    font-size: 24px;
-    color: rgb(255, 250, 250);
-}
-
-.profile {
-    position: relative;
-}
-
-.settings-icon {
-    cursor: pointer;
-    font-size: 24px;
-}
-
-.dropdown {
-    position: absolute;
-    top: 0;
-    left: -130px; /* Agora o menu vai aparecer à esquerda da engrenagem */
-    background-color: rgb(255, 255, 255);
-    border-radius: 4px;
-    padding: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    display: none; /* Inicialmente o menu está escondido */
-}
-
-
-.dropdown a {
-    display: block;
-    color: #302f2f;
-    text-decoration: none;
-    padding: 8px 0;
-}
-
-.dropdown a:hover {
-    background-color: #ebebeb;
-}
-
-.title {
-    font-size: 28px;
-}
-
-.container {
-    max-width: 500px;
-    margin: 30px auto;
+  }
+  
+  /* Conteúdo principal com duas colunas:
+     - Container do formulário ampliado (2fr)
+     - Lista de contatos à direita (1fr) */
+  .main {
+    grid-area: main;
+    display: grid;
+    grid-template-columns: 5fr 1fr;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  /* Módulo do formulário (cadastro de usuário) */
+  .form-module {
     background: white;
     padding: 25px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-form {
+  }
+  
+  /* Container da imagem centralizada */
+  .image-container {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .image-container img {
+    max-width: 150px;
+    height: auto;
+    border-radius: 50%;
+  }
+  
+  /* Módulo da lista de contatos */
+  .list-module {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-}
-
-input {
-    margin: 10px 0;
+    max-width: 350px;
+    width: 100%;
+  }
+  
+  .list-module h2 {
+    margin-top: 0;
+  }
+  
+  /* Container para a lista com barra de rolagem vertical */
+  .list-container {
+    flex: 1;
+    overflow-y: auto;
+    margin-top: 10px;
+  }
+  
+  /* Lista de contatos */
+  #contactList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+  }
+  
+  .contact-item {
+    display: flex;
+    align-items: center;
+    background: #e4e4e4;
     padding: 12px;
-    border: 1px solid #ccc;
     border-radius: 5px;
-    transition: border-color 0.3s;
-}
-
-input:focus {
-    border-color: #024a97;
-    outline: none;
-}
-
-button {
+  }
+  
+  .contact-icon {
+    font-size: 22px;
+    color: #000;
+    margin-right: 10px;
+  }
+  
+  .contact-link {
+    font-size: 16px;
+    color: #000;
+    text-decoration: none;
+  }
+  
+  .trash-icon {
+    cursor: pointer;
+    font-size: 20px;
+    color: #000;
+    margin-left: auto;
+  }
+  
+  /* Botões e inputs */
+  button {
     padding: 12px;
     background-color: #0557ad;
-    color: rgb(255, 255, 255);
+    color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
     margin-top: 10px;
-}
-
-button:hover {
+  }
+  
+  button:hover {
     background-color: #00489b;
-}
-
-#openDialog {
-    margin-bottom: 20px;
-    padding: 10px 20px;
-    background-color: #000000;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-#openDialog:hover {
+  }
+  
+  #openDialog {
+    background-color: #000;
+  }
+  
+  #openDialog:hover {
     background-color: #2980b9;
-}
-
-/* LISTA DE CONTATOS */
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.contact-item {
-    display: flex;
-    align-items: center;
-    background: #e4e4e4;
-    margin: 8px;
+  }
+  
+  input {
+    margin: 10px 0;
     padding: 12px;
+    border: 1px solid #ccc;
     border-radius: 5px;
-    width: 200px;
-}
-
-.contact-icon {
-    font-size: 22px; /* Ajuste o tamanho do ícone */
-    color: #000000; /* Cor do ícone */
-    margin-right: 10px; /* Espaçamento entre ícone e nome */
-}
-
-.contact-link {
-    font-size: 16px;
-    color: #000000;
-    text-decoration: none;
-}
-
-li {
-    background: #e9ecef;
-    margin: 8px 0;
-    padding: 12px;
-    border-radius: 5px;
-}
-
-/* ÍCONE DE LIXEIRA */
-.trash-icon {
-    cursor: pointer;
-    font-size: 20px;
-    color: #000000; /* Cor preta */
-    margin-left: auto; /* Coloca a lixeira na extremidade direita */
-}
-
-/* DIALOGO */
-dialog {
+    transition: border-color 0.3s;
+    width: 100%;
+  }
+  
+  input:focus {
+    border-color: #024a97;
+    outline: none;
+  }
+  
+  /* Diálogo */
+  dialog {
     border: none;
     border-radius: 8px;
     padding: 20px;
     width: 300px;
-}
+  }
+  
+  /* Menu Dropdown (canto direito do header) */
+  .profile {
+    position: relative;
+  }
+  
+  .settings-icon {
+    cursor: pointer;
+    font-size: 24px;
+  }
+  
+  .dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: none;
+  }
+  
+  .dropdown a {
+    display: block;
+    color: #302f2f;
+    text-decoration: none;
+    padding: 8px 0;
+  }
+  
+  .dropdown a:hover {
+    background-color: #ebebeb;
+  }
