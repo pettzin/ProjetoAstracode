@@ -44,12 +44,12 @@
     </div>
 
     <script>
-        const openDialogButton = document.getElementById('openDialog');
-        const contactDialog = document.getElementById('contactDialog');
-        const closeDialogButton = document.getElementById('closeDialog');
-        const contactForm = document.getElementById('contactForm');
-        const contactList = document.getElementById('contactList');
-        const phoneInput = document.getElementById('phone');
+        // Adicionando o código que alterna a exibição do menu
+        document.querySelector('.settings-icon').addEventListener('click', () => {
+            const dropdownMenu = document.getElementById('profileMenu');
+            // Alterna a exibição do menu
+            dropdownMenu.style.display = (dropdownMenu.style.display === 'block' ? 'none' : 'block');
+        });
 
         // Função para validar o nome (apenas letras)
         function validateName(name) {
@@ -70,6 +70,14 @@
             // Verifica se o domínio está na lista de domínios válidos
             return validDomains.includes(emailDomain);
         }
+
+        // Lógica para exibir o formulário de cadastro de contato
+        const openDialogButton = document.getElementById('openDialog');
+        const contactDialog = document.getElementById('contactDialog');
+        const closeDialogButton = document.getElementById('closeDialog');
+        const contactForm = document.getElementById('contactForm');
+        const contactList = document.getElementById('contactList');
+        const phoneInput = document.getElementById('phone');
 
         openDialogButton.addEventListener('click', () => {
             contactDialog.showModal();
@@ -184,7 +192,7 @@
 
         // Carregar contatos ao iniciar
         window.addEventListener('DOMContentLoaded', loadContactsFromLocalStorage);
-        
+
         function home() {
             alert('Botão Home clicado!');
         }

@@ -26,17 +26,22 @@ body {
     position: relative;
 }
 
+.settings-icon {
+    cursor: pointer;
+    font-size: 24px;
+}
+
 .dropdown {
     position: absolute;
-    top: 40px;
-    right: 0;
+    top: 0;
+    left: -130px; /* Agora o menu vai aparecer à esquerda da engrenagem */
     background-color: rgb(255, 255, 255);
     border-radius: 4px;
     padding: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    display: none;
-    text-wrap: nowrap;
+    display: none; /* Inicialmente o menu está escondido */
 }
+
 
 .dropdown a {
     display: block;
