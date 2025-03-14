@@ -190,7 +190,3 @@
       }
       
       window.addEventListener('DOMContentLoaded', loadContactsFromLocalStorage);
-      
-      function home() {
-        alert('Botão Home clicado!');
-      }
