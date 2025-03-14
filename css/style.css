@@ -51,9 +51,9 @@ footer {
     text-align: center;
 }
 
-footer p {
+footer h6 {
     font-family: Arial, sans-serif; /* Fonte normal (Arial) */
-    font-size: 15px; /* Tamanho da fonte */
+    font-size: 17px; /* Tamanho da fonte */
     color: #000000; /* Cor escura para contrastar com o fundo */
     margin: 0;
 }
