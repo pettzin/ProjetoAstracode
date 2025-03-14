@@ -71,9 +71,10 @@
     }
     /* Container para a lista com barra de rolagem vertical */
     .list-container {
-      flex: 1;
+      max-height: 500px; /* Altura máxima para a rolagem */
       overflow-y: auto;
-      margin-top: 10px;
+      scrollbar-width: thin;
+      scrollbar-color: #1411ad #6364be;
     }
     /* Lista de contatos */
     #contactList {
