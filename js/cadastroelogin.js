@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     // Captura o campo de telefone
-    const telefoneInput = document.getElementById("telefone");
+    const telefoneInput = document.getElementById("cadastroTelefone");
 
     telefoneInput.addEventListener("input", function (e) {
         let valor = e.target.value.replace(/\D/g, ""); // Remove tudo que não for número
@@ -20,29 +20,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Evita que () e - fiquem travando na exclusão
         if (e.inputType === "deleteContentBackward") {
-            if (cursorPos === 10) formatado = formatado.slice(0, -1); // Remove '-' ao apagar
-            if (cursorPos === 4) formatado = formatado.slice(0, -1); // Remove ')' ao apagar
-            if (cursorPos === 1) formatado = ""; // Remove '(' ao apagar tudo
+            if (e.target.selectionStart === 10) formatado = formatado.slice(0, -1); // Remove '-' ao apagar
+            if (e.target.selectionStart === 4) formatado = formatado.slice(0, -1); // Remove ')' ao apagar
+            if (e.target.selectionStart === 1) formatado = ""; // Remove '(' ao apagar tudo
         }
         e.target.value = formatado;
-    })
-});
+    });
 
-document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("cadastroForm").addEventListener("submit", function (e) {
-    e.preventDefault(); // Impede o envio do formulário para validação
+        e.preventDefault(); // Impede o envio do formulário para validação
 
         // Capturando os dados
-        let nome = document.getElementById("nome").value;
-        let email = document.getElementById("email").value;
-        let senha = document.getElementById("senha").value;
-        let confirmSenha = document.getElementById("confirmSenha").value;
-        let telefone = document.getElementById("telefone").value;
+        let nome = document.getElementById("cadastroNome").value;
+        let email = document.getElementById("cadastroEmail").value;
+        let telefone = document.getElementById("cadastroTelefone").value;
+        let senha = document.getElementById("cadastroSenha").value;
+        let confirmSenha = document.getElementById("confirmarSenha").value;
+
+        // Validação do nome
+        const nomeRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/;
+        if (!nome.match(nomeRegex)) {
+            alert("O nome deve conter apenas letras e espaços.");
+            return; // Interrompe o envio se o nome for inválido
+        }
 
         // Validação do email
-        const emailRegex = /^[a-z0-9._-]+@[a-z0-9.-]+\.(com|br|gov|org)$/;
+        const emailRegex = /^[a-z0-9._-]+@[a-z0-9.-]+\.(com|br|gov|edu|org)$/;
         if (!email.match(emailRegex)) {
-            alert("O e-mail deve ser em letras minúsculas, não pode ter caracteres especiais além de '@' e '.' e deve terminar com '.com', '.br', '.gov' ou '.org'.");
+            alert("O e-mail deve ser em letras minúsculas, não pode ter caracteres especiais além de '@' e '.' e deve terminar com '.com', '.br', '.gov', '.edu' ou '.org'.");
             return; // Interrompe o envio se o email for inválido
         }
 
@@ -62,8 +67,8 @@ document.addEventListener("DOMContentLoaded", function() {
         let usuario = {
             nome: nome,
             email: email,
-            senha: senha,
-            telefone: telefone
+            telefone: telefone,
+            senha: senha
         };
 
         // Salvando no localStorage
@@ -72,9 +77,8 @@ document.addEventListener("DOMContentLoaded", function() {
         // Exibindo o alerta e redirecionando
         alert("Cadastro realizado com sucesso!");
         window.location.href = "index.html"; // Redireciona para a página de login
-    })
+    });
 });
-
 
 // Função para o login
 document.getElementById("loginForm").addEventListener("submit", function (event) {
@@ -82,7 +86,6 @@ document.getElementById("loginForm").addEventListener("submit", function (event)
 
     let email = document.getElementById("loginEmail").value;
     let senha = document.getElementById("loginSenha").value;
-
 
     // Recuperando os dados do usuário
     let usuario = JSON.parse(localStorage.getItem("usuario"));
@@ -101,43 +104,14 @@ document.getElementById("loginForm").addEventListener("submit", function (event)
 });
 
 // Função para alternar a visibilidade da senha
-function visibilidadeSenha() {
-    const senha = document.getElementById("senha");
-    const iconSenha = document.getElementById("iconSenha");
-
-    var tipo = senha.type === "password" ? "text" : "password";
-    senha.type = tipo;
-
-    // Alterando o ícone
-    iconSenha.textContent = senha.type === "password" ? "visibility" : "visibility_off";
-}
-
-// Função para alternar a visibilidade da senha confirmada
-function visibilidadeSenhaConfirm() {
-    const confirmSenha = document.getElementById("confirmSenha");
-    const iconConfirmSenha = document.getElementById("iconConfirmSenha");
-
-    var tipo = confirmSenha.type === "password" ? "text" : "password";
-    confirmSenha.type = tipo;
-
-    // Alterando o ícone
-    iconConfirmSenha.textContent = confirmSenha.type === "password" ? "visibility" : "visibility_off";
-}
-
-
-// Função para alternar a visibilidade da senha no login
-function togglePassword() {
-    const senha = document.getElementById("loginSenha");
-    const iconSenha = document.getElementById("iconSenha");
-
-    var tipo = senha.type === "password" ? "text" : "password";
-    senha.type = tipo;
-
-    // Alterando o ícone
-    if (senha.type === "password") {
-        iconSenha.textContent = "visibility"; // Exibe o ícone 'visibility'
+function togglePassword(inputId, iconId) {
+    const input = document.getElementById(inputId);
+    const icon = document.getElementById(iconId);
+    if (input.type === "password") {
+        input.type = "text";
+        icon.textContent = "visibility_off";
     } else {
-        iconSenha.textContent = "visibility_off"; // Exibe o ícone 'visibility_off'
+        input.type = "password";
+        icon.textContent = "visibility";
     }
 }
- 
