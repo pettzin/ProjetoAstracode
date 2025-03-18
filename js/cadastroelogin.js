@@ -45,9 +45,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // Validação do email
-        const emailRegex = /^[a-z0-9._-]+@[a-z0-9.-]+\.(com|br|gov|edu|org)$/;
+        const emailRegex = /^[a-z0-9._-]+@[a-z0-9.-]/;
         if (!email.match(emailRegex)) {
-            alert("O e-mail deve ser em letras minúsculas, não pode ter caracteres especiais além de '@' e '.' e deve terminar com '.com', '.br', '.gov', '.edu' ou '.org'.");
+            alert("O e-mail deve ser em letras minúsculas, não pode ter caracteres especiais.");
             return; // Interrompe o envio se o email for inválido
         }
 
