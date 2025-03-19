@@ -7,9 +7,9 @@
 
 /* Ajuste no layout para evitar a barra de rolagem */
 body {
-    justify-content: center;
-    box-sizing: border-box;
-    
+    background: url("../img/blue.jpg") no-repeat center center fixed;
+    overflow-y: hidden; /*Esconde Barra de rolagem*/
+    background-size: cover;
 }
 .container {
     display: flex;
