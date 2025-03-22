@@ -1,4 +1,16 @@
 const express = require('express');
+<<<<<<< HEAD
+//const hbs = require('hbs');
+const app = express();
+const routes = require ("./routes/routes");
+const PORT = 3000;
+const mysql = require('mysql2');
+
+app.use("/", routes);
+
+app.listen(PORT,() => {
+    console.log('servidor rodando na porta 3000')
+=======
 const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 
@@ -47,4 +59,5 @@ app.post('/inserir', (req, res) => {
 // Iniciar o servidor
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
+>>>>>>> parent of 60657b6 (update)
 });
