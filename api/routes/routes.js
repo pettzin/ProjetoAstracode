@@ -39,7 +39,7 @@ router.get('/api/select', (req, res) => {
 });
 
 // API - Atualizar um contato
-/*router.put('/api/update/:id', (req, res) => {
+router.put('/api/update/:id', (req, res) => {
     const { id } = req.params;
     const { nome, email, telefone } = req.body;
 
@@ -71,6 +71,6 @@ router.delete('/api/delete/:id', (req, res) => {
 
         res.status(200).send('Item deletado com sucesso!');
     });
-});*/
+});
 
 module.exports = router;
