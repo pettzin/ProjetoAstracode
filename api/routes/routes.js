@@ -1,21 +1,22 @@
 const express = require('express');
 const router = express.Router();
 const db = require("../db/dbconnection.js");
-const controller = require("../controller/appcontroller.js");
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
-router.use(bodyParser.json());
+router.use(cors());
+router.use(bodyParser.json({ limit: '50mb' }));
 
 // API - Inserir um contato
 router.post('/api/insert', (req, res) => {
-    const { nome, email, telefone } = req.body;
+    const { nome, email, telefone, grupo, imagem } = req.body;
 
     if (!nome || !email || !telefone) {
-        return res.status(400).send('Todos os campos (nome, email, telefone) são obrigatórios.');
+        return res.status(400).send('Os campos nome, email e telefone são obrigatórios.');
     }
 
-    const query = 'INSERT INTO contatos (nome, email, telefone) VALUES (?, ?, ?)';
-    db.query(query, [nome, email, telefone], (err) => {
+    const query = 'INSERT INTO contatos (nome, email, telefone, grupo, imagem, data_criacao) VALUES (?, ?, ?, ?, ?, NOW())';
+    db.query(query, [nome, email, telefone, grupo || 'outros', imagem || null], (err) => {
         if (err) {
             console.error('Erro ao inserir item no banco de dados:', err);
             return res.status(500).send('Erro ao salvar o item.');
@@ -39,16 +40,16 @@ router.get('/api/select', (req, res) => {
 });
 
 // API - Atualizar um contato
-/*router.put('/api/update/:id', (req, res) => {
+router.put('/api/update/:id', (req, res) => {
     const { id } = req.params;
-    const { nome, email, telefone } = req.body;
+    const { nome, email, telefone, grupo, imagem } = req.body;
 
     if (!nome || !email || !telefone) {
-        return res.status(400).send('Todos os campos (nome, email, telefone) são obrigatórios.');
+        return res.status(400).send('Os campos nome, email e telefone são obrigatórios.');
     }
 
-    const query = 'UPDATE contatos SET nome = ?, email = ?, telefone = ? WHERE id = ?';
-    db.query(query, [nome, email, telefone, id], (err) => {
+    const query = 'UPDATE contatos SET nome = ?, email = ?, telefone = ?, grupo = ?, imagem = ? WHERE id = ?';
+    db.query(query, [nome, email, telefone, grupo || 'outros', imagem || null, id], (err) => {
         if (err) {
             console.error('Erro ao atualizar item no banco de dados:', err);
             return res.status(500).send('Erro ao atualizar o item.');
@@ -71,6 +72,20 @@ router.delete('/api/delete/:id', (req, res) => {
 
         res.status(200).send('Item deletado com sucesso!');
     });
-});*/
+});
+
+// API - Listar grupos
+router.get('/api/groups', (req, res) => {
+    const query = 'SELECT DISTINCT grupo FROM contatos WHERE grupo IS NOT NULL';
+    db.query(query, (err, results) => {
+        if (err) {
+            console.error('Erro ao buscar grupos no banco de dados:', err);
+            return res.status(500).send('Erro ao buscar os grupos.');
+        }
+
+        const groups = results.map(row => row.grupo);
+        res.status(200).json(groups);
+    });
+});
 
 module.exports = router;
