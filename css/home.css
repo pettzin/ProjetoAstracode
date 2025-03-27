@@ -434,6 +434,18 @@ body {
   gap: 5px;
 }
 
+.whattsbutton{
+  background-color: #222;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
 .send-icon {
   width: 20px;
   height: 20px;
