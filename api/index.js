@@ -1,5 +1,4 @@
 const express = require('express');
-//const hbs = require('hbs');
 const app = express();
 const routes = require ("./routes/routes");
 const PORT = 3000;
