@@ -8,7 +8,7 @@ const API = {
   }
 };
 
-const DEFAULT_AVATAR = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/iconContact-EjbTyLvYNWCnsYPredBV9eV4PVozhW.png';
+const DEFAULT_AVATAR = '../img/iconContact.png';
 
 // ===== STATE =====
 const state = {
