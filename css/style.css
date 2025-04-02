@@ -94,20 +94,55 @@ body {
     color: white;
 }
 
-/* Fundo com gradiente */
+/* Fundo com gradiente animado */
 .gradient-bg {
-    background: linear-gradient(135deg, #4ade80 0%, #0ea5e9 100%);
     position: relative;
     border: white 7px solid;
     border-radius: 2%;
+    background-size: 200% 200%;
+    animation: animacaoDegrade 10s ease-in-out infinite alternate;
+    background-image: linear-gradient(
+        135deg,
+        #E3F416 0%, 
+        #b8dd3a 15%, 
+        #95c55e 30%, 
+        #57b66c 45%,
+        #4eaaa0 60%, 
+        #489ea0 75%, 
+        #3389c1 85%,
+        #1A76E3 100%
+    );
+}
+
+@keyframes animacaoDegrade {
+    0% {
+        background-position: 0% 0%;
+    }
+    20% {
+        background-position: 100% 0%;
+    }
+    40% {
+        background-position: 100% 100%;
+    }
+    60% {
+        background-position: 0% 100%;
+    }
+    80% {
+        background-position: 50% 50%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
 }
 
 .signature {
     position: absolute;
     bottom: 15px;
     right: 15px;
-    color: rgba(0, 0, 0, 0.7);
-    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: bold;
+    font-size: 13px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 /* Ajustes para responsividade */
