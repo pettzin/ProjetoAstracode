@@ -157,7 +157,7 @@ const fetchContacts = async () => {
           phone: contact.telefone,
           email: contact.email,
           avatar: contact.imagem || DEFAULT_AVATAR,
-          category: contact.grupo || 'outros',
+          category: contact.grupo || 'Todos',
           date: new Date(contact.data_criacao || Date.now())
       }));
       
@@ -169,6 +169,28 @@ const fetchContacts = async () => {
       hideLoading();
   }
 };
+
+//Whatts mensager 
+
+document.getElementById("sendMessagewhatts").addEventListener("click", function() {
+    const phoneNumber = document.getElementById("profilePhone").value.trim();
+    const message = document.getElementById("messageText").value.trim();
+
+    if (!phoneNumber) {
+        alert("Número de telefone não encontrado.");
+        return;
+    }
+
+    if (!message) {
+        alert("Digite uma mensagem antes de enviar.");
+        return;
+    }
+
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappLink = `https://wa.me/${phoneNumber}/?text=${encodedMessage}`;
+
+    window.open(whatsappLink, "_blank");
+});
 
 /**
 * Creates a new contact via API
@@ -757,7 +779,7 @@ const handleAvatarUpload = async event => {
           document.getElementById('profileAvatar').src = base64Image;
       } catch (error) {
           console.error('Error converting image:', error);
-          alert('Could not process the image. Please try again.');
+          alert('Não foi possível processar a imagem. Tente novamente.');
       }
   }
 };
@@ -825,7 +847,7 @@ const setupEventListeners = () => {
       if (firstContact) {
           openMessageDialog(firstContact.id);
       } else {
-          alert('No contacts found in this category.');
+          alert('Nenhum contato encontrado nesta categoria.');
       }
   });
   
