@@ -1,60 +1,117 @@
-@charset "UTF-8";
-
-* {
-    padding: 0;
-    margin: 0;
-}
-
-/* Ajuste no layout para evitar a barra de rolagem */
+/* Estilos gerais */
 body {
-    background: url("../img/blue.jpg") no-repeat center center fixed;
-    overflow-y: hidden; /*Esconde Barra de rolagem*/
-    background-size: cover;
-}
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-.card {
-    border: 2px solid rgba(255, 255, 255, .2);
-    background: transparent;
-    backdrop-filter: blur(30px);
-    box-shadow: 0 0 10px rgba(0, 0 , 0, .2);
-    color: #fff;
-    max-width: 360px;
-    width: 100%;
-}
-.form-label {
-    font-size: 0.9rem;
-}
-.form-control {
-    font-size: 0.9rem;
-    background: transparent;
-
-}
-.input-group-btn {
-    font-size: 0.9rem;
-
-}
-.btn-outline-dark {
-    font-size: 0.8rem;
-    color: #fff;
-    outline: #fff;
-}
-footer {
-    position: absolute; /* Faz o rodapé ficar fixo na parte inferior */
-    bottom: 10px; /* Ajuste o valor para colocar mais ou menos próximo da borda inferior */
-    left: 0;
-    width: 100%;
-    text-align: center;
-}
-
-footer h6 {
-    font-family: Arial, sans-serif; /* Fonte normal (Arial) */
-    font-size: 17px; /* Tamanho da fonte */
-    color: #000000; /* Cor escura para contrastar com o fundo */
     margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
 }
 
+/* Card de login */
+.login-card {
+    width: 350px;
+    border-radius: 25px;
+    padding: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    border: 1px solid #e0e0e0;
+}
+
+/* Botões de abas */
+.tab-buttons {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 10px;
+    background: transparent;
+    border: none;
+    color: #6c757d;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.tab-btn.active {
+    color: #0d6efd;
+    border-bottom: 2px solid #0d6efd;
+    font-weight: 600;
+}
+
+/* Conteúdo das abas */
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+/* Campos de formulário */
+.custom-input {
+    margin-bottom: 15px;
+}
+
+.custom-input .input-group-text {
+    background-color: #f0f0ff;
+    border: none;
+    border-radius: 10px 0 0 10px;
+    color: #6c757d;
+}
+
+.custom-input .form-control {
+    background-color: #f0f0ff;
+    border: none;
+    border-radius: 0 10px 10px 0;
+}
+
+.custom-input .password-toggle {
+    background-color: #f0f0ff;
+    border: none;
+    border-radius: 0 10px 10px 0;
+    color: #6c757d;
+}
+
+.custom-input .form-control:focus {
+    box-shadow: none;
+    background-color: #f0f0ff;
+}
+
+/* Botão com gradiente */
+.gradient-btn {
+    background: linear-gradient(to right, #0d6efd, #4ade80);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.gradient-btn:hover {
+    opacity: 0.9;
+    color: white;
+}
+
+/* Fundo com gradiente */
+.gradient-bg {
+    background: linear-gradient(135deg, #4ade80 0%, #0ea5e9 100%);
+    position: relative;
+}
+
+.signature {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    color: rgba(0, 0, 0, 0.7);
+    font-weight: 500;
+}
+
+/* Ajustes para responsividade */
+@media (max-width: 768px) {
+    .login-card {
+        width: 90%;
+        max-width: 350px;
+    }
+}

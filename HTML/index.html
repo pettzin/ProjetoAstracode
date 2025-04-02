@@ -6,77 +6,107 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Link para carregar todos os ícones "Material Symbols" -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="icon"  href="../img/favicon.png">
     <title>Login</title>
 </head>
 <body>
-    <div class="container">
-        <div class="card p-4 shadow-lg mx-auto">
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab" aria-controls="login" aria-selected="true" style="font-weight: bold;">Login</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="cadastro-tab" data-bs-toggle="tab" data-bs-target="#cadastro" type="button" role="tab" aria-controls="cadastro" aria-selected="false" style="font-weight: bold;">Cadastro</button>
-                </li>
-            </ul>
-            <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
-                    <form id="loginForm">
-                        <div class="mb-3 mt-3">
-                            <label for="loginEmail" class="form-label">E-mail</label>
-                            <input type="email" class="form-control" id="loginEmail" placeholder="exemplo@dominio.com" autocomplete="off" required>
+    <div class="container-fluid p-0 vh-100">
+        <div class="row g-0 h-100">
+            <!-- Lado esquerdo - Formulário -->
+            <div class="col-md-6 d-flex align-items-center justify-content-center">
+                <div class="login-card">
+                    <div class="tab-buttons mb-4">
+                        <button class="tab-btn active" id="login-tab" onclick="mudarTab('login')">LOGIN</button>
+                        <button class="tab-btn" id="cadastro-tab" onclick="mudarTab('cadastro')">CADASTRO</button>
+                    </div>
+                    
+                    <!-- Conteúdo das abas -->
+                    <div class="tab-content">
+                        <!-- Aba de Login -->
+                        <div class="tab-pane active" id="login">
+                            <form id="loginForm">
+                                <div class="mb-3">
+                                    <div class="input-group custom-input">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-envelope"></i>
+                                        </span>
+                                        <input type="text" class="form-control" placeholder="Email" required>
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <div class="input-group custom-input">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-lock"></i>
+                                        </span>
+                                        <input type="password" class="form-control" id="loginSenha" placeholder="Senha" required>
+                                        <button type="button" class="btn password-toggle" onclick="visibilidadeSenha('loginSenha')">
+                                            <i class="fas fa-eye" id="loginSenhaIcon"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn gradient-btn w-100">Login</button>
+                            </form>
                         </div>
-                        <div class="mb-3">
-                            <label for="loginSenha" class="form-label">Senha</label>
-                            <div class="input-group">
-                                <input type="password" class="form-control" id="loginSenha" placeholder="Digite sua senha" autocomplete="off" required>
-                                <button type="button" class="btn btn-outline-light" id="toggleLoginSenha" onclick="togglePassword('loginSenha', 'iconLoginSenha')">
-                                    <span id="iconLoginSenha" class="material-symbols-outlined">visibility</span>
-                                </button>                        
-                            </div>
+                        
+                        <!-- Aba de Cadastro -->
+                        <div class="tab-pane" id="cadastro">
+                            <form id="cadastroForm">
+                                <div class="mb-3">
+                                    <div class="input-group custom-input">
+                                        <span class="input-group-text">
+                                             <i class="fas fa-user"></i>
+                                        </span>
+                                        <input type="text" class="form-control" placeholder="Nome completo" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="input-group custom-input">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-envelope"></i>
+                                        </span>
+                                        <input type="email" class="form-control" placeholder="Email" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="input-group custom-input">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-phone"></i>
+                                        </span>
+                                        <input type="tel" class="form-control" placeholder="Telefone" required minlength="15">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="input-group custom-input">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-lock"></i>
+                                        </span>
+                                        <input type="password" class="form-control" id="cadastroSenha" placeholder="Password" required>
+                                        <button type="button" class="btn password-toggle" onclick="visibilidadeSenha('cadastroSenha')">
+                                            <i class="fas fa-eye" id="cadastroSenhaIcon"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <div class="input-group custom-input">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-lock"></i>
+                                        </span>
+                                        <input type="password" class="form-control" id="confirmarSenha" placeholder="Password confirmation" required>
+                                        <button type="button" class="btn password-toggle" onclick="visibilidadeSenha('confirmarSenha')">
+                                            <i class="fas fa-eye" id="confirmarSenhaIcon"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn gradient-btn w-100">Cadastro</button>
+                            </form>
                         </div>
-                        <button type="submit" class="btn btn-warning w-100">Entrar</button>
-                    </form>
+                    </div>
                 </div>
-                <div class="tab-pane fade" id="cadastro" role="tabpanel" aria-labelledby="cadastro-tab">
-                    <form id="cadastroForm">
-                        <div class="mb-3 mt-3">
-                            <label for="cadastroNome" class="form-label">Nome</label>
-                            <input type="text" class="form-control" id="cadastroNome" placeholder="Nome Completo" autocomplete="off" minlength="5" required pattern="[A-Za-zÀ-ÖØ-öø-ÿ\s]+" title="Apenas letras e espaços são permitidos.">
-                        </div>
-                        <div class="mb-3">
-                            <label for="cadastroEmail" class="form-label">E-mail</label>
-                            <input type="email" class="form-control" id="cadastroEmail" placeholder="exemplo@dominio.com" autocomplete="off" required pattern="[a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,}">
-                        </div>
-                        <div class="mb-3">
-                            <label for="cadastroTelefone" class="form-label">Telefone</label>
-                            <input type="tel" class="form-control" id="cadastroTelefone" placeholder="(XX) XXXXX-XXXX" autocomplete="off" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="cadastroSenha" class="form-label">Senha</label>
-                            <div class="input-group">
-                                <input type="password" class="form-control" id="cadastroSenha" placeholder="Digite sua senha" autocomplete="off" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$" title="A senha deve ter pelo menos 8 caracteres, incluindo letras maiúsculas e minúsculas, um número e um caractere especial (!@#$%^&*)">
-                                <button type="button" class="btn btn-outline-light" id="toggleCadastroSenha" onclick="togglePassword('cadastroSenha', 'iconCadastroSenha')">
-                                    <span id="iconCadastroSenha" class="material-symbols-outlined">visibility</span>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="confirmarSenha" class="form-label">Confirmar Senha</label>
-                            <div class="input-group">
-                                <input type="password" class="form-control" id="confirmarSenha" placeholder="Confirme sua senha" autocomplete="off" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$" title="A senha deve ter pelo menos 8 caracteres, incluindo letras maiúsculas e minúsculas, um número e um caractere especial (!@#$%^&*)">
-                                <button type="button" class="btn btn-outline-light" id="toggleConfirmarSenha" onclick="togglePassword('confirmarSenha', 'iconConfirmarSenha')">
-                                    <span id="iconConfirmarSenha" class="material-symbols-outlined">visibility</span>
-                                </button>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-warning w-100">Cadastrar</button>
-                    </form>
-                </div>
+            </div>
+            
+            <!-- Lado direito - Fundo colorido -->
+            <div class="col-md-6 d-none d-md-block gradient-bg">
+                <div class="signature">By Astracode</div>
             </div>
         </div>
     </div>
