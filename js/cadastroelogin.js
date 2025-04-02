@@ -1,6 +1,5 @@
 // Função para alternar entre as abas
 function mudarTab(tabId) {
-    // Remover classe active de todas as abas
     document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.classList.remove('active');
     });
@@ -9,7 +8,6 @@ function mudarTab(tabId) {
         pane.classList.remove('active');
     });
     
-    // Adicionar classe active à aba selecionada
     document.getElementById(tabId + '-tab').classList.add('active');
     document.getElementById(tabId).classList.add('active');
 }
@@ -30,9 +28,9 @@ function visibilidadeSenha(inputId) {
     }
 }
 
-// Função para formatar o telefone: (XX) XXXXX-XXXX
+// Função para formatar o telefone
 function formatarTelefone(input) {
-    let valor = input.value.replace(/\D/g, ''); // Remove tudo que não é dígito
+    let valor = input.value.replace(/\D/g, ''); 
     let resultado = '';
     
     if (valor.length > 0) {
@@ -50,9 +48,9 @@ function formatarTelefone(input) {
     input.value = resultado;
 }
 
-// Função para salvar usuário no localStorage
+// Função para salvar usuário
 function salvarUsuario(nome, email, telefone, senha) {
-    // Verificar se já existe um array de usuários no localStorage
+    // Verificar se já existe um array de usuários
     let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
     
     // Verificar se o email já está cadastrado
@@ -72,12 +70,12 @@ function salvarUsuario(nome, email, telefone, senha) {
     
     usuarios.push(novoUsuario);
     
-    // Salvar array atualizado no localStorage
+    // Salvar array atualizado 
     localStorage.setItem('usuarios', JSON.stringify(usuarios));
     return true;
 }
 
-// Função para verificar credenciais de login
+
 function verificarLogin(email, senha) {
     // Obter array de usuários do localStorage
     const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
@@ -92,7 +90,7 @@ function verificarLogin(email, senha) {
 
 // Inicialização quando o DOM estiver carregado
 document.addEventListener('DOMContentLoaded', function() {
-    // Adicionar formatação ao campo de telefone
+    
     const telefoneInput = document.querySelector('input[type="tel"]');
     if (telefoneInput) {
         telefoneInput.addEventListener('input', function() {
@@ -117,47 +115,42 @@ document.addEventListener('DOMContentLoaded', function() {
             const senha = senhaInput.value;
             const confirmarSenha = document.getElementById('confirmarSenha').value;
             
-            // Validar nome (apenas letras e espaços)
+            // Validar nome 
             const regexNome = /^[a-zA-ZÀ-ÖØ-öø-ÿ\s]+$/;
             if (!regexNome.test(nome)) {
                 alert('Nome inválido. Use apenas letras.');
                 return;
             }
             
-            // Validar email (formato básico de email)
+            // Validar email 
             const regexEmail = /^[a-zA-Z0-9_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
             if (!regexEmail.test(email)) {
                 alert('Email inválido. Use apenas letras, números, _ e . antes do @');
                 return;
             }
             
-            // Validar telefone (comprimento mínimo)
+             // Validar telefone
             if (telefone.length < 14) {
                 alert('Telefone inválido. Formato esperado: (XX) XXXXX-XXXX');
                 return;
             }
             
-            // Validar senha (8+ caracteres, maiúscula, minúscula, caractere especial)
             const regexSenha = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/;
             if (!regexSenha.test(senha)) {
                 alert('A senha deve ter pelo menos 8 caracteres, uma letra maiúscula, uma minúscula e um caractere especial.');
                 return;
             }
             
-            // Verificar se as senhas coincidem
             if (senha !== confirmarSenha) {
                 alert('As senhas não coincidem!');
                 return;
             }
             
-            // Salvar usuário
             if (salvarUsuario(nome, email, telefone, senha)) {
                 alert('Cadastro realizado com sucesso!');
                 
-                // Limpar formulário
                 this.reset();
                 
-                // Redirecionar para a aba de login
                 mudarTab('login');
             }
         });
@@ -169,15 +162,12 @@ document.addEventListener('DOMContentLoaded', function() {
         loginForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Obter valores dos campos
             const email = this.querySelector('input[placeholder="Email"]').value;
             const senha = document.getElementById('loginSenha').value;
             
-            // Verificar credenciais
             const usuario = verificarLogin(email, senha);
             
             if (usuario) {
-                // Salvar informação de usuário logado
                 localStorage.setItem('usuarioLogado', JSON.stringify(usuario));
                 
                 // Redirecionar para a página home
@@ -188,10 +178,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Verificar se o usuário já está logado
-    const usuarioLogado = localStorage.getItem('usuarioLogado');
-    if (usuarioLogado && window.location.pathname.includes('index.html')) {
-        // Se estiver na página de login e já estiver logado, redirecionar para home
-        window.location.href = 'home.html';
-    }
 });

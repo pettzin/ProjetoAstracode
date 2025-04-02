@@ -98,6 +98,8 @@ body {
 .gradient-bg {
     background: linear-gradient(135deg, #4ade80 0%, #0ea5e9 100%);
     position: relative;
+    border: white 7px solid;
+    border-radius: 2%;
 }
 
 .signature {
