@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logs do Sistema - CruzeiroTech</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+      line-height: 1.5;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      margin-bottom: 20px;
+      color: #0078d7;
+    }
+    
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    
+    .log-type {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .log-type button {
+      padding: 8px 16px;
+      background-color: #f0f0f0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    .log-type button.active {
+      background-color: #0078d7;
+      color: white;
+      border-color: #0078d7;
+    }
+    
+    .actions {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .actions button {
+      padding: 8px 16px;
+      background-color: #0078d7;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    .actions button:hover {
+      background-color: #0063b1;
+    }
+    
+    .log-container {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 10px;
+      height: 600px;
+      overflow-y: auto;
+      font-family: monospace;
+      white-space: pre-wrap;
+      font-size: 14px;
+    }
+    
+    .log-line {
+      padding: 5px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .log-line:last-child {
+      border-bottom: none;
+    }
+    
+    .error {
+      color: #ef4444;
+    }
+    
+    .warning {
+      color: #f59e0b;
+    }
+    
+    .info {
+      color: #10b981;
+    }
+    
+    .loading {
+      text-align: center;
+      padding: 20px;
+      color: #666;
+    }
+    
+    .empty {
+      text-align: center;
+      padding: 20px;
+      color: #666;
+    }
+    
+    .back-button {
+      display: inline-block;
+      margin-bottom: 20px;
+      padding: 8px 16px;
+      background-color: #f0f0f0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      text-decoration: none;
+      color: #333;
+    }
+    
+    .back-button:hover {
+      background-color: #e0e0e0;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(0, 0, 0, 0.1);
+      border-radius: 50%;
+      border-top-color: #0078d7;
+      animation: spin 1s ease-in-out infinite;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="home.html" class="back-button">
+      <i class="fas fa-arrow-left"></i> Voltar
+    </a>
+    
+    <h1>Logs da CruzeiroTech</h1>
+    
+    <div class="controls">
+      <div class="log-type">
+        <button class="active" data-type="app">Todos</button>
+        <button data-type="error">Erros</button>
+        <button data-type="api">API</button>
+        <button data-type="database">Banco de Dados</button>
+        <button data-type="performance">Performance</button>
+      </div>
+      
+      <div class="actions">
+        <button id="refreshBtn"><i class="fas fa-sync-alt"></i> Atualizar</button>
+        <button id="downloadBtn"><i class="fas fa-download"></i> Baixar</button>
+      </div>
+    </div>
+    
+    <div class="log-container" id="logContainer">
+      <div class="loading">
+        <div class="spinner"></div>
+        Carregando logs...
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const logContainer = document.getElementById('logContainer');
+      const refreshBtn = document.getElementById('refreshBtn');
+      const downloadBtn = document.getElementById('downloadBtn');
+      const typeButtons = document.querySelectorAll('.log-type button');
+      
+      let currentType = 'app';
+      let isLoading = false;
+      
+      // Carregar logs iniciais
+      fetchLogs(currentType);
+      
+      // Configurar atualização automática a cada 30 segundos
+      setInterval(() => {
+        fetchLogs(currentType);
+      }, 30000);
+      
+      // Event listeners
+      refreshBtn.addEventListener('click', () => {
+        fetchLogs(currentType);
+      });
+      
+      downloadBtn.addEventListener('click', () => {
+        window.location.href = `/api/logs/download?type=${currentType}`;
+      });
+      
+      typeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          typeButtons.forEach(btn => btn.classList.remove('active'));
+          button.classList.add('active');
+          
+          currentType = button.dataset.type;
+          fetchLogs(currentType);
+        });
+      });
+      
+      async function fetchLogs(type) {
+  if (isLoading) return;
+  
+  setLoading(true);
+  
+  // Adicionar um timeout para evitar carregamento infinito
+  const timeoutPromise = new Promise((_, reject) => 
+    setTimeout(() => reject(new Error('Tempo limite excedido')), 5000)
+  );
+  
+  try {
+    // Usar Promise.race para limitar o tempo de espera
+    const response = await Promise.race([
+      fetch(`/api/logs?type=${type}`),
+      timeoutPromise
+    ]);
+    
+    if (!response.ok) {
+      throw new Error(`Falha ao buscar logs: ${response.status} ${response.statusText}`);
+    }
+    
+    const logs = await response.json();
+    
+    if (!logs || logs.length === 0) {
+      logContainer.innerHTML = '<div class="empty">Nenhum log encontrado</div>';
+      return;
+    }
+    
+    logContainer.innerHTML = '';
+    
+    logs.forEach(log => {
+      const logLine = document.createElement('div');
+      logLine.className = 'log-line';
+      
+      // Detectar nível do log para colorização
+      if (log.includes('[ERROR]')) {
+        logLine.classList.add('error');
+      } else if (log.includes('[WARNING]')) {
+        logLine.classList.add('warning');
+      } else if (log.includes('[INFO]')) {
+        logLine.classList.add('info');
+      }
+      
+      logLine.textContent = log;
+      logContainer.appendChild(logLine);
+    });
+    
+    // Rolar para o final
+    logContainer.scrollTop = logContainer.scrollHeight;
+  } catch (error) {
+    console.error('Erro ao buscar logs:', error);
+    logContainer.innerHTML = `
+      <div class="error" style="padding: 20px;">
+        Erro ao carregar logs: ${error.message}<br>
+        Verifique se a API está funcionando corretamente.<br>
+        <button id="retryBtn" style="margin-top: 10px; padding: 5px 10px;">Tentar novamente</button>
+      </div>
+    `;
+    
+    // Adicionar evento ao botão de tentar novamente
+    document.getElementById('retryBtn')?.addEventListener('click', () => {
+      fetchLogs(currentType);
+    });
+  } finally {
+    setLoading(false);
+  }
+}
+      
+      function setLoading(loading) {
+        isLoading = loading;
+        
+        if (loading) {
+          refreshBtn.innerHTML = '<div class="spinner"></div> Atualizando';
+          refreshBtn.disabled = true;
+        } else {
+          refreshBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Atualizar';
+          refreshBtn.disabled = false;
+        }
+      }
+      
+      // Função para ajudar na depuração
+      function testConnection() {
+        fetch('/api/logs?type=app')
+          .then(response => {
+            console.log('Status da resposta:', response.status);
+            console.log('Headers:', response.headers);
+            return response.text();
+          })
+          .then(text => {
+            console.log('Resposta:', text);
+            try {
+              const json = JSON.parse(text);
+              console.log('JSON válido:', json);
+            } catch (e) {
+              console.log('Não é um JSON válido');
+            }
+          })
+          .catch(error => {
+            console.error('Erro na requisição:', error);
+          });
+      }
+      
+      // Expor função para depuração no console
+      window.testConnection = testConnection;
+    });
+  </script>
+</body>
+</html>
