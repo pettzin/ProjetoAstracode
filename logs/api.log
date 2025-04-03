@@ -1,9 +1,0 @@
-[2025-04-03T13:07:13.298Z] [INFO] [API Route] Buscando todos os contatos
-[2025-04-03T13:08:19.470Z] [INFO] [API Route] Buscando todos os contatos
-[2025-04-03T13:08:19.811Z] [INFO] [API Route] Retornando 5 contatos - {"duration":341}
-[2025-04-03T13:08:21.845Z] [INFO] [API Route] Buscando todos os contatos
-[2025-04-03T13:08:22.182Z] [INFO] [API Route] Retornando 5 contatos - {"duration":336}
-[2025-04-03T13:08:35.116Z] [INFO] [API Route] Buscando todos os contatos
-[2025-04-03T13:08:35.454Z] [INFO] [API Route] Retornando 5 contatos - {"duration":337}
-[2025-04-03T13:09:13.556Z] [INFO] [API Route] Buscando todos os contatos
-[2025-04-03T13:09:13.893Z] [INFO] [API Route] Retornando 5 contatos - {"duration":336}
