@@ -1,0 +1,19 @@
+[2025-04-03T12:38:31.085Z] [INFO] [Database] Conexão com o banco de dados estabelecida com sucesso
+[2025-04-03T12:38:50.148Z] [INFO] [Database] Conexão com o banco de dados estabelecida com sucesso
+[2025-04-03T12:38:52.015Z] [INFO] [Database] Conexão com o banco de dados estabelecida com sucesso
+[2025-04-03T12:41:49.609Z] [INFO] [Database] Conexão com o banco de dados estabelecida com sucesso
+[2025-04-03T12:59:04.904Z] [INFO] [Database] Conexão com o banco de dados estabelecida com sucesso
+[2025-04-03T12:59:33.916Z] [INFO] [Database] Conexão com o banco de dados estabelecida com sucesso
+[2025-04-03T12:59:37.277Z] [INFO] [Database] Conexão com o banco de dados estabelecida com sucesso
+[2025-04-03T13:00:00.927Z] [INFO] [Database] Conexão com o banco de dados estabelecida com sucesso
+[2025-04-03T13:01:39.548Z] [INFO] [Database] Conexão com o banco de dados estabelecida com sucesso
+[2025-04-03T13:02:04.111Z] [INFO] [Database] Conexão com o banco de dados estabelecida com sucesso
+[2025-04-03T13:02:07.217Z] [INFO] [Database] Conexão com o banco de dados estabelecida com sucesso
+[2025-04-03T13:02:32.491Z] [INFO] [Database] Conexão com o banco de dados estabelecida com sucesso
+[2025-04-03T13:02:46.678Z] [INFO] [Database] Conexão com o banco de dados estabelecida com sucesso
+[2025-04-03T13:03:01.279Z] [INFO] [Database] Conexão com o banco de dados estabelecida com sucesso
+[2025-04-03T13:03:46.624Z] [INFO] [Database] Conexão com o banco de dados estabelecida com sucesso
+[2025-04-03T13:03:49.098Z] [INFO] [Database] Conexão com o banco de dados estabelecida com sucesso
+[2025-04-03T13:04:53.591Z] [INFO] [Database] Conexão com o banco de dados estabelecida com sucesso
+[2025-04-03T13:07:15.238Z] [INFO] [Database] Conexão com o banco de dados estabelecida com sucesso
+[2025-04-03T13:09:13.546Z] [INFO] [Database] Consulta SQL executada - {"query":"UPDATE contatos SET nome = ?, email = ?, telefone = ?, grupo = ?, imagem = ? WHERE id = ?","duration":410,"resultCount":1}
