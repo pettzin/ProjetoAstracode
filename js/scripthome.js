@@ -143,6 +143,8 @@ const closeDialogs = () => {
 */
 const fetchContacts = async () => {
   showLoading();
+  window.logger.info('Iniciando busca de contatos', 'Frontend');
+
   try {
       const response = await fetch(`${API.BASE_URL}${API.ENDPOINTS.SELECT}`);
       if (!response.ok) {
@@ -161,10 +163,12 @@ const fetchContacts = async () => {
           date: new Date(contact.data_criacao || Date.now())
       }));
       
+      window.logger.info(`Contatos carregados com sucesso: ${state.contacts.length}`, 'Frontend');
       renderContacts();
   } catch (error) {
+      window.logger.error('Erro ao buscar contatos', 'Frontend', { error: error.message });
       console.error('Error fetching contacts:', error);
-      alert('Could not load contacts. Please check your server connection.');
+      alert('Não foi possível carregar os contatos. Verifique sua conexão com o servidor.');
   } finally {
       hideLoading();
   }
@@ -199,6 +203,8 @@ document.getElementById("sendMessagewhatts").addEventListener("click", function(
 */
 const createContact = async contact => {
   showLoading();
+  window.logger.info('Criando novo contato', 'Frontend', { name: contact.name, email: contact.email });
+
   try {
       // Create the request body without the image field to avoid the database error
       const requestBody = {
@@ -221,11 +227,13 @@ const createContact = async contact => {
           throw new Error('Error creating contact');
       }
       
+      window.logger.info('Contato criado com sucesso', 'Frontend', { name: contact.name });
       await fetchContacts();
       return true;
   } catch (error) {
+      window.logger.error('Erro ao criar contato', 'Frontend', { error: error.message, contact: contact.name });
       console.error('Error creating contact:', error);
-      alert('Could not create contact. Please check your server connection.');
+      alert('Não foi possível criar o contato. Por favor, verifique sua conexão com o servidor.');
       return false;
   } finally {
       hideLoading();
@@ -239,6 +247,8 @@ const createContact = async contact => {
 */
 const updateContact = async contact => {
   showLoading();
+  window.logger.info('Atualizando contato', 'Frontend', { id: contact.id, name: contact.name });
+
   try {
       // Create the request body without the image field to avoid the database error
       const requestBody = {
@@ -261,11 +271,13 @@ const updateContact = async contact => {
           throw new Error('Error updating contact');
       }
       
+      window.logger.info('Contato atualizado com sucesso', 'Frontend', { id: contact.id, name: contact.name });
       await fetchContacts();
       return true;
   } catch (error) {
+      window.logger.error('Erro ao atualizar contato', 'Frontend', { error: error.message, id: contact.id });
       console.error('Error updating contact:', error);
-      alert('Could not update contact. Please check your server connection.');
+      alert('Não foi possível atualizar o contato. Por favor, verifique sua conexão com o servidor.');
       return false;
   } finally {
       hideLoading();
@@ -279,6 +291,8 @@ const updateContact = async contact => {
 */
 const deleteContactAPI = async contactId => {
   showLoading();
+  window.logger.info('Deletando contato', 'Frontend', { id: contactId });
+
   try {
       const response = await fetch(`${API.BASE_URL}${API.ENDPOINTS.DELETE(contactId)}`, {
           method: 'DELETE'
@@ -287,12 +301,14 @@ const deleteContactAPI = async contactId => {
       if (!response.ok) {
           throw new Error('Error deleting contact');
       }
-      
+
+      window.logger.info('Contato deletado com sucesso', 'Frontend', { id: contactId });
       await fetchContacts();
       return true;
   } catch (error) {
+      window.logger.error('Erro ao deletar contato', 'Frontend', { error: error.message, id: contactId });
       console.error('Error deleting contact:', error);
-      alert('Could not delete contact. Please check your server connection.');
+      alert('Não foi possível deletar o contato. Por favor, verifique sua conexão com o servidor.');
       return false;
   } finally {
       hideLoading();
@@ -578,7 +594,7 @@ const saveContact = async () => {
   const avatar = document.getElementById('profileAvatar').src;
   
   if (!name || !phone) {
-      alert('Please fill in at least the name and phone number.');
+      alert('Por favor, preencha pelo menos o nome e o número de telefone.');
       return;
   }
   
@@ -615,7 +631,7 @@ const saveGroup = async () => {
   const selectedColor = document.querySelector('.color-option.selected').dataset.color;
   
   if (!groupName) {
-      alert('Please enter a name for the group.');
+      alert('Por favor, insira um nome para o grupo.');
       return;
   }
   
@@ -632,7 +648,7 @@ const saveGroup = async () => {
       
       // Check if group ID already exists
       if (state.groups.some(g => g.id === groupId)) {
-          alert('A group with this name already exists. Please choose another name.');
+          alert('Um grupo com este nome já existe. Por favor, escolha outro nome.');
           return;
       }
       
@@ -749,12 +765,12 @@ const sendMessage = () => {
   const messageTime = document.getElementById('messageTime').value;
   
   if (!messageText) {
-      alert('Please write a message.');
+      alert('Por favor, escreva uma mensagem.');
       return;
   }
   
   if (!messageDate || !messageTime) {
-      alert('Please select a date and time for scheduling.');
+      alert('Selecione uma data e hora para agendamento.');
       return;
   }
   
