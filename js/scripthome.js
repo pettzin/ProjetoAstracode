@@ -2,7 +2,7 @@
 const API = {
   BASE_URL: "http://localhost:3000",
   ENDPOINTS: {
-    SELECT: "/api/select",
+    SELECT: "/api/contatos",
     INSERT: "/api/insert",
     UPDATE: (id) => `/api/update/${id}`,
     DELETE: (id) => `/api/delete/${id}`,
@@ -191,7 +191,7 @@ const fetchContacts = async () => {
     state.contacts = data.map((contact) => ({
       id: contact.id,
       name: contact.nome || "",
-      sobrenome: contact.sobrenome || "",
+      sobrenome: contact.sobrenome || "", // Adicionado campo de sobrenome
       phone: contact.telefone || "",
       email: contact.email || "",
       avatar: contact.imagem || DEFAULT_AVATAR,
@@ -262,15 +262,22 @@ const updateContactSelect = () => {
 const createContact = async (contact) => {
   showLoading()
   try {
-    // Create the request body without the image field to avoid the database error
+    // Verificar se nome e telefone estão presentes (email não é mais obrigatório)
+    if (!contact.name || !contact.phone) {
+      throw new Error("Os campos nome e telefone são obrigatórios.")
+    }
+
+    // Create the request body without requiring email
     const requestBody = {
       nome: contact.name,
-      sobrenome: contact.sobrenome, 
-      email: contact.email,
+      sobrenome: contact.sobrenome || "",
+      email: contact.email || "", // Email agora é opcional
       telefone: contact.phone,
-      grupo: contact.category,
+      grupo: contact.category || "todos",
       // 'imagem' field is removed since it doesn't exist in the database
     }
+
+    console.log("Enviando dados:", requestBody) // Log para debug
 
     const response = await fetch(`${API.BASE_URL}${API.ENDPOINTS.INSERT}`, {
       method: "POST",
@@ -281,6 +288,8 @@ const createContact = async (contact) => {
     })
 
     if (!response.ok) {
+      const errorText = await response.text()
+      console.error("Resposta do servidor:", errorText)
       throw new Error("Erro ao criar contato")
     }
 
@@ -307,7 +316,7 @@ const updateContact = async (contact) => {
     const requestBody = {
       nome: contact.name,
       sobrenome: contact.sobrenome,
-      email: contact.email,
+      email: contact.email || "", // Email agora é opcional
       telefone: contact.phone,
       grupo: contact.category,
       imagem: contact.avatar,
@@ -614,7 +623,7 @@ const openProfileDialog = (contactId) => {
     contact = {
       id: null,
       name: "",
-      sobrenome: "",
+      sobrenome: "", // Adicionado campo de sobrenome
       phone: "",
       email: "",
       avatar: DEFAULT_AVATAR,
@@ -749,7 +758,7 @@ const saveContact = async () => {
   const contact = {
     id: state.currentContactId,
     name,
-    sobrenome,
+    sobrenome, // Adicionado campo de sobrenome
     phone,
     email,
     category,
@@ -1276,4 +1285,3 @@ const init = async () => {
 
 // Inicializar a aplicação quando o DOM estiver carregado
 document.addEventListener("DOMContentLoaded", init)
-
