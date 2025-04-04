@@ -191,11 +191,11 @@ const fetchContacts = async () => {
     state.contacts = data.map((contact) => ({
       id: contact.id,
       name: contact.nome || "",
-      sobrenome: contact.sobrenome || "", // Adicionado campo de sobrenome
+      sobrenome: contact.sobrenome || "",
       phone: contact.telefone || "",
       email: contact.email || "",
       avatar: contact.imagem || DEFAULT_AVATAR,
-      category: contact.grupo || "outros",
+      category: contact.grupo || "todos",
       date: new Date(contact.data_criacao || Date.now()),
     }))
 
@@ -265,7 +265,7 @@ const createContact = async (contact) => {
     // Create the request body without the image field to avoid the database error
     const requestBody = {
       nome: contact.name,
-      sobrenome: contact.sobrenome, // Adicionado campo de sobrenome
+      sobrenome: contact.sobrenome, 
       email: contact.email,
       telefone: contact.phone,
       grupo: contact.category,
@@ -306,7 +306,7 @@ const updateContact = async (contact) => {
     // Create the request body without the image field to avoid the database error
     const requestBody = {
       nome: contact.name,
-      sobrenome: contact.sobrenome, // Adicionado campo de sobrenome
+      sobrenome: contact.sobrenome,
       email: contact.email,
       telefone: contact.phone,
       grupo: contact.category,
@@ -614,11 +614,11 @@ const openProfileDialog = (contactId) => {
     contact = {
       id: null,
       name: "",
-      sobrenome: "", // Adicionado campo de sobrenome
+      sobrenome: "",
       phone: "",
       email: "",
       avatar: DEFAULT_AVATAR,
-      category: state.filter.category === "todos" ? "outros" : state.filter.category,
+      category: state.filter.category === "todos" ? "todos" : state.filter.category,
       date: new Date(),
     }
     state.currentContactId = null
@@ -749,7 +749,7 @@ const saveContact = async () => {
   const contact = {
     id: state.currentContactId,
     name,
-    sobrenome, // Adicionado campo de sobrenome
+    sobrenome,
     phone,
     email,
     category,
@@ -829,7 +829,7 @@ const saveGroup = async () => {
       if (shouldBeInGroup !== isInGroup) {
         const updatedContact = {
           ...contact,
-          category: shouldBeInGroup ? state.currentGroupId : "outros",
+          category: shouldBeInGroup ? state.currentGroupId : "todos",
         }
 
         updatePromises.push(updateContact(updatedContact))
@@ -869,7 +869,7 @@ const deleteGroup = async () => {
       if (contact.category === state.currentGroupId) {
         const updatedContact = {
           ...contact,
-          category: "outros",
+          category: "todos",
         }
 
         updatePromises.push(updateContact(updatedContact))
