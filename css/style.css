@@ -1,27 +1,37 @@
-/* Estilos gerais */
 body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
+    background-color: rgba(240, 240, 240, 0.87);
     overflow-x: hidden;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
-/* Card de login */
+.container-fluid {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.404);
+    margin: 20px;
+    max-width: 93%;
+    max-height: 87%;
+}
 .login-card {
-    width: 350px;
+    width: 100%;
+    max-width: 400px;
     border-radius: 25px;
     padding: 25px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     background-color: white;
     border: 1px solid #e0e0e0;
+    margin-left: 7px;
 }
-
-/* Botões de abas */
 .tab-buttons {
     display: flex;
     margin-bottom: 20px;
 }
-
 .tab-btn {
     flex: 1;
     padding: 10px;
@@ -32,53 +42,41 @@ body {
     cursor: pointer;
     transition: all 0.3s;
 }
-
 .tab-btn.active {
     color: #0d6efd;
     border-bottom: 2px solid #0d6efd;
     font-weight: 600;
 }
-
-/* Conteúdo das abas */
 .tab-pane {
     display: none;
 }
-
 .tab-pane.active {
     display: block;
 }
-
-/* Campos de formulário */
 .custom-input {
     margin-bottom: 15px;
 }
-
 .custom-input .input-group-text {
     background-color: #f0f0ff;
     border: none;
     border-radius: 10px 0 0 10px;
     color: #6c757d;
 }
-
 .custom-input .form-control {
     background-color: #f0f0ff;
     border: none;
     border-radius: 0 10px 10px 0;
 }
-
 .custom-input .password-toggle {
     background-color: #f0f0ff;
     border: none;
     border-radius: 0 10px 10px 0;
     color: #6c757d;
 }
-
 .custom-input .form-control:focus {
     box-shadow: none;
     background-color: #f0f0ff;
 }
-
-/* Botão com gradiente */
 .gradient-btn {
     background: linear-gradient(to right, #0d6efd, #4ade80);
     color: white;
@@ -88,32 +86,28 @@ body {
     font-weight: 500;
     transition: all 0.3s;
 }
-
 .gradient-btn:hover {
     opacity: 0.9;
     color: white;
 }
-
-/* Fundo com gradiente animado */
 .gradient-bg {
     position: relative;
     border: white 7px solid;
-    border-radius: 2%;
+    border-radius: 20px;
     background-size: 200% 200%;
     animation: animacaoDegrade 10s ease-in-out infinite alternate;
     background-image: linear-gradient(
         135deg,
-        #E3F416 0%, 
-        #b8dd3a 15%, 
-        #95c55e 30%, 
+        #E3F416 0%,
+        #b8dd3a 15%,
+        #95c55e 30%,
         #57b66c 45%,
-        #4eaaa0 60%, 
-        #489ea0 75%, 
+        #4eaaa0 60%,
+        #489ea0 75%,
         #3389c1 85%,
         #1A76E3 100%
     );
 }
-
 @keyframes animacaoDegrade {
     0% {
         background-position: 0% 0%;
@@ -134,8 +128,7 @@ body {
         background-position: 0% 0%;
     }
 }
-
-.assinatura {
+.signature {
     position: absolute;
     bottom: 15px;
     right: 15px;
@@ -144,8 +137,6 @@ body {
     font-size: 13px;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
-
-/* Responsividade */
 @media (max-width: 768px) {
     .login-card {
         width: 90%;
