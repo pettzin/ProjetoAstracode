@@ -740,3 +740,44 @@ body {
 .user-menu-item.logout:hover {
   background-color: #f8d7da;
 }
+
+.sort-label {
+  font-size: 14px;
+  color: #666;
+  white-space: nowrap;
+}
+
+.sort-select {
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.view-options {
+  display: flex;
+  gap: 10px;
+}
+
+.view-option {
+  padding: 8px 15px;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.2s ease;
+}
+
+.view-option i {
+  font-size: 14px;
+}
+
+.view-option.active {
+  background-color: #333;
+  color: white;
+}
+
+.view-option:hover:not(.active) {
+  background-color: #e0e0e0;
+}
