@@ -1,3 +1,4 @@
+/* Reset e configurações globais */
 * {
   margin: 0;
   padding: 0;
@@ -31,6 +32,16 @@ body {
   padding: 0 20px 20px 20px;
   border-bottom: 1px solid #e9ecef;
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Imagem de 50x50 */
+.cruzeiro-icon {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
 }
 
 /* Action buttons container */
@@ -42,7 +53,7 @@ body {
   margin-bottom: 30px;
 }
 
-/* Action button styles */
+/* Botões laterais em azul */
 .action-btn {
   display: flex;
   align-items: center;
@@ -51,13 +62,11 @@ body {
   cursor: pointer;
   transition: background-color 0.2s;
   font-size: 14px;
+  background-color: #0078d7; /* azul */
+  color: white;
 }
 
-.action-btn:hover {
-  background-color: #f0f0f0;
-}
-
-.home-icon::before,
+/* Ícones dos botões (Home removido) */
 .add-contact-btn::before,
 .email-icon::before,
 .add-group-btn::before {
@@ -65,10 +74,6 @@ body {
   width: 20px;
   display: inline-block;
   text-align: center;
-}
-
-.home-icon::before {
-  content: '🏠';
 }
 
 .add-contact-btn::before {
@@ -83,14 +88,14 @@ body {
   content: '👥';
 }
 
-/* Navigation tabs */
-.nav-tabs {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  padding: 0 20px;
+/* Hover e estado ativo: botão fica amarelo */
+.action-btn:hover,
+.action-btn.active {
+  background-color: #ffc107; /* amarelo */
+  color: white;
 }
 
+/* Filtros de Grupo (Nav Tabs) */
 .nav-tab {
   padding: 10px;
   border-radius: 8px;
@@ -100,26 +105,22 @@ body {
   align-items: center;
   justify-content: space-between;
   font-size: 14px;
+  background-color: #0078d7; /* azul */
+  color: white;
 }
 
 .nav-tab:hover {
-  background-color: #f0f0f0;
+  background-color: #ffc107; /* amarelo */
+  color: white;
 }
 
 .nav-tab.active {
-  background-color: #e9ecef;
+  background-color: #ffc107; /* amarelo */
   font-weight: bold;
+  color: white;
 }
 
-.nav-tab-content {
-  display: flex;
-  align-items: center;
-}
-
-.nav-tab i {
-  margin-right: 8px;
-}
-
+/* Botão de edição de grupo */
 .edit-group-btn {
   cursor: pointer;
   opacity: 0.6;
@@ -130,7 +131,7 @@ body {
   opacity: 1;
 }
 
-/* Visualization section */
+/* Seção de visualização */
 .visualization-section {
   margin-top: 30px;
   padding: 0 20px;
@@ -150,6 +151,7 @@ body {
   gap: 5px;
 }
 
+/* Botões Miniatura e Lista em azul */
 .view-option {
   padding: 10px;
   border-radius: 8px;
@@ -158,14 +160,13 @@ body {
   display: flex;
   align-items: center;
   font-size: 14px;
+  background-color: #0078d7; /* azul */
+  color: white;
 }
 
-.view-option:hover {
-  background-color: #f0f0f0;
-}
-
+.view-option:hover,
 .view-option.active {
-  background-color: #212529;
+  background-color: #ffc107; /* amarelo */
   color: white;
 }
 
@@ -175,7 +176,7 @@ body {
   text-align: center;
 }
 
-/* Categories section */
+/* Seção de categorias */
 .categories-section {
   margin-top: 30px;
   padding: 0 20px;
@@ -189,7 +190,7 @@ body {
   letter-spacing: 1px;
 }
 
-/* Main content */
+/* Conteúdo principal */
 .main-content {
   flex: 1;
   padding: 20px;
@@ -198,7 +199,7 @@ body {
   flex-direction: column;
 }
 
-/* App header */
+/* Cabeçalho da aplicação */
 .app-header {
   display: flex;
   justify-content: space-between;
@@ -217,6 +218,7 @@ body {
   gap: 10px;
 }
 
+/* Informações do usuário */
 .user-info {
   text-align: right;
 }
@@ -230,7 +232,7 @@ body {
   font-size: 12px;
 }
 
-/* View controls */
+/* Controles de visualização */
 .view-controls {
   display: flex;
   justify-content: space-between;
@@ -278,7 +280,7 @@ body {
   background-color: #f8f9fa;
 }
 
-/* Contacts grid */
+/* Grade de contatos */
 .contacts-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -322,7 +324,7 @@ body {
   font-size: 14px;
 }
 
-/* Contacts list */
+/* Lista de contatos */
 .contacts-list {
   display: none;
   flex-direction: column;
@@ -364,7 +366,7 @@ body {
   margin-left: auto;
 }
 
-/* Dialog styles */
+/* Diálogos (dialogs) */
 .dialog {
   display: none;
   position: fixed;
@@ -406,7 +408,7 @@ body {
   cursor: pointer;
 }
 
-/* Message dialog */
+/* Caixa de texto para mensagens */
 .message-textarea {
   width: 100%;
   height: 140px;
@@ -437,6 +439,7 @@ body {
   font-size: 14px;
 }
 
+/* Botões de envio de mensagem */
 .send-button, .whattsbutton {
   background-color: #212529;
   color: white;
@@ -454,7 +457,7 @@ body {
   background-color: #343a40;
 }
 
-/* Profile dialog */
+/* Diálogo de perfil */
 .profile-input {
   width: 100%;
   padding: 10px;
@@ -464,34 +467,9 @@ body {
   font-size: 14px;
 }
 
-.profile-actions {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
+/* Botões de ação no perfil e demais diálogos */
 
-.profile-button {
-  padding: 8px 15px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.category-select {
-  width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ced4da;
-  margin-bottom: 10px;
-  font-size: 14px;
-  appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23212529' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-  background-size: 15px;
-}
-
+/* Botões de mensagem */
 .btn-message {
   background-color: #212529;
   color: white;
@@ -501,15 +479,19 @@ body {
   background-color: #343a40;
 }
 
-.btn-delete {
+/* Botões de exclusão e cancelamento em vermelho */
+.btn-delete,
+.btn-cancel {
   background-color: #dc3545;
   color: white;
 }
 
-.btn-delete:hover {
+.btn-delete:hover,
+.btn-cancel:hover {
   background-color: #c82333;
 }
 
+/* Botão de salvar em azul */
 .btn-save {
   background-color: #0d6efd;
   color: white;
@@ -560,7 +542,7 @@ body {
   display: none;
 }
 
-/* Group dialog */
+/* Diálogo de grupos */
 .group-input {
   width: 100%;
   padding: 10px;
@@ -637,7 +619,7 @@ body {
   background-color: #c82333;
 }
 
-/* Loading spinner */
+/* Loading Spinner */
 .loading-spinner {
   display: none;
   position: fixed;
@@ -665,7 +647,7 @@ body {
   100% { transform: rotate(360deg); }
 }
 
-/* Estilo para o campo de seleção de contato */
+/* Seletor de contato no diálogo de mensagem */
 .contact-select-container {
   margin-bottom: 15px;
 }
@@ -694,62 +676,7 @@ body {
   border-color: #0d6efd;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  body {
-    flex-direction: column;
-  }
-  
-  .sidebar-area {
-    width: 100%;
-    height: auto;
-    border-right: none;
-    border-bottom: 1px solid #e9ecef;
-    padding: 10px 20px;
-  }
-  
-  .action-buttons {
-    flex-direction: row;
-    justify-content: space-between;
-    margin-bottom: 15px;
-  }
-  
-  .nav-tabs {
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-  
-  .view-controls {
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .search-container {
-    width: 100%;
-  }
-  
-  .contacts-grid {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  }
-}
-
-@media (max-width: 480px) {
-  .contacts-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .profile-actions {
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .profile-button {
-    width: 100%;
-  }
-}
-/* Adicionar ao final do arquivo home.css */
-
-/* Estilos para o menu do usuário */
+/* Menu do usuário */
 .user-profile {
   position: relative;
   cursor: pointer;
@@ -813,14 +740,3 @@ body {
 .user-menu-item.logout:hover {
   background-color: #f8d7da;
 }
-
-/* Estilos para os diálogos de perfil */
-.btn-cancel {
-  background-color: #6c757d;
-  color: white;
-}
-
-.btn-cancel:hover {
-  background-color: #5a6268;
-}
-
