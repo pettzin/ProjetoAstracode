@@ -45,7 +45,7 @@ router.post("/api/insert", (req, res) => {
 
   const query =
     "INSERT INTO contatos (nome, sobrenome, email, telefone, grupo, imagem, data_criacao) VALUES (?, ?, ?, ?, ?, ?, NOW())"
-  db.query(query, [nome, sobrenome || "", email || "", telefone, grupo || "todos", imagem || null], (err) => {
+  db.query(query, [nome, sobrenome || "", email || "", telefone, grupo || "outros", imagem || null], (err) => {
     if (err) {
       console.error("Erro ao inserir item no banco de dados:", err)
       return res.status(500).send("Erro ao salvar o item.")
@@ -66,7 +66,7 @@ router.put("/api/update/:id", (req, res) => {
 
   const query =
     "UPDATE contatos SET nome = ?, sobrenome = ?, email = ?, telefone = ?, grupo = ?, imagem = ? WHERE id = ?"
-  db.query(query, [nome, sobrenome || "", email || "", telefone, grupo || "todos", imagem || null, id], (err) => {
+  db.query(query, [nome, sobrenome || "", email || "", telefone, grupo || "outros", imagem || null, id], (err) => {
     if (err) {
       console.error("Erro ao atualizar item no banco de dados:", err)
       return res.status(500).send("Erro ao atualizar o item.")
