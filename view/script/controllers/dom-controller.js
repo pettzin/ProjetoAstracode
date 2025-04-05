@@ -9,6 +9,7 @@ export const elements = {
   contactsList: document.getElementById("contactsList"),
   searchInput: document.getElementById("searchInput"),
   sortButton: document.getElementById("sortButton"),
+  sortSelect: document.getElementById("sortSelect"),
   viewOptions: document.querySelectorAll(".view-option"),
   dialogs: {
     message: document.getElementById("messageDialog"),
