@@ -53,30 +53,12 @@
     <!-- App header -->
     <div class="app-header">
       <div class="app-title-main">Contatos</div>
-      <div class="user-profile" onclick="toggleUserMenu()">
+      <div class="user-profile">
         <div class="user-info">
-          <div class="user-name">Usuário</div>
-          <div class="user-role">Papel</div>
+          <div class="user-name">Brenda</div>
+          <div class="user-role">Professora</div>
         </div>
-        <img id="userAvatar" src="../img/iconContact.png" alt="Avatar" class="user-avatar">
         <span>⋮</span>
-        
-        <!-- Menu do usuário -->
-        <div class="user-menu" id="userMenu">
-          <div class="user-menu-item" onclick="showDialog('editProfileDialog')">
-            <i class="fas fa-user-edit"></i> Editar perfil
-          </div>
-          <div class="user-menu-item" onclick="showDialog('changeEmailDialog')">
-            <i class="fas fa-envelope"></i> Alterar email
-          </div>
-          <div class="user-menu-item" onclick="showDialog('changePasswordDialog')">
-            <i class="fas fa-key"></i> Alterar senha
-          </div>
-          <div class="user-menu-divider"></div>
-          <div class="user-menu-item logout" onclick="realizarLogout()">
-            <i class="fas fa-sign-out-alt"></i> Sair
-          </div>
-        </div>
       </div>
     </div>
 
@@ -108,7 +90,7 @@
     <div class="dialog-content">
       <div class="dialog-header">
         <div class="dialog-title">Agendar Mensagem</div>
-        <button class="dialog-close" onclick="closeDialog('messageDialog')">&times;</button>
+        <button class="dialog-close">&times;</button>
       </div>
       
       <!-- Novo campo para selecionar contato -->
@@ -145,7 +127,7 @@
     <div class="dialog-content">
       <div class="dialog-header">
         <div class="dialog-title">Perfil de Contato</div>
-        <button class="dialog-close" onclick="closeDialog('profileDialog')">&times;</button>
+        <button class="dialog-close">&times;</button>
       </div>
       <div class="profile-avatar-container">
         <img src="../img/iconContact.png" alt="Avatar" class="profile-avatar" id="profileAvatar">
@@ -156,7 +138,7 @@
       </div>
       <input type="text" class="profile-input" id="profileName" placeholder="Nome">
       <input type="text" class="profile-input" id="profileSobrenome" placeholder="Sobrenome">
-      <input type="number" class="profile-input" id="profilePhone" placeholder="Telefone">
+      <input type="text" class="profile-input" id="profilePhone" placeholder="Telefone">
       <input type="email" class="profile-input" id="profileEmail" placeholder="Email">
       
       <select class="category-select" id="profileCategory">
@@ -176,7 +158,7 @@
     <div class="dialog-content">
       <div class="dialog-header">
         <div class="dialog-title" id="groupDialogTitle">Novo Grupo</div>
-        <button class="dialog-close" onclick="closeDialog('groupDialog')">&times;</button>
+        <button class="dialog-close">&times;</button>
       </div>
       
       <input type="text" class="group-input" id="groupName" placeholder="Nome do grupo">
@@ -194,79 +176,13 @@
       </div>
     </div>
   </div>
-
-  <!-- Edit Profile Dialog -->
-  <div class="dialog" id="editProfileDialog">
-    <div class="dialog-content">
-      <div class="dialog-header">
-        <div class="dialog-title">Editar Perfil</div>
-        <button class="dialog-close" onclick="closeDialog('editProfileDialog')">&times;</button>
-      </div>
-      <form id="editProfileForm">
-        <div class="profile-avatar-container">
-          <img src="../img/iconContact.png" alt="Avatar" class="profile-avatar" id="editAvatar">
-          <div class="avatar-upload">
-            <label for="editAvatarInput" class="avatar-upload-btn">Alterar</label>
-            <input type="file" id="editAvatarInput" class="avatar-input" accept="image/*">
-          </div>
-        </div>
-        <input type="text" class="profile-input" id="editNome" placeholder="Nome" required>
-        <input type="tel" class="profile-input" id="editTelefone" placeholder="Telefone" required>
-        
-        <div class="profile-actions">
-          <button type="button" class="profile-button btn-cancel" onclick="closeDialog('editProfileDialog')">Cancelar</button>
-          <button type="submit" class="profile-button btn-save">Salvar</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- Change Email Dialog -->
-  <div class="dialog" id="changeEmailDialog">
-    <div class="dialog-content">
-      <div class="dialog-header">
-        <div class="dialog-title">Alterar Email</div>
-        <button class="dialog-close" onclick="closeDialog('changeEmailDialog')">&times;</button>
-      </div>
-      <form id="changeEmailForm">
-        <input type="email" class="profile-input" id="newEmail" placeholder="Novo Email" required>
-        <input type="password" class="profile-input" id="emailConfirmPassword" placeholder="Confirme sua senha" required>
-        
-        <div class="profile-actions">
-          <button type="button" class="profile-button btn-cancel" onclick="closeDialog('changeEmailDialog')">Cancelar</button>
-          <button type="submit" class="profile-button btn-save">Salvar</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- Change Password Dialog -->
-  <div class="dialog" id="changePasswordDialog">
-    <div class="dialog-content">
-      <div class="dialog-header">
-        <div class="dialog-title">Alterar Senha</div>
-        <button class="dialog-close" onclick="closeDialog('changePasswordDialog')">&times;</button>
-      </div>
-      <form id="changePasswordForm">
-        <input type="password" class="profile-input" id="currentPassword" placeholder="Senha Atual" required>
-        <input type="password" class="profile-input" id="newPassword" placeholder="Nova Senha" required>
-        <input type="password" class="profile-input" id="confirmNewPassword" placeholder="Confirme a Nova Senha" required>
-        
-        <div class="profile-actions">
-          <button type="button" class="profile-button btn-cancel" onclick="closeDialog('changePasswordDialog')">Cancelar</button>
-          <button type="submit" class="profile-button btn-save">Salvar</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
   <!-- Loading Spinner -->
   <div class="loading-spinner" id="loadingSpinner">
     <div class="spinner"></div>
   </div>
-
-  <script type="module" src="/view/script/main.js"></script>
-  <script type="module" src="/view/script/user-profile.js"></script>
+  <!-- Add the input masks script before the main script -->
+  <script src="../js/input-masks.js"></script>
+  <script src="../js/scripthome.js"></script>
+  <script src="../js/logger-client.js"></script>
 </body>
-
 </html>
