@@ -53,9 +53,62 @@ const elements = {
     avatar: document.getElementById("avatarInput"),
     profileCategory: document.getElementById("profileCategory"),
     contactSelect: document.getElementById("contactSelect"), // Adicionado: Seletor de contatos
+    profilePhone: document.getElementById("profilePhone"), // Adicionado: Campo de telefone
+    profileEmail: document.getElementById("profileEmail"), // Adicionado: Campo de email
   },
   loading: document.getElementById("loadingSpinner"),
   navTabs: document.getElementById("navTabs"),
+}
+
+// ===== INPUT MASK FUNCTIONS =====
+
+/**
+ * Aplica máscara de telefone ao campo de entrada
+ * @param {HTMLInputElement} input - O elemento de entrada para aplicar a máscara
+ */
+function applyPhoneMask(input) {
+  input.addEventListener("input", (e) => {
+    // Obter apenas dígitos do valor de entrada
+    let value = e.target.value.replace(/\D/g, "")
+
+    // Aplicar formato de máscara de telefone: (XX) XXXXX-XXXX
+    if (value.length > 0) {
+      // Formatar com parênteses para código de área
+      if (value.length <= 2) {
+        value = `(${value}`
+      } else if (value.length <= 7) {
+        value = `(${value.substring(0, 2)}) ${value.substring(2)}`
+      } else {
+        value = `(${value.substring(0, 2)}) ${value.substring(2, 7)}-${value.substring(7, 11)}`
+      }
+    }
+
+    // Atualizar valor de entrada com texto formatado
+    e.target.value = value
+  })
+}
+
+/**
+ * Aplica máscara de email ao campo de entrada
+ * @param {HTMLInputElement} input - O elemento de entrada para aplicar a máscara
+ */
+function applyEmailMask(input) {
+  input.addEventListener("input", (e) => {
+    // Obter valor atual
+    let value = e.target.value
+
+    // Remover espaços
+    value = value.replace(/\s/g, "")
+
+    // Converter para minúsculas para consistência
+    value = value.toLowerCase()
+
+    // Validação básica de email - permitir apenas caracteres válidos de email
+    value = value.replace(/[^a-z0-9@._-]/g, "")
+
+    // Atualizar valor de entrada
+    e.target.value = value
+  })
 }
 
 // ===== UTILITY FUNCTIONS =====
@@ -647,6 +700,15 @@ const openProfileDialog = (contactId) => {
   if (elementExists(profileCategory, "profileCategory")) profileCategory.value = contact.category
   if (elementExists(profileAvatar, "profileAvatar")) profileAvatar.src = contact.avatar
   if (elementExists(profileSobrenome, "profileSobrenome")) profileSobrenome.value = contact.sobrenome || ""
+
+  // Aplicar máscaras aos campos de entrada
+  if (elementExists(profilePhone, "profilePhone")) {
+    applyPhoneMask(profilePhone)
+  }
+
+  if (elementExists(profileEmail, "profileEmail")) {
+    applyEmailMask(profileEmail)
+  }
 
   // Exibir o diálogo
   elements.dialogs.profile.style.display = "flex"
