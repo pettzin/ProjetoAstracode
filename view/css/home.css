@@ -76,16 +76,16 @@ body {
   text-align: center;
 }
 
-.add-contact-btn::before {
-  content: '+';
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 25px; /* espaço entre o ícone e o texto */
+  cursor: pointer;
 }
 
-.email-icon::before {
-  content: '✉️';
-}
-
-.add-group-btn::before {
-  content: '👥';
+.action-btn img {
+  width: 20px;
+  height: 20px;
 }
 
 /* Hover e estado ativo: botão fica amarelo */
@@ -756,28 +756,4 @@ body {
 .view-options {
   display: flex;
   gap: 10px;
-}
-
-.view-option {
-  padding: 8px 15px;
-  border-radius: 5px;
-  background-color: #f0f0f0;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  transition: all 0.2s ease;
-}
-
-.view-option i {
-  font-size: 14px;
-}
-
-.view-option.active {
-  background-color: #333;
-  color: white;
-}
-
-.view-option:hover:not(.active) {
-  background-color: #e0e0e0;
 }
