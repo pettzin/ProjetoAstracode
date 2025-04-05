@@ -747,3 +747,80 @@ body {
     width: 100%;
   }
 }
+/* Adicionar ao final do arquivo home.css */
+
+/* Estilos para o menu do usuário */
+.user-profile {
+  position: relative;
+  cursor: pointer;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-left: 10px;
+  object-fit: cover;
+  border: 2px solid #e9ecef;
+}
+
+.user-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  width: 200px;
+  z-index: 1000;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+.user-menu.show {
+  display: block;
+}
+
+.user-menu-item {
+  padding: 12px 15px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.user-menu-item:hover {
+  background-color: #f8f9fa;
+}
+
+.user-menu-item i {
+  margin-right: 10px;
+  width: 20px;
+  text-align: center;
+}
+
+.user-menu-divider {
+  height: 1px;
+  background-color: #e9ecef;
+  margin: 5px 0;
+}
+
+.user-menu-item.logout {
+  color: #dc3545;
+}
+
+.user-menu-item.logout:hover {
+  background-color: #f8d7da;
+}
+
+/* Estilos para os diálogos de perfil */
+.btn-cancel {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn-cancel:hover {
+  background-color: #5a6268;
+}
+
