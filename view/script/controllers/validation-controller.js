@@ -63,3 +63,37 @@ export const formatarTelefone = (input) => {
   input.value = resultado
 }
 
+/**
+ * Função para aplicar formatação de telefone em todos os inputs de telefone
+ * Esta função deve ser chamada após o carregamento do DOM
+ */
+export const aplicarFormatacaoTelefone = () => {
+  const phoneInputs = document.querySelectorAll(
+    'input[type="tel"], input[id*="phone"], input[id*="Phone"], input[id*="telefone"], input[id*="Telefone"]',
+  )
+
+  phoneInputs.forEach((input) => {
+    // Converter para tipo tel para melhor compatibilidade
+    if (input.type !== "tel") {
+      input.type = "tel"
+    }
+
+    // Adicionar event listener para formatação automática
+    input.addEventListener("input", () => formatarTelefone(input))
+
+    // Aplicar formatação inicial se já tiver valor
+    if (input.value) {
+      formatarTelefone(input)
+    }
+  })
+}
+
+// Exportar todas as funções
+export default {
+  validarNome,
+  validarEmail,
+  validarTelefone,
+  validarSenha,
+  formatarTelefone,
+  aplicarFormatacaoTelefone,
+}

@@ -13,7 +13,7 @@ export const API = {
     UPDATE: (id) => `/api/update/${id}`,
     DELETE: (id) => `/api/delete/${id}`,
   },
-}
+};
 
 /**
  * Verifica a conexão com a API

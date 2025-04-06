@@ -39,7 +39,7 @@ body {
   gap: 10px;
 }
 
-/* Imagem de 50x50 */
+/* Imagem cruzeiro */
 .cruzeiro-icon {
   width: 200px;
   height: 200px;
@@ -93,8 +93,8 @@ body {
 /* Hover e estado ativo: botão fica amarelo */
 .action-btn:hover,
 .action-btn.active {
-  background-color: #ffc107; /* amarelo */
-  color: white;
+  background-color: #fefe04; /* amarelo */
+  color: rgb(0, 0, 0);
 }
 
 /* Filtros de Grupo (Nav Tabs) */
@@ -112,14 +112,14 @@ body {
 }
 
 .nav-tab:hover {
-  background-color: #ffc107; /* amarelo */
-  color: white;
+  background-color: #fefe04; /* amarelo */
+  color: rgb(0, 0, 0);
 }
 
 .nav-tab.active {
-  background-color: #ffc107; /* amarelo */
+  background-color: #fefe04; /* amarelo */
   font-weight: bold;
-  color: white;
+  color: rgb(0, 0, 0);
 }
 
 /* Botão de edição de grupo */
@@ -168,8 +168,8 @@ body {
 
 .view-option:hover,
 .view-option.active {
-  background-color: #ffc107; /* amarelo */
-  color: white;
+  background-color: #fefe04; /* amarelo */
+  color: rgb(0, 0, 0);
 }
 
 .view-option i {
@@ -757,5 +757,87 @@ body {
 
 .view-options {
   display: flex;
+  gap: 10px;
+}
+/* Padronização dos botões */
+.profile-button,
+.group-button,
+.send-button,
+.whattsbutton {
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s, transform 0.1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.profile-button:hover,
+.group-button:hover,
+.send-button:hover,
+.whattsbutton:hover {
+  transform: translateY(-2px);
+}
+
+.profile-button:active,
+.group-button:active,
+.send-button:active,
+.whattsbutton:active {
+  transform: translateY(0);
+}
+
+.profile-actions,
+.group-actions,
+.message-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+/* Padronização dos selects */
+.profile-input,
+.contact-select,
+.category-select,
+.sort-select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  font-size: 14px;
+  margin-bottom: 10px;
+  background-color: white;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23212529' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 15px;
+}
+
+.profile-input:focus,
+.contact-select:focus,
+.category-select:focus,
+.sort-select:focus {
+  outline: none;
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
+}
+
+/* Espaçamento padronizado para a sidebar */
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 0 20px;
+  margin-bottom: 30px;
+}
+
+.nav-tabs {
+  display: flex;
+  flex-direction: column;
   gap: 10px;
 }

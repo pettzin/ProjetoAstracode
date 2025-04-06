@@ -17,6 +17,7 @@ import {
   handleAvatarUpload,
 } from "./controllers/view-controller.js"
 import { sendMessage, sendWhatsAppMessage } from "./controllers/message-controller.js"
+import { formatarTelefone, aplicarFormatacaoTelefone } from './controllers/validation-controller.js';
 
 // ===== STATE =====
 const state = {
@@ -193,6 +194,18 @@ const init = async () => {
   setupEventListeners()
 
   console.log("Aplicação inicializada com sucesso!")
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  aplicarFormatacaoTelefone();
+});
+
+const sortSelect = document.getElementById('sortSelect');
+if (sortSelect) {
+  sortSelect.addEventListener('change', () => {
+    state.filter.sort = sortSelect.value;
+    renderContacts(state);
+  });
 }
 
 // Inicializar a aplicação quando o DOM estiver carregado

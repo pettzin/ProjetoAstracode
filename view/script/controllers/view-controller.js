@@ -109,7 +109,7 @@ export const renderContacts = (state) => {
   }
 
   // Sort contacts
-  const sortedContacts = sortContacts(filteredContacts, state.filter.sort)
+  const sortedContacts = sortContacts(filteredContacts, state.filter.sort);
 
   // Clear both containers
   elements.contactsGrid.innerHTML = ""
@@ -593,4 +593,5 @@ export const handleAvatarUpload = async (event) => {
 const setDefaultDateTime = () => {
   // Implementation for setDefaultDateTime
 }
+
 
