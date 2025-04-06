@@ -1,4 +1,4 @@
-/* Reset e configurações globais */
+/* ========== RESET E CONFIGURAÇÕES GLOBAIS ========== */
 * {
   margin: 0;
   padding: 0;
@@ -13,11 +13,35 @@ body {
   display: flex;
 }
 
+/* ========== VARIÁVEIS DE CORES ========== */
+:root {
+  --color-primary: #0062b1;
+  --color-primary-hover: #0062b1;
+  --color-secondary: #fefe04;
+  --color-dark: #212529;
+  --color-dark-hover: #343a40;
+  --color-danger: #c82333;
+  --color-danger-hover: #c82333;
+  --color-success: #0062b1;
+  --color-success-hover: #0062b1;
+  --color-light: #f8f9fa;
+  --color-border: #e9ecef;
+  --color-border-input: #ced4da;
+  --color-text-muted: #6c757d;
+  --color-text-dark: #212529;
+  --color-white: #ffffff;
+  --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.1);
+  --border-radius: 8px;
+  --transition-default: all 0.2s ease;
+}
+
+/* ========== LAYOUT PRINCIPAL ========== */
 /* Sidebar area */
 .sidebar-area {
   width: 250px;
-  background-color: white;
-  border-right: 1px solid #e9ecef;
+  background-color: var(--color-white);
+  border-right: 1px solid var(--color-border);
   padding: 20px 0;
   display: flex;
   flex-direction: column;
@@ -30,7 +54,7 @@ body {
   font-size: 18px;
   font-weight: bold;
   padding: 0 20px 20px 20px;
-  border-bottom: 1px solid #e9ecef;
+  border-bottom: 1px solid var(--color-border);
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
@@ -39,13 +63,22 @@ body {
   gap: 10px;
 }
 
-/* Imagem cruzeiro */
 .cruzeiro-icon {
   width: 200px;
   height: 200px;
   object-fit: cover;
 }
 
+/* Conteúdo principal */
+.main-content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ========== COMPONENTES DA SIDEBAR ========== */
 /* Action buttons container */
 .action-buttons {
   display: flex;
@@ -55,34 +88,18 @@ body {
   margin-bottom: 30px;
 }
 
-/* Botões laterais em azul */
+/* Botões laterais */
 .action-btn {
   display: flex;
   align-items: center;
   padding: 10px;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: var(--transition-default);
   font-size: 14px;
-  background-color: #0078d7; /* azul */
-  color: white;
-}
-
-/* Ícones dos botões (Home removido) */
-.add-contact-btn::before,
-.email-icon::before,
-.add-group-btn::before {
-  margin-right: 10px;
-  width: 20px;
-  display: inline-block;
-  text-align: center;
-}
-
-.action-btn {
-  display: flex;
-  align-items: center;
+  background-color: var(--color-primary);
+  color: var(--color-white);
   gap: 25px; /* espaço entre o ícone e o texto */
-  cursor: pointer;
 }
 
 .action-btn img {
@@ -90,36 +107,41 @@ body {
   height: 20px;
 }
 
-/* Hover e estado ativo: botão fica amarelo */
 .action-btn:hover,
 .action-btn.active {
-  background-color: #fefe04; /* amarelo */
-  color: rgb(0, 0, 0);
+  background-color: var(--color-secondary);
+  color: var(--color-text-dark);
 }
 
 /* Filtros de Grupo (Nav Tabs) */
+.nav-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .nav-tab {
   padding: 10px;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: var(--transition-default);
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-size: 14px;
-  background-color: #0078d7; /* azul */
-  color: white;
+  background-color: var(--color-primary);
+  color: var(--color-white);
 }
 
 .nav-tab:hover {
-  background-color: #fefe04; /* amarelo */
-  color: rgb(0, 0, 0);
+  background-color: var(--color-secondary);
+  color: var(--color-text-dark);
 }
 
 .nav-tab.active {
-  background-color: #fefe04; /* amarelo */
+  background-color: var(--color-secondary);
   font-weight: bold;
-  color: rgb(0, 0, 0);
+  color: var(--color-text-dark);
 }
 
 /* Botão de edição de grupo */
@@ -134,14 +156,16 @@ body {
 }
 
 /* Seção de visualização */
-.visualization-section {
+.visualization-section,
+.categories-section {
   margin-top: 30px;
   padding: 0 20px;
 }
 
-.visualization-title {
+.visualization-title,
+.categories-title {
   font-size: 12px;
-  color: #6c757d;
+  color: var(--color-text-muted);
   margin-bottom: 10px;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -153,23 +177,23 @@ body {
   gap: 5px;
 }
 
-/* Botões Miniatura e Lista em azul */
+/* Botões Miniatura e Lista */
 .view-option {
   padding: 10px;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: var(--transition-default);
   display: flex;
   align-items: center;
   font-size: 14px;
-  background-color: #0078d7; /* azul */
-  color: white;
+  background-color: var(--color-primary);
+  color: var(--color-white);
 }
 
 .view-option:hover,
 .view-option.active {
-  background-color: #fefe04; /* amarelo */
-  color: rgb(0, 0, 0);
+  background-color: var(--color-secondary);
+  color: var(--color-text-dark);
 }
 
 .view-option i {
@@ -178,30 +202,7 @@ body {
   text-align: center;
 }
 
-/* Seção de categorias */
-.categories-section {
-  margin-top: 30px;
-  padding: 0 20px;
-}
-
-.categories-title {
-  font-size: 12px;
-  color: #6c757d;
-  margin-bottom: 10px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-/* Conteúdo principal */
-.main-content {
-  flex: 1;
-  padding: 20px;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Cabeçalho da aplicação */
+/* ========== CABEÇALHO DA APLICAÇÃO ========== */
 .app-header {
   display: flex;
   justify-content: space-between;
@@ -214,13 +215,15 @@ body {
   font-weight: bold;
 }
 
+/* ========== PERFIL DO USUÁRIO ========== */
 .user-profile {
   display: flex;
   align-items: center;
   gap: 10px;
+  position: relative;
+  cursor: pointer;
 }
 
-/* Informações do usuário */
 .user-info {
   text-align: right;
 }
@@ -230,11 +233,71 @@ body {
 }
 
 .user-role {
-  color: #6c757d;
+  color: var(--color-text-muted);
   font-size: 12px;
 }
 
-/* Controles de visualização */
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-left: 10px;
+  object-fit: cover;
+  border: 2px solid var(--color-border);
+}
+
+/* Menu do usuário */
+.user-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: var(--color-white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  width: 200px;
+  z-index: 1000;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+.user-menu.show {
+  display: block;
+}
+
+.user-menu-item {
+  padding: 12px 15px;
+  cursor: pointer;
+  transition: var(--transition-default);
+  display: flex;
+  align-items: center;
+}
+
+.user-menu-item:hover {
+  background-color: var(--color-light);
+}
+
+.user-menu-item i {
+  margin-right: 10px;
+  width: 20px;
+  text-align: center;
+}
+
+.user-menu-divider {
+  height: 1px;
+  background-color: var(--color-border);
+  margin: 5px 0;
+}
+
+.user-menu-item.logout {
+  color: var(--color-danger);
+}
+
+.user-menu-item.logout:hover {
+  background-color: #f8d7da;
+}
+
+/* ========== CONTROLES DE VISUALIZAÇÃO ========== */
 .view-controls {
   display: flex;
   justify-content: space-between;
@@ -250,8 +313,8 @@ body {
 .search-bar {
   width: 100%;
   padding: 10px 15px;
-  border-radius: 8px;
-  border: 1px solid #ced4da;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-border-input);
   font-size: 14px;
 }
 
@@ -266,22 +329,19 @@ body {
   gap: 10px;
 }
 
-.sort-button {
-  padding: 8px 15px;
-  border-radius: 8px;
-  border: 1px solid #ced4da;
-  background-color: white;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 5px;
+.sort-label {
   font-size: 14px;
+  color: #666;
+  white-space: nowrap;
 }
 
-.sort-button:hover {
-  background-color: #f8f9fa;
+.sort-select {
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
 }
 
+/* ========== VISUALIZAÇÃO DE CONTATOS ========== */
 /* Grade de contatos */
 .contacts-grid {
   display: grid;
@@ -290,21 +350,21 @@ body {
 }
 
 .contact-card {
-  background-color: white;
-  border-radius: 8px;
+  background-color: var(--color-white);
+  border-radius: var(--border-radius);
   padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  border: 1px solid #e9ecef;
+  border: 1px solid var(--color-border);
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .contact-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
 }
 
 .contact-avatar {
@@ -313,7 +373,7 @@ body {
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 15px;
-  background-color: #e9ecef;
+  background-color: var(--color-border);
 }
 
 .contact-name {
@@ -322,7 +382,7 @@ body {
 }
 
 .contact-phone {
-  color: #6c757d;
+  color: var(--color-text-muted);
   font-size: 14px;
 }
 
@@ -334,19 +394,19 @@ body {
 }
 
 .contact-row {
-  background-color: white;
-  border-radius: 8px;
+  background-color: var(--color-white);
+  border-radius: var(--border-radius);
   padding: 15px;
   display: flex;
   align-items: center;
-  border: 1px solid #e9ecef;
+  border: 1px solid var(--color-border);
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .contact-row:hover {
   transform: translateX(5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
 }
 
 .contact-row .contact-avatar {
@@ -360,7 +420,7 @@ body {
 }
 
 .contact-row .contact-email {
-  color: #6c757d;
+  color: var(--color-text-muted);
   font-size: 14px;
 }
 
@@ -368,7 +428,7 @@ body {
   margin-left: auto;
 }
 
-/* Diálogos (dialogs) */
+/* ========== DIÁLOGOS ========== */
 .dialog {
   display: none;
   position: fixed;
@@ -383,12 +443,12 @@ body {
 }
 
 .dialog-content {
-  background-color: white;
-  border-radius: 8px;
+  background-color: var(--color-white);
+  border-radius: var(--border-radius);
   padding: 20px;
   width: 400px;
   max-width: 90%;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-md);
 }
 
 .dialog-header {
@@ -410,246 +470,57 @@ body {
   cursor: pointer;
 }
 
-/* Caixa de texto para mensagens */
-.message-textarea {
+/* ========== FORMULÁRIOS ========== */
+/* Inputs e selects padronizados */
+.profile-input,
+.contact-select,
+.category-select,
+.sort-select,
+.group-input,
+.message-textarea,
+.date-input,
+.time-input {
   width: 100%;
-  height: 140px;
   padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ced4da;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-border-input);
+  font-size: 14px;
+  margin-bottom: 10px;
+  background-color: var(--color-white);
+}
+
+/* Estilo específico para selects */
+.contact-select,
+.category-select,
+.sort-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23212529' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 15px;
+}
+
+.profile-input:focus,
+.contact-select:focus,
+.category-select:focus,
+.sort-select:focus,
+.group-input:focus,
+.message-textarea:focus,
+.date-input:focus,
+.time-input:focus {
+  outline: none;
+  border-color: var(--color-success);
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
+}
+
+/* Textarea para mensagens */
+.message-textarea {
+  height: 140px;
   resize: none;
   margin-bottom: 15px;
-  font-size: 14px;
 }
 
-.message-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.date-time-picker {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
-}
-
-.date-input, .time-input {
-  padding: 8px;
-  border-radius: 8px;
-  border: 1px solid #ced4da;
-  font-size: 14px;
-}
-
-/* Botões de envio de mensagem */
-.send-button, .whattsbutton {
-  background-color: #212529;
-  color: white;
-  border: none;
-  padding: 8px 15px;
-  border-radius: 8px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 14px;
-}
-
-.send-button:hover, .whattsbutton:hover {
-  background-color: #343a40;
-}
-
-/* Diálogo de perfil */
-.profile-input {
-  width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ced4da;
-  margin-bottom: 10px;
-  font-size: 14px;
-}
-
-/* Botões de ação no perfil e demais diálogos */
-
-/* Botões de mensagem */
-.btn-message {
-  background-color: #212529;
-  color: white;
-}
-
-.btn-message:hover {
-  background-color: #343a40;
-}
-
-/* Botões de exclusão e cancelamento em vermelho */
-.btn-delete,
-.btn-cancel {
-  background-color: #dc3545;
-  color: white;
-}
-
-.btn-delete:hover,
-.btn-cancel:hover {
-  background-color: #c82333;
-}
-
-/* Botão de salvar em azul */
-.btn-save {
-  background-color: #0d6efd;
-  color: white;
-}
-
-.btn-save:hover {
-  background-color: #0b5ed7;
-}
-
-.profile-avatar-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.profile-avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 10px;
-  border: 2px solid #e9ecef;
-  background-color: #e9ecef;
-}
-
-.avatar-upload {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.avatar-upload-btn {
-  background-color: #e9ecef;
-  color: #212529;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.avatar-upload-btn:hover {
-  background-color: #dee2e6;
-}
-
-.avatar-input {
-  display: none;
-}
-
-/* Diálogo de grupos */
-.group-input {
-  width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ced4da;
-  margin-bottom: 15px;
-  font-size: 14px;
-}
-
-.group-members {
-  margin-bottom: 15px;
-}
-
-.group-members-title {
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.member-list {
-  max-height: 200px;
-  overflow-y: auto;
-  border: 1px solid #ced4da;
-  border-radius: 8px;
-  padding: 10px;
-}
-
-.member-item {
-  display: flex;
-  align-items: center;
-  padding: 8px 0;
-  border-bottom: 1px solid #e9ecef;
-}
-
-.member-item:last-child {
-  border-bottom: none;
-}
-
-.member-checkbox {
-  margin-right: 10px;
-}
-
-.member-name {
-  flex: 1;
-}
-
-.group-actions {
-  display: flex;
-  justify-content: space-between;
-}
-
-.group-button {
-  padding: 8px 15px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.btn-create-group {
-  background-color: #0d6efd;
-  color: white;
-}
-
-.btn-create-group:hover {
-  background-color: #0b5ed7;
-}
-
-.btn-delete-group {
-  background-color: #dc3545;
-  color: white;
-}
-
-.btn-delete-group:hover {
-  background-color: #c82333;
-}
-
-/* Loading Spinner */
-.loading-spinner {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 2000;
-  justify-content: center;
-  align-items: center;
-}
-
-.spinner {
-  width: 50px;
-  height: 50px;
-  border: 5px solid #f3f3f3;
-  border-top: 5px solid #0d6efd;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* Seletor de contato no diálogo de mensagem */
+/* Container de seleção de contato */
 .contact-select-container {
   margin-bottom: 15px;
 }
@@ -660,112 +531,21 @@ body {
   font-weight: bold;
 }
 
-.contact-select {
-  width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ced4da;
-  font-size: 14px;
-  appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23212529' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-  background-size: 15px;
-}
-
-.contact-select:focus {
-  outline: none;
-  border-color: #0d6efd;
-}
-
-/* Menu do usuário */
-.user-profile {
-  position: relative;
-  cursor: pointer;
-}
-
-.user-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  margin-left: 10px;
-  object-fit: cover;
-  border: 2px solid #e9ecef;
-}
-
-.user-menu {
-  display: none;
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  width: 200px;
-  z-index: 1000;
-  margin-top: 10px;
-  overflow: hidden;
-}
-
-.user-menu.show {
-  display: block;
-}
-
-.user-menu-item {
-  padding: 12px 15px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  display: flex;
-  align-items: center;
-}
-
-.user-menu-item:hover {
-  background-color: #f8f9fa;
-}
-
-.user-menu-item i {
-  margin-right: 10px;
-  width: 20px;
-  text-align: center;
-}
-
-.user-menu-divider {
-  height: 1px;
-  background-color: #e9ecef;
-  margin: 5px 0;
-}
-
-.user-menu-item.logout {
-  color: #dc3545;
-}
-
-.user-menu-item.logout:hover {
-  background-color: #f8d7da;
-}
-
-.sort-label {
-  font-size: 14px;
-  color: #666;
-  white-space: nowrap;
-}
-
-.sort-select {
-  padding: 5px 10px;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-}
-
-.view-options {
+/* Seletor de data e hora */
+.date-time-picker {
   display: flex;
   gap: 10px;
+  margin-bottom: 15px;
 }
-/* Padronização dos botões */
+
+/* ========== BOTÕES ========== */
+/* Estilo base para todos os botões */
 .profile-button,
 .group-button,
 .send-button,
 .whattsbutton {
   padding: 10px 15px;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   border: none;
   cursor: pointer;
   font-size: 14px;
@@ -790,6 +570,7 @@ body {
   transform: translateY(0);
 }
 
+/* Containers de botões */
 .profile-actions,
 .group-actions,
 .message-footer {
@@ -799,45 +580,154 @@ body {
   margin-top: 15px;
 }
 
-/* Padronização dos selects */
-.profile-input,
-.contact-select,
-.category-select,
-.sort-select {
-  width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ced4da;
-  font-size: 14px;
+/* Variantes de botões */
+/* Botões de mensagem */
+.btn-message,
+.send-button,
+.whattsbutton {
+  background-color: var(--color-dark);
+  color: var(--color-white);
+}
+
+.btn-message:hover,
+.send-button:hover,
+.whattsbutton:hover {
+  background-color: var(--color-dark-hover);
+}
+
+/* Botões de exclusão e cancelamento */
+.btn-delete,
+.btn-cancel,
+.btn-delete-group {
+  background-color: var(--color-danger);
+  color: var(--color-white);
+}
+
+.btn-delete:hover,
+.btn-cancel:hover,
+.btn-delete-group:hover {
+  background-color: var(--color-danger-hover);
+}
+
+/* Botões de salvar */
+.btn-save,
+.btn-create-group {
+  background-color: var(--color-success);
+  color: var(--color-white);
+}
+
+.btn-save:hover,
+.btn-create-group:hover {
+  background-color: var(--color-success-hover);
+}
+
+/* ========== AVATAR E UPLOAD ========== */
+.profile-avatar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.profile-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
   margin-bottom: 10px;
-  background-color: white;
-  appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23212529' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-  background-size: 15px;
+  border: 2px solid var(--color-border);
+  background-color: var(--color-border);
 }
 
-.profile-input:focus,
-.contact-select:focus,
-.category-select:focus,
-.sort-select:focus {
-  outline: none;
-  border-color: #0d6efd;
-  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
-}
-
-/* Espaçamento padronizado para a sidebar */
-.action-buttons {
+.avatar-upload {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  padding: 0 20px;
-  margin-bottom: 30px;
+  align-items: center;
 }
 
-.nav-tabs {
+.avatar-upload-btn {
+  background-color: var(--color-border);
+  color: var(--color-text-dark);
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.avatar-upload-btn:hover {
+  background-color: #dee2e6;
+}
+
+.avatar-input {
+  display: none;
+}
+
+/* ========== DIÁLOGO DE GRUPOS ========== */
+.group-members {
+  margin-bottom: 15px;
+}
+
+.group-members-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.member-list {
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid var(--color-border-input);
+  border-radius: var(--border-radius);
+  padding: 10px;
+}
+
+.member-item {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.member-item:last-child {
+  border-bottom: none;
+}
+
+.member-checkbox {
+  margin-right: 10px;
+}
+
+.member-name {
+  flex: 1;
+}
+
+/* ========== LOADING SPINNER ========== */
+.loading-spinner {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid var(--color-success);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
