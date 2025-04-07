@@ -183,7 +183,8 @@ export const updateNavTabs = (state) => {
     } else {
       tabElement.innerHTML = `
                 <div class="nav-tab-content">${group.name}</div>
-                <div class="edit-group-btn" data-group="${group.id}">⚙️</div>
+                <div class="edit-group-btn" data-group="${group.id}">
+                <i class="fas fa-list"></i></div>
             `
 
       // Add event listener to edit group button

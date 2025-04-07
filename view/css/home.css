@@ -15,15 +15,15 @@ body {
 
 /* ========== VARIÁVEIS DE CORES ========== */
 :root {
-  --color-primary: #0C29C6;
-  --color-primary-hover: #0C29C6;
+  --color-primary: #292929;
+  --color-primary-hover: #ff0000;
   --color-secondary: #fefe04;
   --color-dark: #212529;
-  --color-dark-hover: #343a40;
+  --color-dark-hover: #2acfbd;
   --color-danger: #c82333;
   --color-danger-hover: #c82333;
-  --color-success: #0C29C6;
-  --color-success-hover: #0C29C6;
+  --color-success: #292929;
+  --color-success-hover: #0cfe04;
   --color-light: #f8f9fa;
   --color-border: #e9ecef;
   --color-border-input: #ced4da;
