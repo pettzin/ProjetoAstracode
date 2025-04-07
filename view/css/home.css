@@ -51,6 +51,7 @@ body {
 
 /* App title */
 .app-title {
+  margin-top: 10px;
   font-size: 18px;
   font-weight: bold;
   padding: 0 20px 20px 20px;
@@ -665,7 +666,7 @@ body {
 
 /* ========== DIÁLOGO DE GRUPOS ========== */
 .group-members {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .group-members-title {
