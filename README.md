@@ -33,7 +33,7 @@ Tudo isso com uma interface amigável, responsiva e compatível com todos os nav
 
 - **Organização pessoal e profissional:** Permite ao usuário manter todos os contatos bem organizados e categorizados.
 - **Comunicação eficiente:** Com recursos de envio e agendamento de mensagens, a comunicação torna-se mais rápida e programável.
-- **Acessibilidade e compatibilidade:** Roda perfeitamente em qualquer navegador moderno e sistema operacional, sem necessidade de instalação.
+- **Acessibilidade e compatibilidade:** Roda perfeitamente em qualquer navegador moderno e sistema operacional.
 - **Facilidade de uso:** Interface simples e intuitiva que qualquer pessoa pode usar, mesmo sem conhecimento técnico.
 - **Segurança e personalização:** Cada usuário tem seu próprio espaço seguro, com opções de personalização do perfil.
 
@@ -74,6 +74,10 @@ Tudo isso com uma interface amigável, responsiva e compatível com todos os nav
 ### 👤 Perfil e segurança:
 - No canto superior direito, acesse seu perfil.
 - Edite e-mail, senha ou faça logout com segurança.
+
+---
+
+O Astracode é mais do que uma simples agenda digital é uma solução completa para quem busca praticidade, organização e eficiência. Com uma interface moderna e recursos úteis como agendamento de mensagens, criação de grupos e personalização de perfil, o sistema proporciona uma experiência fluida e intuitiva para todos os usuários.
 
 ---
 
