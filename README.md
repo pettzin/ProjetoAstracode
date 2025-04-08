@@ -41,17 +41,11 @@ Tudo isso com uma interface amigável, responsiva e compatível com todos os nav
 
 ## 🛠️ Tecnologias utilizadas
 
-- **Frontend:** HTML + CSS + JavaScript  
+- **Frontend:** HTML + CSS + JavaScript + Bootstrap5
 - **Backend:** Node.js  
 - **Banco de dados:** MySQL
 
 ---
-
-## 🚀 Instruções de uso
-
-1. Inicie o servidor backend Node.js.
-2. Abra o navegador e acesse: `http://localhost:3000`
-3. Cadastre-se como novo usuário e faça login.
 
 ### 👥 Adicione contatos:
 - Clique no botão “Adicionar” no menu lateral.
@@ -81,4 +75,4 @@ O Astracode é mais do que uma simples agenda digital é uma solução completa 
 
 ---
 
-Desenvolvido por [Renan Alves, Matheus Domeneghetti, Petterson da Silva e Veronica Neves]
+Desenvolvido por [Matheus Domeneghetti, Petterson da Silva, Renan Alves e Veronica Neves]
