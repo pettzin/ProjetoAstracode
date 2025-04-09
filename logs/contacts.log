@@ -4,3 +4,12 @@
 [09/04/2025, 11:08:23] [CREATE] [User: system] {"id":158,"nome":"Andy","sobrenome":"Andressa","email":"","telefone":"(34) 72721-83","grupo":"todos"}
 [09/04/2025, 11:08:35] [UPDATE] [User: system] {"nome":"Andy","sobrenome":"Andy","email":"","telefone":"(34) 72721-83","grupo":"todos","imagem":"http://127.0.0.1:3001/view/img/iconContact.png"}
 [09/04/2025, 11:08:41] [DELETE] [User: system] {"id":"158","mensagem":"Contato ID 158 foi excluído"}
+[09/04/2025, 13:35:52] [DELETE] [User: system] {"id":"167","mensagem":"Contato ID 167 foi excluído"}
+[09/04/2025, 13:36:11] [CREATE] [User: system] {"id":169,"nome":"teste","sobrenome":"rrozx","email":"","telefone":"(33) 32152-1411","grupo":"todos"}
+[09/04/2025, 13:36:42] [CREATE] [User: system] {"id":170,"nome":"asdsdfa","sobrenome":"asdfasdf","email":"","telefone":"(21) 33245-4323","grupo":"todos"}
+[09/04/2025, 13:38:05] [CREATE] [User: system] {"id":171,"nome":"vccvxcvxcv","sobrenome":"sdfdsfsd","email":"","telefone":"(33) 32562-1151","grupo":"todos"}
+[09/04/2025, 13:38:32] [DELETE] [User: system] {"id":"170","mensagem":"Contato ID 170 foi excluído"}
+[09/04/2025, 13:38:39] [DELETE] [User: system] {"id":"164","mensagem":"Contato ID 164 foi excluído"}
+[09/04/2025, 13:38:44] [DELETE] [User: system] {"id":"169","mensagem":"Contato ID 169 foi excluído"}
+[09/04/2025, 13:38:50] [DELETE] [User: system] {"id":"171","mensagem":"Contato ID 171 foi excluído"}
+[09/04/2025, 13:39:10] [DELETE] [User: system] {"id":"165","mensagem":"Contato ID 165 foi excluído"}

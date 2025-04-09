@@ -65,7 +65,7 @@ export const fetchContacts = async (state) => {
     updateContactSelect(state)
   } catch (error) {
     console.error("Erro ao buscar contatos:", error)
-    alert("Não foi possível carregar os contatos. Verifique a conexão com o servidor.")
+    
 
     // Exibir mensagem no grid de contatos
     const contactsGrid = document.getElementById("contactsGrid")

@@ -8,7 +8,6 @@ export const elements = {
   contactsGrid: document.getElementById("contactsGrid"),
   contactsList: document.getElementById("contactsList"),
   searchInput: document.getElementById("searchInput"),
-  sortButton: document.getElementById("sortButton"),
   viewOptions: document.querySelectorAll(".view-option"),
   dialogs: {
     message: document.getElementById("messageDialog"),

@@ -46,15 +46,6 @@ const setupEventListeners = () => {
     })
   }
 
-  // Sort functionality
-  if (elementExists(elements.sortButton, "sortButton")) {
-    elements.sortButton.addEventListener("click", () => {
-      // Alternar entre opções de ordenação
-      state.filter.sort = state.filter.sort === "name" ? "name-desc" : "name"
-      renderContacts(state)
-    })
-  }
-
   // View options
   elements.viewOptions.forEach((option) => {
     if (elementExists(option, "viewOption")) {
