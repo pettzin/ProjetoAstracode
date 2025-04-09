@@ -1,0 +1,6 @@
+[09/04/2025, 11:06:44] [CREATE] [User: system] {"id":157,"nome":"Math","sobrenome":"Dom","email":"math.math@hotmail.com","telefone":"(09) 09090-2323","grupo":"todos"}
+[09/04/2025, 11:07:02] [UPDATE] [User: system] {"nome":"Math","sobrenome":"Domeneghetti","email":"math.math@hotmail.com","telefone":"(09) 09090-9090","grupo":"todos","imagem":"http://127.0.0.1:3001/view/img/iconContact.png"}
+[09/04/2025, 11:07:12] [DELETE] [User: system] {"id":"157","mensagem":"Contato ID 157 foi excluído"}
+[09/04/2025, 11:08:23] [CREATE] [User: system] {"id":158,"nome":"Andy","sobrenome":"Andressa","email":"","telefone":"(34) 72721-83","grupo":"todos"}
+[09/04/2025, 11:08:35] [UPDATE] [User: system] {"nome":"Andy","sobrenome":"Andy","email":"","telefone":"(34) 72721-83","grupo":"todos","imagem":"http://127.0.0.1:3001/view/img/iconContact.png"}
+[09/04/2025, 11:08:41] [DELETE] [User: system] {"id":"158","mensagem":"Contato ID 158 foi excluído"}

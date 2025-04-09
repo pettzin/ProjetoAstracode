@@ -18,6 +18,7 @@ import {
 } from "./controllers/view-controller.js"
 import { sendMessage, sendWhatsAppMessage } from "./controllers/message-controller.js"
 import { formatarTelefone, aplicarFormatacaoTelefone } from './controllers/validation-controller.js';
+import { logAction } from "./controllers/log-controller.js"
 
 // ===== STATE =====
 const state = {
@@ -165,6 +166,9 @@ const setupEventListeners = () => {
  */
 const init = async () => {
   console.log("Inicializando aplicação...")
+
+  // Registrar log de inicialização
+  logAction('init', { message: 'Aplicação inicializada' });
 
   // Verificar se os elementos essenciais existem
   if (!elementExists(elements.contactsGrid, "contactsGrid") || !elementExists(elements.contactsList, "contactsList")) {

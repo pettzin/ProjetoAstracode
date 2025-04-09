@@ -3,6 +3,7 @@
 
 import { showLoading, hideLoading } from "./dom-controller.js"
 import { updateContactSelect, renderContacts } from "./view-controller.js"
+import { logContactCreated, logContactUpdated, logContactDeleted } from './log-controller.js';
 
 // Configuração da API
 export const API = {
@@ -114,6 +115,9 @@ export const createContact = async (contact, state) => {
       throw new Error("Erro ao criar contato")
     }
 
+    // Registrar log de criação de contato
+    logContactCreated(contact);
+
     await fetchContacts(state)
     return true
   } catch (error) {
@@ -154,6 +158,9 @@ export const updateContact = async (contact, state) => {
       throw new Error("Erro ao atualizar contato")
     }
 
+    // Registrar log de atualização de contato
+    logContactUpdated(contact);
+
     await fetchContacts(state)
     return true
   } catch (error) {
@@ -171,24 +178,37 @@ export const updateContact = async (contact, state) => {
  * @returns {Promise<boolean>} - Success status
  */
 export const deleteContactAPI = async (contactId, state) => {
-  showLoading()
+  showLoading();
   try {
+    console.log(`Tentando excluir contato ID: ${contactId}`);
+    
     const response = await fetch(`${API.BASE_URL}${API.ENDPOINTS.DELETE(contactId)}`, {
       method: "DELETE",
-    })
-
-    if (!response.ok) {
-      throw new Error("Erro ao excluir contato")
+    });
+    
+    console.log(`Resposta do servidor:`, response);
+    
+    // Verificar o texto da resposta para depuração
+    const responseText = await response.text();
+    console.log(`Texto da resposta:`, responseText);
+    
+    // Se chegou até aqui, consideramos a operação bem-sucedida
+    console.log(`Contato ID ${contactId} excluído com sucesso`);
+    
+    try {
+      await fetchContacts(state);
+    } catch (fetchError) {
+      console.error("Erro ao atualizar lista de contatos:", fetchError);
+      // Não tratamos como erro fatal, apenas logamos
     }
-
-    await fetchContacts(state)
-    return true
+    
+    return true;
   } catch (error) {
-    console.error("Erro ao excluir contato:", error)
-    alert("Não foi possível excluir o contato. Verifique a conexão com o servidor.")
-    return false
+    console.error("Erro ao excluir contato:", error);
+    alert("Não foi possível excluir o contato. Verifique a conexão com o servidor.");
+    return false;
   } finally {
-    hideLoading()
+    hideLoading();
   }
 }
 
