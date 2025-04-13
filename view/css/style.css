@@ -1,19 +1,37 @@
-body {
+/* ========== RESET E CONFIGURAÇÕES GLOBAIS ========== */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
     font-family: Arial, sans-serif;
-    background-color: rgba(240, 240, 240, 0.87);
+}
+body {
+    background-color: var(--color-outbox);
     overflow-x: hidden;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
+/* ========== VARIÁVEIS DE CORES ========== */
+:root {
+    --color-outbox: #f0f0f0de;
+    --color-secondary: #0d6efd;
+    --color-inputbox: #f0f0ff;
+    --color-success: #0cfe04;
+    --color-border: #e0e0e0;
+    --color-text-muted: #6c757d;
+    --color-white: #ffffff;
+    --color-signature: #ffffffcc;
+  }
+
+/* ========== ESTILIZAÇÃO DO CONTAINER E DO FORMULÁRIO ========== */
 .container-fluid {
-    background-color: white;
+    background-color: var(--color-white);
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.404);
+    box-shadow: 0 5px 10px #00000067;
     margin: 20px;
     max-width: 93%;
     max-height: 87%;
@@ -23,9 +41,9 @@ body {
     max-width: 400px;
     border-radius: 25px;
     padding: 25px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    background-color: white;
-    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 10px #0000001a;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-border);
     margin-left: 7px;
 }
 .tab-buttons {
@@ -37,14 +55,14 @@ body {
     padding: 10px;
     background: transparent;
     border: none;
-    color: #6c757d;
+    color: var(--color-text-muted);
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s;
 }
 .tab-btn.active {
-    color: #0d6efd;
-    border-bottom: 2px solid #0d6efd;
+    color: var(--color-secondary);
+    border-bottom: 2px solid var(--color-secondary);
     font-weight: 600;
 }
 .tab-pane {
@@ -57,29 +75,29 @@ body {
     margin-bottom: 15px;
 }
 .custom-input .input-group-text {
-    background-color: #f0f0ff;
+    background-color: var(--color-inputbox);
     border: none;
     border-radius: 10px 0 0 10px;
-    color: #6c757d;
+    color: var(--color-text-muted);
 }
 .custom-input .form-control {
-    background-color: #f0f0ff;
+    background-color: var(--color-inputbox);
     border: none;
     border-radius: 0 10px 10px 0;
 }
 .custom-input .password-toggle {
-    background-color: #f0f0ff;
+    background-color: var(--color-inputbox);
     border: none;
     border-radius: 0 10px 10px 0;
-    color: #6c757d;
+    color: var(--color-text-muted);
 }
 .custom-input .form-control:focus {
     box-shadow: none;
-    background-color: #f0f0ff;
+    background-color: var(--color-inputbox);
 }
 .gradient-btn {
-    background: linear-gradient(to right, #0d6efd, #4ade80);
-    color: white;
+    background: linear-gradient(to right, var(--color-secondary), var(--color-success));
+    color: var(--color-white);
     border: none;
     border-radius: 20px;
     padding: 10px;
@@ -88,11 +106,13 @@ body {
 }
 .gradient-btn:hover {
     opacity: 0.9;
-    color: white;
+    color: var(--color-white);
 }
+
+/* ========== ESTILIZAÇÃO DO BACKGROUND GRADIENT ========== */
 .gradient-bg {
     position: relative;
-    border: white 7px solid;
+    border: var(--color-white) 7px solid;
     border-radius: 20px;
     background-size: 200% 200%;
     animation: animacaoDegrade 10s ease-in-out infinite alternate;
@@ -132,14 +152,60 @@ body {
     position: absolute;
     bottom: 15px;
     right: 15px;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--color-signature);
     font-weight: bold;
     font-size: 13px;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
+/* ========== BRAKEPOINT ========== */
 @media (max-width: 768px) {
     .login-card {
         width: 90%;
         max-width: 350px;
     }
 }
+
+/* ========== ESTILIZAÇÃO DO ALERTA PERSONALIZADO ========== */
+#customAlertBox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .alert-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+  }
+  
+  .alert-message {
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .alert-button {
+    background-color: rgba(0, 0, 0, 0.904);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .alert-button:hover {
+    background-color: #b8dd3a;
+    color: black;
+    transition: 250ms;
+  }

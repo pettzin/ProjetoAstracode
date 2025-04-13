@@ -2,6 +2,48 @@
 document.addEventListener("DOMContentLoaded", () => {
   console.log("DOM carregado - inicializando scripts de login/cadastro")
 
+  // Criar o elemento de alerta customizado se ainda não existir
+  if (!document.getElementById('customAlertBox')) {
+    const alertBox = document.createElement('div');
+    alertBox.id = 'customAlertBox';
+    alertBox.innerHTML = `
+      <div class="alert-content">
+        <div class="alert-message"></div>
+        <button class="alert-button">OK</button>
+      </div>
+    `;
+    document.body.appendChild(alertBox);
+    
+    // Adicionar evento para fechar o alerta ao clicar no botão
+    document.querySelector('.alert-button').addEventListener('click', () => {
+      hideCustomAlert();
+    });
+  }
+
+  // Função para mostrar o alerta customizado
+  window.showCustomAlert = function(message) {
+    const alertBox = document.getElementById('customAlertBox');
+    const messageElement = alertBox.querySelector('.alert-message');
+    
+    messageElement.textContent = message;
+    alertBox.style.display = 'flex';
+    
+    // Focar no botão para permitir fechar com Enter
+    alertBox.querySelector('.alert-button').focus();
+  }
+
+  // Função para esconder o alerta
+  window.hideCustomAlert = function() {
+    const alertBox = document.getElementById('customAlertBox');
+    alertBox.style.display = 'none';
+  }
+
+  // Substituir a função window.alert original
+  const originalAlert = window.alert;
+  window.alert = function(message) {
+    showCustomAlert(message);
+  };
+
   // Funções de UI
   window.mudarTab = (tabId) => {
     console.log("Mudando para a aba:", tabId)
@@ -154,12 +196,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const senhaInput = document.getElementById("cadastroSenha")
       const confirmarSenhaInput = document.getElementById("confirmarSenha")
 
-      if (!nomeInput || !emailInput || !telefoneInput || !senhaInput || !confirmarSenhaInput) {
-        console.error("Campos não encontrados!")
-        alert("Erro ao processar o formulário. Verifique se todos os campos estão preenchidos.")
-        return
-      }
-
       const nome = nomeInput.value
       const email = emailInput.value
       const telefone = telefoneInput.value
@@ -218,13 +254,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const emailInput = this.querySelector('input[placeholder="Email"]')
       const senhaInput = document.getElementById("loginSenha")
-
-      if (!emailInput || !senhaInput) {
-        console.error("Campos de login não encontrados!")
-        alert("Erro ao processar o login. Verifique se todos os campos estão preenchidos.")
-        return
-      }
-
+      
       const email = emailInput.value
       const senha = senhaInput.value
 
@@ -244,4 +274,3 @@ document.addEventListener("DOMContentLoaded", () => {
     console.error("Formulário de login não encontrado!")
   }
 })
-
