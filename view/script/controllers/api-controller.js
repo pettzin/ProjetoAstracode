@@ -4,6 +4,7 @@
 import { showLoading, hideLoading } from "./dom-controller.js"
 import { updateContactSelect, renderContacts } from "./view-controller.js"
 import { logContactCreated, logContactUpdated, logContactDeleted } from './log-controller.js';
+import { showAlert, showError, showSuccess, showWarning } from "./notification-controller.js"
 
 // Configuração da API
 export const API = {
@@ -30,7 +31,7 @@ export const checkApiConnection = async () => {
     return true
   } catch (error) {
     console.error("Erro ao conectar com a API:", error)
-    alert("Não foi possível conectar ao servidor. Verifique se o servidor está rodando e tente novamente.")
+    showError("Não foi possível conectar ao servidor. Verifique se o servidor está rodando e tente novamente.")
     return false
   }
 }
@@ -66,12 +67,13 @@ export const fetchContacts = async (state) => {
   } catch (error) {
     console.error("Erro ao buscar contatos:", error)
     
-
     // Exibir mensagem no grid de contatos
     const contactsGrid = document.getElementById("contactsGrid")
     if (contactsGrid) {
       contactsGrid.innerHTML = '<div class="no-contacts">Erro ao carregar contatos. Tente novamente mais tarde.</div>'
     }
+    
+    showError("Erro ao carregar contatos. Tente novamente mais tarde.")
   } finally {
     hideLoading()
   }
@@ -119,10 +121,11 @@ export const createContact = async (contact, state) => {
     logContactCreated(contact);
 
     await fetchContacts(state)
+    showSuccess("Contato criado com sucesso!")
     return true
   } catch (error) {
     console.error("Erro ao criar contato:", error)
-    alert("Não foi possível criar o contato. Verifique a conexão com o servidor.")
+    showError("Não foi possível criar o contato. Verifique a conexão com o servidor.")
     return false
   } finally {
     hideLoading()
@@ -162,10 +165,11 @@ export const updateContact = async (contact, state) => {
     logContactUpdated(contact);
 
     await fetchContacts(state)
+    showSuccess("Contato atualizado com sucesso!")
     return true
   } catch (error) {
     console.error("Erro ao atualizar contato:", error)
-    alert("Não foi possível atualizar o contato. Verifique a conexão com o servidor.")
+    showError("Não foi possível atualizar o contato. Verifique a conexão com o servidor.")
     return false
   } finally {
     hideLoading()
@@ -195,6 +199,11 @@ export const deleteContactAPI = async (contactId, state) => {
     // Se chegou até aqui, consideramos a operação bem-sucedida
     console.log(`Contato ID ${contactId} excluído com sucesso`);
     
+    // Registrar log de exclusão de contato
+    logContactDeleted({id: contactId});
+    
+    showSuccess("Contato excluído com sucesso!");
+    
     try {
       await fetchContacts(state);
     } catch (fetchError) {
@@ -205,10 +214,9 @@ export const deleteContactAPI = async (contactId, state) => {
     return true;
   } catch (error) {
     console.error("Erro ao excluir contato:", error);
-    alert("Não foi possível excluir o contato. Verifique a conexão com o servidor.");
+    showError("Não foi possível excluir o contato. Verifique a conexão com o servidor.");
     return false;
   } finally {
     hideLoading();
   }
 }
-

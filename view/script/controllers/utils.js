@@ -1,6 +1,8 @@
 // Utils Controller
 // Funções utilitárias para a aplicação
 
+import { showAlert, showError } from "./notification-controller.js"
+
 /**
  * Converts an image file to base64
  * @param {File} file - The image file to convert
@@ -11,7 +13,10 @@ export const imageToBase64 = (file) => {
     const reader = new FileReader()
     reader.readAsDataURL(file)
     reader.onload = () => resolve(reader.result)
-    reader.onerror = (error) => reject(error)
+    reader.onerror = (error) => {
+      showError("Erro ao processar o arquivo: " + (error.message || "Erro desconhecido"))
+      reject(error)
+    }
   })
 }
 
@@ -37,4 +42,3 @@ export const formatTime = (date) => {
   const minutes = String(date.getMinutes()).padStart(2, "0")
   return `${hours}:${minutes}`
 }
-

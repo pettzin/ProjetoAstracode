@@ -96,4 +96,3 @@ export const closeAllDialogs = () => {
     dialog.style.display = "none"
   })
 }
-

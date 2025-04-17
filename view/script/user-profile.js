@@ -1,4 +1,6 @@
 // Arquivo para gerenciar o perfil do usuário
+import { showAlert, showSuccess, showError, showWarning } from './notification-controller.js';
+
 document.addEventListener("DOMContentLoaded", () => {
   console.log("DOM carregado - inicializando scripts de perfil de usuário")
 
@@ -21,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const index = usuarios.findIndex((u) => u.email === dadosAtualizados.email)
 
     if (index === -1) {
-      alert("Usuário não encontrado!")
+      showError("Usuário não encontrado!")
       return false
     }
 
@@ -48,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const index = usuarios.findIndex((u) => u.email === email && u.senha === senhaAtual)
 
     if (index === -1) {
-      alert("Senha atual incorreta!")
+      showError("Senha atual incorreta!")
       return false
     }
 
@@ -75,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Verificar se o novo email já está cadastrado
     const emailExistente = usuarios.some((usuario) => usuario.email === novoEmail)
     if (emailExistente) {
-      alert("Este email já está cadastrado!")
+      showWarning("Este email já está cadastrado!")
       return false
     }
 
@@ -83,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const index = usuarios.findIndex((u) => u.email === emailAtual && u.senha === senha)
 
     if (index === -1) {
-      alert("Senha incorreta!")
+      showError("Senha incorreta!")
       return false
     }
 
@@ -218,7 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       if (atualizarUsuario(dadosAtualizados)) {
-        alert("Perfil atualizado com sucesso!")
+        showSuccess("Perfil atualizado com sucesso!")
         atualizarInterfaceUsuario(dadosAtualizados)
         closeDialog("editProfileDialog")
       }
@@ -235,7 +237,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const senha = document.getElementById("emailConfirmPassword").value
 
       if (alterarEmail(usuarioLogado.email, novoEmail, senha)) {
-        alert("Email alterado com sucesso!")
+        showSuccess("Email alterado com sucesso!")
         const usuarioAtualizado = getUsuarioLogado()
         atualizarInterfaceUsuario(usuarioAtualizado)
         closeDialog("changeEmailDialog")
@@ -254,12 +256,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const confirmarSenha = document.getElementById("confirmNewPassword").value
 
       if (novaSenha !== confirmarSenha) {
-        alert("As senhas não coincidem!")
+        showWarning("As senhas não coincidem!")
         return
       }
 
       if (alterarSenha(usuarioLogado.email, senhaAtual, novaSenha)) {
-        alert("Senha alterada com sucesso!")
+        showSuccess("Senha alterada com sucesso!")
         closeDialog("changePasswordDialog")
       }
     })
@@ -271,4 +273,3 @@ document.addEventListener("DOMContentLoaded", () => {
     avatarInput.addEventListener("change", handleAvatarUpload)
   }
 })
-

@@ -19,6 +19,7 @@ import {
 import { sendMessage, sendWhatsAppMessage } from "./controllers/message-controller.js"
 import { formatarTelefone, aplicarFormatacaoTelefone } from './controllers/validation-controller.js';
 import { logAction } from "./controllers/log-controller.js"
+import { showAlert, showError } from "./controllers/notification-controller.js"
 
 // ===== STATE =====
 const state = {
@@ -126,7 +127,7 @@ const setupEventListeners = () => {
       if (firstContact) {
         openMessageDialog(firstContact.id, state)
       } else {
-        alert("Nenhum contato encontrado nesta categoria.")
+        showAlert("Nenhum contato encontrado nesta categoria.")
       }
     })
   }
@@ -164,7 +165,7 @@ const init = async () => {
   // Verificar se os elementos essenciais existem
   if (!elementExists(elements.contactsGrid, "contactsGrid") || !elementExists(elements.contactsList, "contactsList")) {
     console.error("Elementos essenciais não encontrados. Verifique o HTML.")
-    alert("Erro ao inicializar a aplicação. Elementos essenciais não encontrados.")
+    showError("Erro ao inicializar a aplicação. Elementos essenciais não encontrados.")
     return
   }
 
@@ -205,4 +206,3 @@ if (sortSelect) {
 
 // Inicializar a aplicação quando o DOM estiver carregado
 document.addEventListener("DOMContentLoaded", init)
-

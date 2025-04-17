@@ -1,6 +1,8 @@
 // DOM Elements Controller
 // Responsável por gerenciar todos os elementos DOM da aplicação
 
+import { showError } from './notification-controller.js';
+
 const DEFAULT_AVATAR = "../img/iconContact.png"
 
 // Elementos DOM centralizados
@@ -43,10 +45,13 @@ export const elements = {
  */
 export const elementExists = (element, name) => {
   if (!element) {
-    console.error(`Elemento ${name} não encontrado no DOM`)
-    return false
+    console.error(`Elemento ${name} não encontrado no DOM`);
+    // Usar notificação personalizada para erros críticos de elemento não encontrado
+    // Comentado para não interromper o fluxo normal em ambiente de produção
+    // showError(`Erro interno: Elemento ${name} não encontrado.`);
+    return false;
   }
-  return true
+  return true;
 }
 
 /**
@@ -54,7 +59,7 @@ export const elementExists = (element, name) => {
  */
 export const showLoading = () => {
   if (elementExists(elements.loading, "loading")) {
-    elements.loading.style.display = "flex"
+    elements.loading.style.display = "flex";
   }
 }
 
@@ -63,7 +68,7 @@ export const showLoading = () => {
  */
 export const hideLoading = () => {
   if (elementExists(elements.loading, "loading")) {
-    elements.loading.style.display = "none"
+    elements.loading.style.display = "none";
   }
 }
 
@@ -73,8 +78,7 @@ export const hideLoading = () => {
 export const closeDialogs = () => {
   Object.entries(elements.dialogs).forEach(([name, dialog]) => {
     if (elementExists(dialog, name)) {
-      dialog.style.display = "none"
+      dialog.style.display = "none";
     }
-  })
+  });
 }
-

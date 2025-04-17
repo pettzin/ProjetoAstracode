@@ -2,6 +2,7 @@
 // Responsável por registrar logs de ações do usuário
 
 import { API } from './api-controller.js';
+import { showError } from './notification-controller.js';
 
 /**
  * Formata a data atual no horário local brasileiro
@@ -45,11 +46,12 @@ export const logAction = (action, data, sendToServer = false) => {
           timestamp
         })
       }).catch(err => {
-        // Silenciar erros para não interromper o fluxo da aplicação
-        console.log('Não foi possível enviar log para o servidor');
+        // Usar notificação personalizada em vez de console.log
+        showError('Não foi possível enviar log para o servidor');
       });
     } catch (error) {
-      // Silenciar erros
+      // Silenciar erros ou opcionalmente mostrar uma notificação
+      // showError('Erro ao tentar enviar logs: ' + error.message);
     }
   }
 };

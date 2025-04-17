@@ -1,6 +1,4 @@
 // Validation Controller
-// Responsável por validar entradas de formulários
-
 /**
  * Função para validar nome
  * @param {string} nome - Nome a ser validado

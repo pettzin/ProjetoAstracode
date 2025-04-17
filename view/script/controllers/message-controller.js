@@ -3,6 +3,8 @@
 
 import { closeDialogs, elementExists } from "./dom-controller.js"
 import { formatDate, formatTime } from "./utils.js"
+// Importar as funções de notificação
+import { showAlert, showError, showSuccess, showWarning, showConfirm } from "./notification-controller.js"
 
 /**
  * Sets the default date and time for message scheduling
@@ -35,17 +37,17 @@ export const sendMessage = (state) => {
   const time = messageTime.value
 
   if (!selectedContactId) {
-    alert("Por favor, selecione um contato.")
+    showWarning("Por favor, selecione um contato.")
     return
   }
 
   if (!text) {
-    alert("Por favor, escreva uma mensagem.")
+    showWarning("Por favor, escreva uma mensagem.")
     return
   }
 
   if (!date || !time) {
-    alert("Selecione uma data e hora para agendamento.")
+    showWarning("Selecione uma data e hora para agendamento.")
     return
   }
 
@@ -55,13 +57,13 @@ export const sendMessage = (state) => {
 
     // Verificar se a data é válida
     if (isNaN(scheduledDateTime.getTime())) {
-      alert("Data ou hora inválida. Por favor, verifique o formato.")
+      showError("Data ou hora inválida. Por favor, verifique o formato.")
       return
     }
 
     // Verificar se a data não é no passado
     if (scheduledDateTime < new Date()) {
-      alert("Não é possível agendar mensagens para o passado. Por favor, selecione uma data e hora futura.")
+      showError("Não é possível agendar mensagens para o passado. Por favor, selecione uma data e hora futura.")
       return
     }
 
@@ -81,7 +83,7 @@ export const sendMessage = (state) => {
     // Configurar o temporizador para exibir o alerta no momento agendado
     scheduleMessageAlert(scheduledMessage, state)
 
-    alert(`Mensagem agendada para ${contact.name} às ${scheduledDateTime.toLocaleString()}: ${text}`)
+    showSuccess(`Mensagem agendada para ${contact.name} às ${scheduledDateTime.toLocaleString()}: ${text}`)
     closeDialogs()
   }
 }
@@ -126,16 +128,15 @@ export const scheduleMessageAlert = (scheduledMessage, state) => {
       const whatsappLink = `https://wa.me/${phoneNumber}/?text=${encodedMessage}`
 
       // Exibir alerta com opção para enviar a mensagem
-      if (
-        confirm(
-          `Hora de enviar a mensagem agendada para ${contact.name}:\n\n${scheduledMessage.message}\n\nClique em OK para abrir o WhatsApp e enviar a mensagem.`,
-        )
-      ) {
-        window.open(whatsappLink, "target = _blank")
-      }
-
-      // Remover a mensagem da lista de agendamentos
-      removeScheduledMessage(scheduledMessage.id)
+      showConfirm(
+        `Hora de enviar a mensagem agendada para ${contact.name}:\n\n${scheduledMessage.message}\n\nClique em OK para abrir o WhatsApp e enviar a mensagem.`
+      ).then((confirmed) => {
+        if (confirmed) {
+          window.open(whatsappLink, "_blank")
+        }
+        // Remover a mensagem da lista de agendamentos
+        removeScheduledMessage(scheduledMessage.id)
+      })
     }
   }, delay)
 }
@@ -169,7 +170,7 @@ export const sendWhatsAppMessage = (state) => {
   const text = messageText.value.trim()
 
   if (!text) {
-    alert("Por favor, escreva uma mensagem.")
+    showWarning("Por favor, escreva uma mensagem.")
     return
   }
 
@@ -179,7 +180,7 @@ export const sendWhatsAppMessage = (state) => {
     const phoneNumber = contact.phone.replace(/\D/g, "")
 
     if (!phoneNumber) {
-      alert("Número de telefone inválido.")
+      showError("Número de telefone inválido.")
       return
     }
 
@@ -189,7 +190,6 @@ export const sendWhatsAppMessage = (state) => {
     window.open(whatsappLink, "_blank")
     closeDialogs()
   } else {
-    alert("Contato não encontrado ou sem número de telefone.")
+    showError("Contato não encontrado ou sem número de telefone.")
   }
 }
-

@@ -4,6 +4,7 @@
 import { elements, elementExists, closeDialogs } from "./dom-controller.js"
 import { updateContact, deleteContactAPI, createContact } from "./api-controller.js"
 import { imageToBase64 } from "./utils.js"
+import { showAlert, showError, showSuccess, showConfirm } from "./notification-controller.js"
 
 /**
  * Updates the category select options in the profile dialog
@@ -249,7 +250,7 @@ export const openMessageDialog = (contactId, state) => {
     // Exibir o diálogo
     elements.dialogs.message.style.display = "flex"
   } else {
-    alert("Contato não encontrado.")
+    showAlert("Contato não encontrado.")
   }
 }
 
@@ -268,7 +269,7 @@ export const openProfileDialog = (contactId, state) => {
   if (contactId) {
     contact = state.contacts.find((c) => c.id === contactId)
     if (!contact) {
-      alert("Contato não encontrado.")
+      showAlert("Contato não encontrado.")
       return
     }
     state.currentContactId = contactId
@@ -339,7 +340,7 @@ export const openGroupDialog = (groupId = null, state) => {
       groupName.value = group.name
       deleteGroupBtn.style.display = "block"
     } else {
-      alert("Grupo não encontrado.")
+      showAlert("Grupo não encontrado.")
       return
     }
   } else {
@@ -403,7 +404,7 @@ export const saveContact = async (state) => {
   const sobrenome = profileSobrenome ? profileSobrenome.value.trim() : ""
 
   if (!name || !phone) {
-    alert("Por favor, preencha pelo menos o nome e o telefone.")
+    showAlert("Por favor, preencha pelo menos o nome e o telefone.")
     return
   }
 
@@ -445,7 +446,7 @@ export const saveGroup = async (state) => {
   const name = groupName.value.trim()
 
   if (!name) {
-    alert("Por favor, digite um nome para o grupo.")
+    showAlert("Por favor, digite um nome para o grupo.")
     return
   }
 
@@ -461,7 +462,7 @@ export const saveGroup = async (state) => {
 
     // Check if group ID already exists
     if (state.groups.some((g) => g.id === groupId)) {
-      alert("Já existe um grupo com este nome. Por favor, escolha outro nome.")
+      showAlert("Já existe um grupo com este nome. Por favor, escolha outro nome.")
       return
     }
 
@@ -517,11 +518,12 @@ export const saveGroup = async (state) => {
 export const deleteGroup = async (state) => {
   if (!state.currentGroupId) return
 
-  if (
-    confirm(
-      `Tem certeza que deseja excluir o grupo "${state.groups.find((g) => g.id === state.currentGroupId)?.name}"?`,
-    )
-  ) {
+  // Substituído confirm nativo pelo showConfirm customizado
+  const confirmed = await showConfirm(
+    `Tem certeza que deseja excluir o grupo "${state.groups.find((g) => g.id === state.currentGroupId)?.name}"?`
+  )
+  
+  if (confirmed) {
     // Move contacts to "outros" category
     const updatePromises = []
 
@@ -562,7 +564,12 @@ export const deleteGroup = async (state) => {
  * Deletes the current contact
  */
 export const deleteContact = async (state) => {
-  if (state.currentContactId && confirm("Tem certeza que deseja excluir este contato?")) {
+  if (!state.currentContactId) return
+  
+  // Substituído confirm nativo pelo showConfirm customizado
+  const confirmed = await showConfirm("Tem certeza que deseja excluir este contato?")
+  
+  if (confirmed) {
     const success = await deleteContactAPI(state.currentContactId, state)
 
     if (success) {
@@ -586,7 +593,7 @@ export const handleAvatarUpload = async (event) => {
       }
     } catch (error) {
       console.error("Erro ao converter imagem:", error)
-      alert("Não foi possível processar a imagem. Tente novamente.")
+      showAlert("Não foi possível processar a imagem. Tente novamente.")
     }
   }
 }
@@ -594,5 +601,3 @@ export const handleAvatarUpload = async (event) => {
 const setDefaultDateTime = () => {
   // Implementation for setDefaultDateTime
 }
-
-
