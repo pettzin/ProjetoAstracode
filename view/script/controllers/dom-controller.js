@@ -1,8 +1,6 @@
 // DOM Elements Controller
 // Responsável por gerenciar todos os elementos DOM da aplicação
 
-import { showError } from './notification-controller.js';
-
 const DEFAULT_AVATAR = "../img/iconContact.png"
 
 // Elementos DOM centralizados

@@ -1,5 +1,5 @@
 // Arquivo para gerenciar o perfil do usuário
-import { showAlert, showSuccess, showError, showWarning } from './notification-controller.js';
+import { showSuccess, showError, showWarning } from './controllers/notification-controller.js';
 
 document.addEventListener("DOMContentLoaded", () => {
   console.log("DOM carregado - inicializando scripts de perfil de usuário")

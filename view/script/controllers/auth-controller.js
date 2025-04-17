@@ -1,7 +1,7 @@
 // Auth Controller
 // Responsável por gerenciar autenticação, login e cadastro
 
-import { showAlert, showError, showSuccess } from "./notification-controller.js"
+import { showError, showSuccess } from "./notification-controller.js"
 
 /**
  * Função para salvar usuário

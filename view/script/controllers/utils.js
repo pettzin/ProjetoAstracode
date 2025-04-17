@@ -1,7 +1,7 @@
 // Utils Controller
 // Funções utilitárias para a aplicação
 
-import { showAlert, showError } from "./notification-controller.js"
+import { showError } from "./notification-controller.js"
 
 /**
  * Converts an image file to base64

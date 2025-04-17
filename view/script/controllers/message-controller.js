@@ -4,7 +4,7 @@
 import { closeDialogs, elementExists } from "./dom-controller.js"
 import { formatDate, formatTime } from "./utils.js"
 // Importar as funções de notificação
-import { showAlert, showError, showSuccess, showWarning, showConfirm } from "./notification-controller.js"
+import { showError, showSuccess, showWarning, showConfirm } from "./notification-controller.js"
 
 /**
  * Sets the default date and time for message scheduling

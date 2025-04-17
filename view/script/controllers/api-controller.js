@@ -4,7 +4,7 @@
 import { showLoading, hideLoading } from "./dom-controller.js"
 import { updateContactSelect, renderContacts } from "./view-controller.js"
 import { logContactCreated, logContactUpdated, logContactDeleted } from './log-controller.js';
-import { showAlert, showError, showSuccess, showWarning } from "./notification-controller.js"
+import {  showError, showSuccess } from "./notification-controller.js"
 
 // Configuração da API
 export const API = {

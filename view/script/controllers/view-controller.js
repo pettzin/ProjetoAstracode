@@ -4,7 +4,7 @@
 import { elements, elementExists, closeDialogs } from "./dom-controller.js"
 import { updateContact, deleteContactAPI, createContact } from "./api-controller.js"
 import { imageToBase64 } from "./utils.js"
-import { showAlert, showError, showSuccess, showConfirm } from "./notification-controller.js"
+import { showAlert, showConfirm } from "./notification-controller.js"
 
 /**
  * Updates the category select options in the profile dialog
