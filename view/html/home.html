@@ -7,6 +7,8 @@
   <title>CruzeiroTech</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="../css/home.css">
+  <!-- CSS do Dark Mode -->
+  <link rel="stylesheet" href="../css/dark-mode.css">
   <link rel="icon" href="../img/favicon.png">
 </head>
 <body>
@@ -271,7 +273,21 @@
     <div class="spinner"></div>
   </div>
 
+  <!-- Botão de toggle do tema -->
+  <div class="theme-toggle-container">
+    <button id="theme-toggle" class="theme-toggle" aria-label="Alternar tema">
+      <div class="toggle-track">
+        <div class="toggle-sun"><i class="fas fa-sun"></i></div>
+        <div class="toggle-moon"><i class="fas fa-moon"></i></div>
+      </div>
+      <div class="toggle-thumb"></div>
+    </button>
+  </div>
+
+  <!-- Scripts da aplicação -->
   <script type="module" src="/view/script/main.js"></script>
   <script type="module" src="/view/script/user-profile.js"></script>
+  <!-- Script do Dark Mode (não é um módulo, então não precisa do type="module") -->
+  <script src="/view/script/controllers/dark-mode.js"></script>
 </body>
 </html>

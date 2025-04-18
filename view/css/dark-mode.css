@@ -1,0 +1,228 @@
+/* dark-mode.css */
+:root {
+    /* Variáveis de cores padrão (modo claro) */
+    --color-primary: #292929;
+    --color-primary-hover: #ff0000;
+    --color-secondary: #fefe04; /* Amarelo original */
+    --color-dark: #212529;
+    --color-dark-hover: #2acfbd;
+    --color-danger: #c82333;
+    --color-danger-hover: #c82333;
+    --color-success: #292929;
+    --color-success-hover: #0cfe04;
+    --color-light: #f8f9fa;
+    --color-border: #e9ecef;
+    --color-border-input: #ced4da;
+    --color-text-muted: #6c757d;
+    --color-text-dark: #212529;
+    --color-white: #ffffff;
+    --color-background: #f8f9fa;
+    --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+  
+/* Tema escuro */
+[data-theme="dark"] {
+    --color-primary: #e6e2e2;
+    --color-primary-hover: #ff0000;
+    --color-secondary: #2acfbd; /* Azul piscina para o modo escuro */
+    --color-dark: #fcf7f7;
+    --color-dark-hover: #2acfbd;
+    --color-danger: #e74c3c;
+    --color-danger-hover: #c0392b;
+    --color-success: #fcfcfc;
+    --color-success-hover: #0cfe04;
+    --color-light: #333333;
+    --color-border: #444444;
+    --color-border-input: #555555;
+    --color-text-muted: #f7f0f0;
+    --color-text-dark: #f8f9fa;
+    --color-white: #222222;
+    --color-background: #121212;
+    --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+  
+/* Estilos específicos para o modo escuro */
+[data-theme="dark"] body {
+    background-color: var(--color-background);
+    color: #f8f9fa;
+}
+  
+[data-theme="dark"] .main-content {
+    background-color: #1a1a1a;
+}
+  
+[data-theme="dark"] .sidebar-area {
+    background-color: var(--color-white);
+    border-right: 1px solid var(--color-border);
+}
+  
+[data-theme="dark"] .contact-card,
+[data-theme="dark"] .contact-row,
+[data-theme="dark"] .dialog-content {
+    background-color: var(--color-white);
+    border-color: var(--color-border);
+}
+  
+[data-theme="dark"] .contact-name,
+[data-theme="dark"] .dialog-title,
+[data-theme="dark"] .app-title-main {
+    color: #f8f9fa;
+}
+  
+[data-theme="dark"] .search-bar,
+[data-theme="dark"] .profile-input,
+[data-theme="dark"] .contact-select,
+[data-theme="dark"] .category-select,
+[data-theme="dark"] .sort-select,
+[data-theme="dark"] .group-input,
+[data-theme="dark"] .message-textarea,
+[data-theme="dark"] .date-input,
+[data-theme="dark"] .time-input {
+    background-color: #333333;
+    color: #f8f9fa;
+    border-color: var(--color-border-input);
+}
+  
+[data-theme="dark"] .search-bar::placeholder,
+[data-theme="dark"] .profile-input::placeholder,
+[data-theme="dark"] .message-textarea::placeholder {
+    color: #aaaaaa;
+}
+  
+[data-theme="dark"] .user-menu {
+    background-color: #333333;
+    box-shadow: var(--shadow-md);
+}
+  
+[data-theme="dark"] .user-menu-item:hover {
+    background-color: #444444;
+}
+  
+[data-theme="dark"] .user-menu-item.logout:hover {
+    background-color: #5a2d2d;
+}
+
+/* Texto dos botões na sidebar no modo escuro */
+[data-theme="dark"] .action-btn,
+[data-theme="dark"] .nav-tab,
+[data-theme="dark"] .view-option {
+    color: #131212 !important;
+}
+
+/* Garantir que o texto permaneça branco nos estados hover e active no modo escuro */
+[data-theme="dark"] .action-btn:hover,
+[data-theme="dark"] .action-btn.active,
+[data-theme="dark"] .nav-tab:hover,
+[data-theme="dark"] .nav-tab.active,
+[data-theme="dark"] .view-option:hover,
+[data-theme="dark"] .view-option.active {
+    color: #ffffff !important;
+}
+
+/* Posicionamento do botão de alternância de tema */
+.theme-toggle-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+/* Estilo do botão de alternância de tema */
+.theme-toggle {
+    position: relative;
+    display: inline-block;
+    width: 70px;
+    height: 34px;
+    padding: 0;
+    border-radius: 34px;
+    border: none;
+    background-color: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Efeito hover no modo claro */
+.theme-toggle:hover {
+    background-color: rgba(233, 201, 44, 0.548);
+    box-shadow: 0 0 15px rgba(252, 209, 39, 0.664);
+}
+
+/* Estilo para o modo escuro */
+[data-theme="dark"] .theme-toggle {
+    background-color: #333;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Efeito hover no modo escuro */
+[data-theme="dark"] .theme-toggle:hover {
+    background-color: rgba(52, 152, 219, 0.3);
+    box-shadow: 0 0 15px rgba(52, 152, 219, 0.5);
+}
+
+/* Trilha do interruptor */
+.toggle-track {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 8px;
+    z-index: 1; /* Adicionado para garantir que fique acima do fundo */
+}
+
+/* Ícone do sol */
+.toggle-sun {
+    color: #ffffff; /* Amarelo para o sol */
+    font-size: 16px;
+    margin-left: 4px;
+    z-index: 2; /* Adicionado para garantir que fique acima do thumb */
+}
+
+/* Ícone da lua */
+.toggle-moon {
+    color: #020202; /* Azul para a lua */
+    font-size: 16px;
+    margin-right: 4px;
+    z-index: 2; /* Adicionado para garantir que fique acima do thumb */
+}
+
+/* Removendo a animação que faz os ícones desaparecerem */
+[data-theme="dark"] .toggle-sun,
+[data-theme="light"] .toggle-moon {
+    transform: none; /* Removido o translateY que fazia os ícones saírem da área visível */
+    opacity: 0.5; /* Adicionado para dar um efeito de "desativado" em vez de esconder */
+}
+
+/* Botão deslizante (thumb) */
+.toggle-thumb {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-color: rgba(236, 222, 26, 0.925);
+    transition: transform 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1; /* Garantir que fique abaixo dos ícones */
+}
+
+/* Posição do botão deslizante no modo escuro */
+[data-theme="dark"] .toggle-thumb {
+    transform: translateX(36px);
+    background-color: #2acfbd;
+}
+  
+/* Animação de transição para mudanças de tema */
+body, .sidebar-area, .main-content, .contact-card, .contact-row, .dialog-content,
+.search-bar, .profile-input, .contact-select, .category-select, .sort-select,
+.group-input, .message-textarea, .date-input, .time-input, .user-menu {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
