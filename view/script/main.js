@@ -17,9 +17,10 @@ import {
   handleAvatarUpload,
 } from "./controllers/view-controller.js"
 import { sendMessage, sendWhatsAppMessage } from "./controllers/message-controller.js"
-import { formatarTelefone, aplicarFormatacaoTelefone } from './controllers/validation-controller.js';
+import { aplicarFormatacaoTelefone } from "./controllers/validation-controller.js"
 import { logAction } from "./controllers/log-controller.js"
 import { showAlert, showError } from "./controllers/notification-controller.js"
+import { getUniqueGroups } from "./controllers/group-controller.js"
 
 // ===== STATE =====
 const state = {
@@ -160,7 +161,7 @@ const init = async () => {
   console.log("Inicializando aplicação...")
 
   // Registrar log de inicialização
-  logAction('init', { message: 'Aplicação inicializada' });
+  logAction("init", { message: "Aplicação inicializada" })
 
   // Verificar se os elementos essenciais existem
   if (!elementExists(elements.contactsGrid, "contactsGrid") || !elementExists(elements.contactsList, "contactsList")) {
@@ -180,6 +181,9 @@ const init = async () => {
   // Buscar contatos da API
   await fetchContacts(state)
 
+  // Atualizar grupos com base nos contatos
+  state.groups = getUniqueGroups(state.contacts)
+
   // Atualizar abas de navegação
   updateNavTabs(state)
 
@@ -192,16 +196,16 @@ const init = async () => {
   console.log("Aplicação inicializada com sucesso!")
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  aplicarFormatacaoTelefone();
-});
+document.addEventListener("DOMContentLoaded", () => {
+  aplicarFormatacaoTelefone()
+})
 
-const sortSelect = document.getElementById('sortSelect');
+const sortSelect = document.getElementById("sortSelect")
 if (sortSelect) {
-  sortSelect.addEventListener('change', () => {
-    state.filter.sort = sortSelect.value;
-    renderContacts(state);
-  });
+  sortSelect.addEventListener("change", () => {
+    state.filter.sort = sortSelect.value
+    renderContacts(state)
+  })
 }
 
 // Inicializar a aplicação quando o DOM estiver carregado

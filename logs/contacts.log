@@ -29,3 +29,28 @@
 [17/04/2025, 15:32:35] [UPDATE] [User: system] {"nome":"Matheus","sobrenome":"Domeneghetti","email":"","telefone":"(11) 400","grupo":"todos","imagem":"http://127.0.0.1:3001/view/img/iconContact.png"}
 [17/04/2025, 15:32:41] [UPDATE] [User: system] {"nome":"Matheus","sobrenome":"Domeneghetti","email":"","telefone":"(11","grupo":"todos","imagem":"http://127.0.0.1:3001/view/img/iconContact.png"}
 [17/04/2025, 15:33:07] [UPDATE] [User: system] {"nome":"Matheus","sobrenome":"Domeneghetti","email":"","telefone":"(12) 41414-1414","grupo":"todos","imagem":"http://127.0.0.1:3001/view/img/iconContact.png"}
+[21/04/2025, 12:13:36] [UPDATE] [User: system] {"id":"90","campos_atualizados":"grupo","grupo":"Alertas"}
+[21/04/2025, 12:14:03] [DELETE] [User: system] {"id":"90","mensagem":"Contato ID 90 foi excluído"}
+[21/04/2025, 12:26:23] [CREATE] [User: system] {"id":197,"nome":"teste","sobrenome":"numero 300","email":"","telefone":"(12) 55676-9897","grupo":"todos"}
+[21/04/2025, 12:26:55] [UPDATE] [User: system] {"id":"197","campos_atualizados":"nome, sobrenome, email, telefone, grupo, imagem","grupo":"Escola"}
+[21/04/2025, 12:27:11] [DELETE] [User: system] {"id":"197","mensagem":"Contato ID 197 foi excluído"}
+[21/04/2025, 12:29:40] [CREATE] [User: system] {"id":198,"nome":"Petterson","sobrenome":"Cabelinho","email":"","telefone":"(11) 32325-4576","grupo":"Escola"}
+[21/04/2025, 12:30:03] [UPDATE] [User: system] {"id":"198","campos_atualizados":"grupo","grupo":"todos"}
+[21/04/2025, 12:30:22] [UPDATE] [User: system] {"id":"198","campos_atualizados":"nome, sobrenome, email, telefone, grupo, imagem","grupo":"Escola"}
+[21/04/2025, 12:31:02] [CREATE] [User: system] {"id":199,"nome":"Andy","sobrenome":"Andressa","email":"","telefone":"(32) 12348-6765","grupo":"todos"}
+[21/04/2025, 12:31:18] [UPDATE] [User: system] {"id":"199","campos_atualizados":"nome, sobrenome, email, telefone, grupo, imagem","grupo":"Escola"}
+[21/04/2025, 12:31:54] [UPDATE] [User: system] {"id":"199","campos_atualizados":"grupo","grupo":"todos"}
+[21/04/2025, 12:32:32] [DELETE] [User: system] {"id":"199","mensagem":"Contato ID 199 foi excluído"}
+[21/04/2025, 12:33:17] [UPDATE] [User: system] {"id":"192","campos_atualizados":"grupo","grupo":"todos"}
+[21/04/2025, 12:34:45] [UPDATE] [User: system] {"id":"192","campos_atualizados":"grupo","grupo":"Escola"}
+[21/04/2025, 12:34:56] [UPDATE] [User: system] {"id":"192","campos_atualizados":"grupo","grupo":"todos"}
+[21/04/2025, 12:36:09] [UPDATE] [User: system] {"id":"198","campos_atualizados":"grupo","grupo":"AstraCode"}
+[21/04/2025, 12:36:10] [UPDATE] [User: system] {"id":"179","campos_atualizados":"grupo","grupo":"AstraCode"}
+[21/04/2025, 12:36:10] [UPDATE] [User: system] {"id":"178","campos_atualizados":"grupo","grupo":"AstraCode"}
+[21/04/2025, 12:36:10] [UPDATE] [User: system] {"id":"107","campos_atualizados":"grupo","grupo":"AstraCode"}
+[21/04/2025, 12:36:52] [UPDATE] [User: system] {"id":"107","campos_atualizados":"grupo","grupo":"Astra"}
+[21/04/2025, 12:36:52] [UPDATE] [User: system] {"id":"198","campos_atualizados":"grupo","grupo":"Astra"}
+[21/04/2025, 12:36:53] [UPDATE] [User: system] {"id":"178","campos_atualizados":"grupo","grupo":"Astra"}
+[21/04/2025, 12:36:53] [UPDATE] [User: system] {"id":"179","campos_atualizados":"grupo","grupo":"Astra"}
+[21/04/2025, 12:37:43] [CREATE] [User: system] {"id":200,"nome":"teste","sobrenome":"lulavive","email":"","telefone":"(32) 35666-7878","grupo":"todos"}
+[21/04/2025, 12:38:03] [DELETE] [User: system] {"id":"200","mensagem":"Contato ID 200 foi excluído"}

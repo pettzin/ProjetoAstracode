@@ -110,7 +110,7 @@ export const renderContacts = (state) => {
   }
 
   // Sort contacts
-  const sortedContacts = sortContacts(filteredContacts, state.filter.sort);
+  const sortedContacts = sortContacts(filteredContacts, state.filter.sort)
 
   // Clear both containers
   elements.contactsGrid.innerHTML = ""
@@ -450,66 +450,71 @@ export const saveGroup = async (state) => {
     return
   }
 
-  if (state.currentGroupId) {
-    // Update existing group
-    const index = state.groups.findIndex((g) => g.id === state.currentGroupId)
-    if (index !== -1) {
-      state.groups[index].name = name
-    }
-  } else {
-    // Create new group
-    const groupId = name.toLowerCase().replace(/\s+/g, "-")
-
-    // Check if group ID already exists
-    if (state.groups.some((g) => g.id === groupId)) {
-      showAlert("Já existe um grupo com este nome. Por favor, escolha outro nome.")
-      return
-    }
-
-    // Add new group
-    state.groups.push({
-      id: groupId,
-      name: name,
-      color: "#0078d7",
-    })
-
-    state.currentGroupId = groupId
-  }
-
-  // Update member assignments
+  // Obter os contatos selecionados
   const memberCheckboxes = document.querySelectorAll(".member-checkbox")
-  const updatePromises = []
+  const selectedContactIds = []
 
   memberCheckboxes.forEach((checkbox) => {
-    const contactId = Number.parseInt(checkbox.dataset.id)
-    const contact = state.contacts.find((c) => c.id === contactId)
-
-    if (contact) {
-      const shouldBeInGroup = checkbox.checked
-      const isInGroup = contact.category === state.currentGroupId
-
-      if (shouldBeInGroup !== isInGroup) {
-        const updatedContact = {
-          ...contact,
-          category: shouldBeInGroup ? state.currentGroupId : "todos",
-        }
-
-        updatePromises.push(updateContact(updatedContact, state))
-      }
+    if (checkbox.checked) {
+      const contactId = Number.parseInt(checkbox.dataset.id)
+      selectedContactIds.push(contactId)
     }
   })
 
-  if (updatePromises.length > 0) {
-    try {
-      await Promise.all(updatePromises)
-    } catch (error) {
-      console.error("Erro ao atualizar membros do grupo:", error)
-    }
+  if (selectedContactIds.length === 0) {
+    showAlert("Por favor, selecione pelo menos um contato para o grupo.")
+    return
   }
 
-  closeDialogs()
-  updateNavTabs(state)
-  renderContacts(state)
+  // Importar o controlador de grupos
+  import("./group-controller.js").then(async (groupController) => {
+    let success = false
+
+    if (state.currentGroupId) {
+      // Atualizar grupo existente
+      const contactsInGroup = state.contacts.filter((c) => c.category === state.currentGroupId)
+      const currentContactIds = contactsInGroup.map((c) => c.id)
+
+      // Determinar quais contatos adicionar e quais remover
+      const contactsToAdd = selectedContactIds.filter((id) => !currentContactIds.includes(id))
+      const contactsToRemove = currentContactIds.filter((id) => !selectedContactIds.includes(id))
+
+      success = await groupController.updateGroupMembers(name, contactsToAdd, contactsToRemove)
+
+      // Atualizar o nome do grupo na lista de grupos
+      if (success) {
+        const index = state.groups.findIndex((g) => g.id === state.currentGroupId)
+        if (index !== -1) {
+          state.groups[index].name = name
+          state.groups[index].id = name
+        }
+      }
+    } else {
+      // Criar novo grupo
+      success = await groupController.createGroup(name, selectedContactIds)
+
+      if (success) {
+        // Adicionar novo grupo à lista
+        state.groups.push({
+          id: name,
+          name: name,
+          color: "#0078d7",
+        })
+      }
+    }
+
+    if (success) {
+      closeDialogs()
+
+      // Atualizar a lista de contatos
+      import("./api-controller.js").then((apiController) => {
+        apiController.fetchContacts(state).then(() => {
+          updateNavTabs(state)
+          renderContacts(state)
+        })
+      })
+    }
+  })
 }
 
 /**
@@ -520,43 +525,34 @@ export const deleteGroup = async (state) => {
 
   // Substituído confirm nativo pelo showConfirm customizado
   const confirmed = await showConfirm(
-    `Tem certeza que deseja excluir o grupo "${state.groups.find((g) => g.id === state.currentGroupId)?.name}"?`
+    `Tem certeza que deseja excluir o grupo "${state.groups.find((g) => g.id === state.currentGroupId)?.name}"?`,
   )
-  
-  if (confirmed) {
-    // Move contacts to "outros" category
-    const updatePromises = []
 
-    state.contacts.forEach((contact) => {
-      if (contact.category === state.currentGroupId) {
-        const updatedContact = {
-          ...contact,
-          category: "todos",
+  if (confirmed) {
+    // Importar o controlador de grupos
+    import("./group-controller.js").then(async (groupController) => {
+      const success = await groupController.deleteGroup(state.currentGroupId, state.contacts)
+
+      if (success) {
+        // Remover grupo da lista
+        state.groups = state.groups.filter((g) => g.id !== state.currentGroupId)
+
+        // Atualizar current filter se necessário
+        if (state.filter.category === state.currentGroupId) {
+          state.filter.category = "todos"
         }
 
-        updatePromises.push(updateContact(updatedContact, state))
+        closeDialogs()
+
+        // Atualizar a lista de contatos
+        import("./api-controller.js").then((apiController) => {
+          apiController.fetchContacts(state).then(() => {
+            updateNavTabs(state)
+            renderContacts(state)
+          })
+        })
       }
     })
-
-    if (updatePromises.length > 0) {
-      try {
-        await Promise.all(updatePromises)
-      } catch (error) {
-        console.error("Erro ao atualizar contatos do grupo:", error)
-      }
-    }
-
-    // Remove group
-    state.groups = state.groups.filter((g) => g.id !== state.currentGroupId)
-
-    // Update current filter if needed
-    if (state.filter.category === state.currentGroupId) {
-      state.filter.category = "todos"
-    }
-
-    closeDialogs()
-    updateNavTabs(state)
-    renderContacts(state)
   }
 }
 
@@ -565,10 +561,10 @@ export const deleteGroup = async (state) => {
  */
 export const deleteContact = async (state) => {
   if (!state.currentContactId) return
-  
+
   // Substituído confirm nativo pelo showConfirm customizado
   const confirmed = await showConfirm("Tem certeza que deseja excluir este contato?")
-  
+
   if (confirmed) {
     const success = await deleteContactAPI(state.currentContactId, state)
 
@@ -598,6 +594,25 @@ export const handleAvatarUpload = async (event) => {
   }
 }
 
+/**
+ * Define a data e hora padrão para o agendamento de mensagens
+ */
 const setDefaultDateTime = () => {
-  // Implementation for setDefaultDateTime
+  const messageDate = document.getElementById("messageDate")
+  const messageTime = document.getElementById("messageTime")
+
+  if (elementExists(messageDate, "messageDate") && elementExists(messageTime, "messageTime")) {
+    const now = new Date()
+
+    // Formatar data para YYYY-MM-DD
+    const year = now.getFullYear()
+    const month = String(now.getMonth() + 1).padStart(2, "0")
+    const day = String(now.getDate()).padStart(2, "0")
+    messageDate.value = `${year}-${month}-${day}`
+
+    // Formatar hora para HH:MM
+    const hours = String(now.getHours()).padStart(2, "0")
+    const minutes = String(now.getMinutes()).padStart(2, "0")
+    messageTime.value = `${hours}:${minutes}`
+  }
 }

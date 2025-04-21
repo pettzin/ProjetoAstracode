@@ -3,7 +3,7 @@ const router = express.Router()
 const db = require("../db/dbconnection.js")
 const bodyParser = require("body-parser")
 const cors = require("cors")
-const logger = require('../logger');
+const logger = require("../logger")
 
 router.use(cors())
 router.use(bodyParser.json({ limit: "50mb" }))
@@ -35,7 +35,6 @@ router.get("/api/contatos/:id", (req, res) => {
 })
 
 // Modifique a rota POST /api/insert para não exigir o email como obrigatório
-
 router.post("/api/insert", (req, res) => {
   const { nome, sobrenome, email, telefone, grupo, imagem } = req.body
 
@@ -53,15 +52,15 @@ router.post("/api/insert", (req, res) => {
     }
 
     // Registrar log de criação de contato
-    logger.logAction('create', 'system', { 
-      id: result ? result.insertId : 'desconhecido',
-      nome, 
+    logger.logAction("create", "system", {
+      id: result ? result.insertId : "desconhecido",
+      nome,
       sobrenome,
       email,
       telefone,
       grupo: grupo || "todos",
-      imagem
-    });
+      imagem,
+    })
 
     res.status(201).send("Item salvo com sucesso!")
   })
@@ -72,28 +71,65 @@ router.put("/api/update/:id", (req, res) => {
   const id = req.params.id
   const { nome, sobrenome, email, telefone, grupo, imagem } = req.body
 
-  if (!nome || !telefone) {
-    return res.status(400).send("Os campos nome e telefone são obrigatórios.")
+  // Construir a query dinamicamente com base nos campos fornecidos
+  const updateFields = []
+  const updateValues = []
+
+  // Verificar quais campos foram fornecidos e adicioná-los à query
+  if (nome !== undefined) {
+    updateFields.push("nome = ?")
+    updateValues.push(nome)
   }
 
-  const query =
-    "UPDATE contatos SET nome = ?, sobrenome = ?, email = ?, telefone = ?, grupo = ?, imagem = ? WHERE id = ?"
-  db.query(query, [nome, sobrenome || "", email || "", telefone, grupo || "todos", imagem || null, id], (err, result) => {
+  if (sobrenome !== undefined) {
+    updateFields.push("sobrenome = ?")
+    updateValues.push(sobrenome || "")
+  }
+
+  if (email !== undefined) {
+    updateFields.push("email = ?")
+    updateValues.push(email || "")
+  }
+
+  if (telefone !== undefined) {
+    updateFields.push("telefone = ?")
+    updateValues.push(telefone)
+  }
+
+  if (grupo !== undefined) {
+    updateFields.push("grupo = ?")
+    updateValues.push(grupo || "todos")
+  }
+
+  if (imagem !== undefined) {
+    updateFields.push("imagem = ?")
+    updateValues.push(imagem || null)
+  }
+
+  // Se não houver campos para atualizar, retornar erro
+  if (updateFields.length === 0) {
+    return res.status(400).send("Nenhum campo fornecido para atualização.")
+  }
+
+  // Construir a query final
+  const query = `UPDATE contatos SET ${updateFields.join(", ")} WHERE id = ?`
+
+  // Adicionar o ID ao final dos valores
+  updateValues.push(id)
+
+  // Executar a query
+  db.query(query, updateValues, (err, result) => {
     if (err) {
       console.error("Erro ao atualizar item no banco de dados:", err)
       return res.status(500).send("Erro ao atualizar o item.")
     }
 
     // Registrar log de atualização de contato
-    logger.logAction('update', 'system', { 
-      id: result ? result.updatetId : 'desconhecido',
-      nome, 
-      sobrenome,
-      email,
-      telefone,
-      grupo: grupo || "todos",
-      imagem
-    });
+    logger.logAction("update", "system", {
+      id: id,
+      campos_atualizados: Object.keys(req.body).join(", "),
+      grupo: grupo,
+    })
 
     res.send("Item atualizado com sucesso!")
   })
@@ -109,20 +145,34 @@ router.delete("/api/delete/:id", (req, res) => {
     }
 
     // Registrar log de exclusão de contato
-    logger.logAction('delete', 'system', { 
+    logger.logAction("delete", "system", {
       id: id,
-      mensagem: `Contato ID ${id} foi excluído`
-    });
+      mensagem: `Contato ID ${id} foi excluído`,
+    })
 
     res.send("Item excluído com sucesso!")
   })
 })
 
+// Rota para obter todos os grupos únicos
+router.get("/api/grupos", (req, res) => {
+  db.query("SELECT DISTINCT grupo FROM contatos WHERE grupo IS NOT NULL AND grupo != 'todos'", (err, results) => {
+    if (err) {
+      console.error("Erro ao buscar grupos:", err)
+      return res.status(500).send("Erro ao buscar os grupos.")
+    }
+
+    // Transformar resultados em um array de nomes de grupos
+    const grupos = results.map((row) => row.grupo)
+    res.json(grupos)
+  })
+})
+
 // Adicionar nova rota para obter logs
 router.get("/api/logs", (req, res) => {
-  const limit = parseInt(req.query.limit) || 100;
-  const logs = logger.getLogs(limit);
-  res.json(logs);
+  const limit = Number.parseInt(req.query.limit) || 100
+  const logs = logger.getLogs(limit)
+  res.json(logs)
 })
 
 module.exports = router
