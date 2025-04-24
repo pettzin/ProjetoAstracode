@@ -2,47 +2,125 @@
 document.addEventListener("DOMContentLoaded", () => {
   console.log("DOM carregado - inicializando scripts de login/cadastro")
 
-  // Criar o elemento de alerta customizado se ainda não existir
-  if (!document.getElementById('customAlertBox')) {
-    const alertBox = document.createElement('div');
-    alertBox.id = 'customAlertBox';
-    alertBox.innerHTML = `
-      <div class="alert-content">
-        <div class="alert-message"></div>
-        <button class="alert-button">OK</button>
-      </div>
-    `;
-    document.body.appendChild(alertBox);
-    
-    // Adicionar evento para fechar o alerta ao clicar no botão
-    document.querySelector('.alert-button').addEventListener('click', () => {
-      hideCustomAlert();
-    });
-  }
+  // Sistema de notificações integrado
+  setupNotificationSystem();
 
-  // Função para mostrar o alerta customizado
-  window.showCustomAlert = function(message) {
-    const alertBox = document.getElementById('customAlertBox');
-    const messageElement = alertBox.querySelector('.alert-message');
+  // Configurar sistema de notificações
+  function setupNotificationSystem() {
+    // Criar container para notificações se não existir
+    let notificationContainer = document.getElementById('notificationContainer');
     
-    messageElement.textContent = message;
-    alertBox.style.display = 'flex';
+    if (!notificationContainer) {
+      notificationContainer = document.createElement('div');
+      notificationContainer.id = 'notificationContainer';
+      notificationContainer.className = 'notification-container';
+      document.body.appendChild(notificationContainer);
+      
+      // Adicionar estilos para notificações
+      if (!document.getElementById('notificationStyles')) {
+        const styles = document.createElement('style');
+        styles.id = 'notificationStyles';
+        document.head.appendChild(styles);
+      }
+    }
+
+    // Função para mostrar notificações
+    window.showNotification = function(message, type = 'info', duration = 0) {
+      // Criar elemento de notificação
+      const notification = document.createElement('div');
+      notification.className = `notification notification-${type}`;
+      
+      // Conteúdo da notificação
+      const content = document.createElement('div');
+      content.className = 'notification-content';
+      content.textContent = message;
+      notification.appendChild(content);
+      
+      // Botão de fechar
+      const closeButton = document.createElement('button');
+      closeButton.className = 'notification-close';
+      closeButton.innerHTML = '&times;';
+      closeButton.onclick = () => removeNotification(notification);
+      notification.appendChild(closeButton);
+      
+      // Se for uma confirmação, adicionar botões
+      if (type === 'confirm') {
+        const buttonsContainer = document.createElement('div');
+        buttonsContainer.className = 'notification-buttons';
+        
+        const confirmButton = document.createElement('button');
+        confirmButton.className = 'notification-button';
+        confirmButton.textContent = 'OK';
+        confirmButton.onclick = () => {
+          removeNotification(notification);
+          if (notification.onConfirm) notification.onConfirm();
+        };
+        
+        const cancelButton = document.createElement('button');
+        cancelButton.className = 'notification-button';
+        cancelButton.textContent = 'Cancelar';
+        cancelButton.onclick = () => {
+          removeNotification(notification);
+          if (notification.onCancel) notification.onCancel();
+        };
+        
+        buttonsContainer.appendChild(confirmButton);
+        buttonsContainer.appendChild(cancelButton);
+        content.appendChild(buttonsContainer);
+      }
+      
+      // Adicionar ao container
+      notificationContainer.appendChild(notification);
+      
+      // Auto-remover após a duração (se não for 0)
+      if (duration > 0 && type !== 'confirm') {
+        setTimeout(() => {
+          removeNotification(notification);
+        }, duration);
+      }
+      
+      return notification;
+    };
+
+    // Função para remover notificação com animação
+    function removeNotification(notification) {
+      notification.style.animation = 'fade-out 0.3s ease-in forwards';
+      setTimeout(() => {
+        notification.remove();
+      }, 300);
+    }
+
+    // Funções para tipos específicos de notificações
+    window.showAlert = function(message) {
+      return window.showNotification(message, 'info');
+    };
     
-    // Focar no botão para permitir fechar com Enter
-    alertBox.querySelector('.alert-button').focus();
-  }
+    window.showError = function(message) {
+      return window.showNotification(message, 'error');
+    };
+    
+    window.showSuccess = function(message) {
+      return window.showNotification(message, 'success', 3000);
+    };
+    
+    window.showWarning = function(message) {
+      return window.showNotification(message, 'warning');
+    };
+    
+    window.showConfirm = function(message) {
+      return new Promise((resolve) => {
+        const notification = window.showNotification(message, 'confirm');
+        notification.onConfirm = () => resolve(true);
+        notification.onCancel = () => resolve(false);
+      });
+    };
 
-  // Função para esconder o alerta
-  window.hideCustomAlert = function() {
-    const alertBox = document.getElementById('customAlertBox');
-    alertBox.style.display = 'none';
+    // Sobrescrever função de alerta original
+    const originalAlert = window.alert;
+    window.alert = function(message) {
+      return window.showAlert(message);
+    };
   }
-
-  // Substituir a função window.alert original
-  const originalAlert = window.alert;
-  window.alert = function(message) {
-    showCustomAlert(message);
-  };
 
   // Funções de UI
   window.mudarTab = (tabId) => {
@@ -137,7 +215,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Verificar se o email já está cadastrado
     const emailExistente = usuarios.some((usuario) => usuario.email === email)
     if (emailExistente) {
-      alert("Este email já está cadastrado!")
+      showError("Este email já está cadastrado!")
       return false
     }
 
@@ -206,35 +284,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Validar nome
       if (!validarNome(nome)) {
-        alert("Nome inválido. Use apenas letras.")
+        showWarning("Nome inválido. Use apenas letras.")
         return
       }
 
       // Validar email
       if (!validarEmail(email)) {
-        alert("Email inválido. Use apenas letras, números, _ e . antes do @")
+        showWarning("Email inválido. Use apenas letras, números, _ e . antes do @")
         return
       }
 
       // Validar telefone
       if (!validarTelefone(telefone)) {
-        alert("Telefone inválido. Formato esperado: (XX) XXXXX-XXXX")
+        showWarning("Telefone inválido. Formato esperado: (XX) XXXXX-XXXX")
         return
       }
 
       // Validar senha
       if (!validarSenha(senha)) {
-        alert("A senha deve ter pelo menos 8 caracteres, uma letra maiúscula, uma minúscula e um caractere especial.")
+        showWarning("A senha deve ter pelo menos 8 caracteres, uma letra maiúscula, uma minúscula e um caractere especial.")
         return
       }
 
       if (senha !== confirmarSenha) {
-        alert("As senhas não coincidem!")
+        showWarning("As senhas não coincidem!")
         return
       }
 
       if (salvarUsuario(nome, email, telefone, senha)) {
-        alert("Cadastro realizado com sucesso!")
+        showSuccess("Cadastro realizado com sucesso!")
         this.reset()
         window.mudarTab("login")
       }
@@ -263,11 +341,15 @@ document.addEventListener("DOMContentLoaded", () => {
       if (usuario) {
         localStorage.setItem("usuarioLogado", JSON.stringify(usuario))
         console.log("Login bem-sucedido! Redirecionando...")
-
-        // Redirecionar para a página home
-        window.location.href = "home.html"
+        
+        showSuccess("Login bem-sucedido! Redirecionando...")
+        
+        // Redirecionar para a página home após a notificação
+        setTimeout(() => {
+          window.location.href = "home.html"
+        }, 1500)
       } else {
-        alert("Email ou senha incorretos!")
+        showError("Email ou senha incorretos!")
       }
     })
   } else {

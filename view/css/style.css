@@ -24,7 +24,14 @@ body {
     --color-text-muted: #6c757d;
     --color-white: #ffffff;
     --color-signature: #ffffffcc;
-  }
+    
+    /* Cores para notificações */
+    --color-success-bg: #4CAF50;
+    --color-error-bg: #F44336;
+    --color-warning-bg: #FF9800;
+    --color-info-bg: #2196F3;
+    --color-confirm-bg: #673AB7;
+}
 
 /* ========== ESTILIZAÇÃO DO CONTAINER E DO FORMULÁRIO ========== */
 .container-fluid {
@@ -165,7 +172,101 @@ body {
     }
 }
 
-/* ========== ESTILIZAÇÃO DO ALERTA PERSONALIZADO ========== */
+/* ========== ESTILIZAÇÃO DO SISTEMA DE NOTIFICAÇÕES MODERNAS ========== */
+.notification-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 350px;
+}
+
+.notification {
+    padding: 15px 20px;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    animation: slide-in 0.3s ease-out;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.notification-content {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.notification-close {
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.notification-close:hover {
+    opacity: 1;
+}
+
+.notification-success {
+    background-color: var(--color-success-bg);
+}
+
+.notification-error {
+    background-color: var(--color-error-bg);
+}
+
+.notification-warning {
+    background-color: var(--color-warning-bg);
+}
+
+.notification-info {
+    background-color: var(--color-info-bg);
+}
+
+.notification-confirm {
+    background-color: var(--color-confirm-bg);
+}
+
+.notification-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.notification-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.notification-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+@keyframes slide-in {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fade-out {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(100%); opacity: 0; }
+}
+
+/* Mantenha o alerta antigo como fallback */
 #customAlertBox {
     display: none;
     position: fixed;
@@ -177,9 +278,9 @@ body {
     z-index: 1000;
     justify-content: center;
     align-items: center;
-  }
+}
   
-  .alert-content {
+.alert-content {
     background-color: white;
     padding: 20px;
     border-radius: 5px;
@@ -187,14 +288,14 @@ body {
     max-width: 400px;
     width: 90%;
     text-align: center;
-  }
+}
   
-  .alert-message {
+.alert-message {
     margin-bottom: 20px;
     color: #333;
-  }
+}
   
-  .alert-button {
+.alert-button {
     background-color: rgba(0, 0, 0, 0.904);
     color: white;
     border: none;
@@ -202,10 +303,10 @@ body {
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
-  }
+}
   
-  .alert-button:hover {
+.alert-button:hover {
     background-color: #b8dd3a;
     color: black;
     transition: 250ms;
-  }
+}

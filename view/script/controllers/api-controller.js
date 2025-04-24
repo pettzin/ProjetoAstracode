@@ -4,7 +4,7 @@
 import { showLoading, hideLoading } from "./dom-controller.js"
 import { updateContactSelect, renderContacts } from "./view-controller.js"
 import { logContactCreated, logContactUpdated, logContactDeleted } from './log-controller.js';
-import {  showError, showSuccess } from "./notification-controller.js"
+import { showError, showSuccess } from "./notification-controller.js"
 
 // Configuração da API
 export const API = {
@@ -31,7 +31,18 @@ export const checkApiConnection = async () => {
     return true
   } catch (error) {
     console.error("Erro ao conectar com a API:", error)
-    showError("Não foi possível conectar ao servidor. Verifique se o servidor está rodando e tente novamente.")
+    
+    // Mensagem de erro mais específica baseada no problema
+    if (error.message.includes("Failed to fetch")) {
+      showError("Erro de conexão: Servidor indisponível ou URL incorreta. Verifique se o servidor está rodando na porta 3000.")
+    } else if (error.message.includes("404")) {
+      showError("Erro 404: Endpoint de API não encontrado. Verifique a configuração da rota /api/contatos no servidor.")
+    } else if (error.message.includes("500")) {
+      showError("Erro 500: Erro interno no servidor. Por favor, verifique os logs do servidor.")
+    } else {
+      showError(`Falha na conexão com o servidor: ${error.message}. Verifique se o servidor está rodando.`)
+    }
+    
     return false
   }
 }
@@ -44,7 +55,7 @@ export const fetchContacts = async (state) => {
   try {
     const response = await fetch(`${API.BASE_URL}${API.ENDPOINTS.SELECT}`)
     if (!response.ok) {
-      throw new Error("Erro ao buscar contatos")
+      throw new Error(`Erro ao buscar contatos: Código de status ${response.status}`)
     }
     const data = await response.json()
 
@@ -73,7 +84,16 @@ export const fetchContacts = async (state) => {
       contactsGrid.innerHTML = '<div class="no-contacts">Erro ao carregar contatos. Tente novamente mais tarde.</div>'
     }
     
-    showError("Erro ao carregar contatos. Tente novamente mais tarde.")
+    // Mensagem de erro mais específica baseada no problema
+    if (error.message.includes("Failed to fetch")) {
+      showError("Falha na conexão: Servidor indisponível. Verifique a conexão com a internet ou se o servidor está ativo.")
+    } else if (error.message.includes("404")) {
+      showError("Endpoint não encontrado: A rota de API para listar contatos não existe no servidor.")
+    } else if (error.message.includes("500")) {
+      showError("Erro interno do servidor: Ocorreu um problema ao processar a requisição de contatos.")
+    } else {
+      showError(`Erro ao carregar contatos: ${error.message}. Tente novamente mais tarde.`)
+    }
   } finally {
     hideLoading()
   }
@@ -88,8 +108,12 @@ export const createContact = async (contact, state) => {
   showLoading()
   try {
     // Verificar se nome e telefone estão presentes
-    if (!contact.name || !contact.phone) {
-      throw new Error("Os campos nome e telefone são obrigatórios.")
+    if (!contact.name) {
+      throw new Error("Campo nome é obrigatório.")
+    }
+    
+    if (!contact.phone) {
+      throw new Error("Campo telefone é obrigatório.")
     }
 
     // Create the request body without requiring email
@@ -114,7 +138,16 @@ export const createContact = async (contact, state) => {
     if (!response.ok) {
       const errorText = await response.text()
       console.error("Resposta do servidor:", errorText)
-      throw new Error("Erro ao criar contato")
+      
+      if (response.status === 400) {
+        throw new Error(`Erro de validação: ${errorText || "Dados inválidos"}`)
+      } else if (response.status === 409) {
+        throw new Error("Conflito: Contato com este telefone já existe")
+      } else if (response.status === 500) {
+        throw new Error("Erro interno do servidor ao criar contato")
+      } else {
+        throw new Error(`Erro ao criar contato: Código ${response.status}`)
+      }
     }
 
     // Registrar log de criação de contato
@@ -125,7 +158,22 @@ export const createContact = async (contact, state) => {
     return true
   } catch (error) {
     console.error("Erro ao criar contato:", error)
-    showError("Não foi possível criar o contato. Verifique a conexão com o servidor.")
+    
+    // Mensagem de erro mais específica baseada no problema
+    if (error.message.includes("nome é obrigatório")) {
+      showError("Erro de validação: O campo nome é obrigatório.")
+    } else if (error.message.includes("telefone é obrigatório")) {
+      showError("Erro de validação: O campo telefone é obrigatório.")
+    } else if (error.message.includes("Failed to fetch")) {
+      showError("Erro de conexão: Não foi possível conectar ao servidor para criar o contato.")
+    } else if (error.message.includes("Conflito")) {
+      showError("Erro de duplicidade: Já existe um contato com este número de telefone.")
+    } else if (error.message.includes("validação")) {
+      showError(error.message)
+    } else {
+      showError(`Falha ao criar contato: ${error.message}`)
+    }
+    
     return false
   } finally {
     hideLoading()
@@ -140,6 +188,19 @@ export const createContact = async (contact, state) => {
 export const updateContact = async (contact, state) => {
   showLoading()
   try {
+    // Validações básicas
+    if (!contact.id) {
+      throw new Error("ID do contato não fornecido para atualização")
+    }
+    
+    if (!contact.name) {
+      throw new Error("Campo nome é obrigatório")
+    }
+    
+    if (!contact.phone) {
+      throw new Error("Campo telefone é obrigatório")
+    }
+    
     const requestBody = {
       nome: contact.name,
       sobrenome: contact.sobrenome,
@@ -158,7 +219,20 @@ export const updateContact = async (contact, state) => {
     })
 
     if (!response.ok) {
-      throw new Error("Erro ao atualizar contato")
+      const errorText = await response.text()
+      console.error("Resposta do servidor:", errorText)
+      
+      if (response.status === 404) {
+        throw new Error(`Contato com ID ${contact.id} não encontrado no servidor`)
+      } else if (response.status === 400) {
+        throw new Error(`Erro de validação: ${errorText || "Dados inválidos"}`)
+      } else if (response.status === 409) {
+        throw new Error("Conflito: Este número de telefone já está sendo usado por outro contato")
+      } else if (response.status === 500) {
+        throw new Error("Erro interno do servidor ao atualizar contato")
+      } else {
+        throw new Error(`Erro ao atualizar contato: Código ${response.status}`)
+      }
     }
 
     // Registrar log de atualização de contato
@@ -169,7 +243,24 @@ export const updateContact = async (contact, state) => {
     return true
   } catch (error) {
     console.error("Erro ao atualizar contato:", error)
-    showError("Não foi possível atualizar o contato. Verifique a conexão com o servidor.")
+    
+    // Mensagem de erro mais específica baseada no problema
+    if (error.message.includes("ID do contato não fornecido")) {
+      showError("Erro: ID do contato não encontrado ou inválido.")
+    } else if (error.message.includes("nome é obrigatório")) {
+      showError("Erro de validação: O campo nome é obrigatório.")
+    } else if (error.message.includes("telefone é obrigatório")) {
+      showError("Erro de validação: O campo telefone é obrigatório.")
+    } else if (error.message.includes("não encontrado")) {
+      showError(`Erro: ${error.message}. O contato pode ter sido excluído por outro usuário.`)
+    } else if (error.message.includes("Failed to fetch")) {
+      showError("Erro de conexão: Não foi possível conectar ao servidor para atualizar o contato.")
+    } else if (error.message.includes("Conflito")) {
+      showError("Erro de duplicidade: O número de telefone já está em uso por outro contato.")
+    } else {
+      showError(`Falha ao atualizar contato: ${error.message}`)
+    }
+    
     return false
   } finally {
     hideLoading()
@@ -184,6 +275,10 @@ export const updateContact = async (contact, state) => {
 export const deleteContactAPI = async (contactId, state) => {
   showLoading();
   try {
+    if (!contactId) {
+      throw new Error("ID de contato inválido para exclusão");
+    }
+    
     console.log(`Tentando excluir contato ID: ${contactId}`);
     
     const response = await fetch(`${API.BASE_URL}${API.ENDPOINTS.DELETE(contactId)}`, {
@@ -192,9 +287,18 @@ export const deleteContactAPI = async (contactId, state) => {
     
     console.log(`Resposta do servidor:`, response);
     
-    // Verificar o texto da resposta para depuração
-    const responseText = await response.text();
-    console.log(`Texto da resposta:`, responseText);
+    if (!response.ok) {
+      const responseText = await response.text();
+      console.log(`Texto da resposta:`, responseText);
+      
+      if (response.status === 404) {
+        throw new Error(`Contato com ID ${contactId} não encontrado no servidor`)
+      } else if (response.status === 500) {
+        throw new Error("Erro interno do servidor ao excluir contato")
+      } else {
+        throw new Error(`Erro ao excluir contato: Código ${response.status}`)
+      }
+    }
     
     // Se chegou até aqui, consideramos a operação bem-sucedida
     console.log(`Contato ID ${contactId} excluído com sucesso`);
@@ -214,7 +318,20 @@ export const deleteContactAPI = async (contactId, state) => {
     return true;
   } catch (error) {
     console.error("Erro ao excluir contato:", error);
-    showError("Não foi possível excluir o contato. Verifique a conexão com o servidor.");
+    
+    // Mensagem de erro mais específico
+    if (error.message.includes("ID de contato inválido")) {
+      showError("Erro: ID de contato inválido ou não especificado para exclusão.")
+    } else if (error.message.includes("não encontrado")) {
+      showError(`Erro: ${error.message}. O contato pode ter sido excluído anteriormente.`)
+    } else if (error.message.includes("Failed to fetch")) {
+      showError("Erro de conexão: Não foi possível conectar ao servidor para excluir o contato.")
+    } else if (error.message.includes("500")) {
+      showError("Erro interno do servidor: Ocorreu um problema ao processar a exclusão do contato.")
+    } else {
+      showError(`Falha ao excluir contato: ${error.message}`)
+    }
+    
     return false;
   } finally {
     hideLoading();

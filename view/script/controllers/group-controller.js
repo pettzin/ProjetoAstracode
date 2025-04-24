@@ -44,7 +44,15 @@ export const createGroup = async (groupName, contactIds) => {
     const allSuccessful = results.every((result) => result.status === "fulfilled" && result.value.ok)
 
     if (!allSuccessful) {
-      throw new Error("Não foi possível atualizar todos os contatos.")
+      // Verificar erros específicos
+      const failedResults = results.filter(r => r.status === "rejected" || !r.value.ok)
+      
+      // Verificar se alguma falha é por contato não encontrado
+      if (failedResults.some(r => r.value && r.value.status === 404)) {
+        throw new Error("Alguns contatos não foram encontrados no servidor.")
+      }
+      
+      throw new Error("Falha ao atualizar contatos. Alguns contatos não puderam ser associados ao grupo.")
     }
 
     // Registrar log de criação de grupo
@@ -58,7 +66,7 @@ export const createGroup = async (groupName, contactIds) => {
     return true
   } catch (error) {
     console.error("Erro ao criar grupo:", error)
-    showError(error.message || "Não foi possível criar o grupo. Verifique a conexão com o servidor.")
+    showError(error.message || "Falha na criação do grupo. Verifique a conexão com o servidor.")
     return false
   } finally {
     hideLoading()
@@ -119,7 +127,15 @@ export const updateGroupMembers = async (groupName, contactsToAdd, contactsToRem
     const allSuccessful = results.every((result) => result.status === "fulfilled" && result.value.ok)
 
     if (!allSuccessful) {
-      throw new Error("Não foi possível atualizar todos os contatos do grupo.")
+      // Verificar erros específicos
+      const failedResults = results.filter(r => r.status === "rejected" || !r.value.ok)
+      
+      // Verificar se alguma falha é por contato não encontrado
+      if (failedResults.some(r => r.value && r.value.status === 404)) {
+        throw new Error("Alguns contatos não foram encontrados no servidor.")
+      }
+      
+      throw new Error("Falha ao atualizar membros do grupo. Nem todos os contatos puderam ser processados.")
     }
 
     // Registrar log de atualização de grupo
@@ -134,7 +150,7 @@ export const updateGroupMembers = async (groupName, contactsToAdd, contactsToRem
     return true
   } catch (error) {
     console.error("Erro ao atualizar grupo:", error)
-    showError(error.message || "Não foi possível atualizar o grupo. Verifique a conexão com o servidor.")
+    showError(error.message || "Falha ao atualizar membros do grupo. Verifique a conexão com o servidor.")
     return false
   } finally {
     hideLoading()
@@ -210,7 +226,15 @@ export const deleteGroup = async (groupName, contacts) => {
     const allSuccessful = results.every((result) => result.status === "fulfilled" && result.value.ok)
 
     if (!allSuccessful) {
-      throw new Error("Não foi possível remover todos os contatos do grupo.")
+      // Verificar erros específicos
+      const failedResults = results.filter(r => r.status === "rejected" || !r.value.ok)
+      
+      // Verificar se alguma falha é por contato não encontrado
+      if (failedResults.some(r => r.value && r.value.status === 404)) {
+        throw new Error("Alguns contatos do grupo não foram encontrados no servidor.")
+      }
+      
+      throw new Error("Falha ao excluir o grupo. Nem todos os contatos puderam ser desassociados.")
     }
 
     // Registrar log de exclusão de grupo
@@ -224,7 +248,7 @@ export const deleteGroup = async (groupName, contacts) => {
     return true
   } catch (error) {
     console.error("Erro ao excluir grupo:", error)
-    showError(error.message || "Não foi possível excluir o grupo. Verifique a conexão com o servidor.")
+    showError(error.message || "Falha ao excluir o grupo. Verifique a conexão com o servidor.")
     return false
   } finally {
     hideLoading()
