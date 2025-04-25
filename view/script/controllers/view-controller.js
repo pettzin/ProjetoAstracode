@@ -250,7 +250,7 @@ export const openMessageDialog = (contactId, state) => {
     // Exibir o diálogo
     elements.dialogs.message.style.display = "flex"
   } else {
-    showAlert("Erro: ID de contato inválido ou contato não encontrado no sistema.")
+    showAlert("Contato não encontrado.")
   }
 }
 
@@ -269,7 +269,7 @@ export const openProfileDialog = (contactId, state) => {
   if (contactId) {
     contact = state.contacts.find((c) => c.id === contactId)
     if (!contact) {
-      showAlert(`Erro: Contato com ID ${contactId} não foi encontrado na base de dados.`)
+      showAlert("Contato não encontrado.")
       return
     }
     state.currentContactId = contactId
@@ -340,7 +340,7 @@ export const openGroupDialog = (groupId = null, state) => {
       groupName.value = group.name
       deleteGroupBtn.style.display = "block"
     } else {
-      showAlert(`Erro: Grupo com ID "${groupId}" não foi encontrado na base de dados.`)
+      showAlert("Grupo não encontrado.")
       return
     }
   } else {
@@ -403,13 +403,8 @@ export const saveContact = async (state) => {
   const avatar = profileAvatar ? profileAvatar.src : "../img/iconContact.png"
   const sobrenome = profileSobrenome ? profileSobrenome.value.trim() : ""
 
-  if (!name) {
-    showAlert("Erro: Campo nome obrigatório não preenchido.")
-    return
-  }
-  
-  if (!phone) {
-    showAlert("Erro: Campo telefone obrigatório não preenchido.")
+  if (!name || !phone) {
+    showAlert("Por favor, preencha pelo menos o nome e o telefone.")
     return
   }
 
@@ -451,7 +446,7 @@ export const saveGroup = async (state) => {
   const name = groupName.value.trim()
 
   if (!name) {
-    showAlert("Erro: Nome do grupo não foi preenchido.")
+    showAlert("Por favor, digite um nome para o grupo.")
     return
   }
 
@@ -467,7 +462,7 @@ export const saveGroup = async (state) => {
   })
 
   if (selectedContactIds.length === 0) {
-    showAlert("Erro: Nenhum contato selecionado para o grupo. Selecione pelo menos um contato.")
+    showAlert("Por favor, selecione pelo menos um contato para o grupo.")
     return
   }
 
@@ -528,11 +523,9 @@ export const saveGroup = async (state) => {
 export const deleteGroup = async (state) => {
   if (!state.currentGroupId) return
 
-  const groupName = state.groups.find((g) => g.id === state.currentGroupId)?.name || 'desconhecido'
-  
   // Substituído confirm nativo pelo showConfirm customizado
   const confirmed = await showConfirm(
-    `Tem certeza que deseja excluir o grupo "${groupName}"? Esta ação não pode ser desfeita.`
+    `Tem certeza que deseja excluir o grupo "${state.groups.find((g) => g.id === state.currentGroupId)?.name}"?`,
   )
 
   if (confirmed) {
@@ -569,11 +562,8 @@ export const deleteGroup = async (state) => {
 export const deleteContact = async (state) => {
   if (!state.currentContactId) return
 
-  const contact = state.contacts.find(c => c.id === state.currentContactId)
-  const contactName = contact ? contact.name : 'selecionado'
-  
   // Substituído confirm nativo pelo showConfirm customizado
-  const confirmed = await showConfirm(`Tem certeza que deseja excluir o contato "${contactName}"? Esta ação não pode ser desfeita.`)
+  const confirmed = await showConfirm("Tem certeza que deseja excluir este contato?")
 
   if (confirmed) {
     const success = await deleteContactAPI(state.currentContactId, state)
@@ -599,7 +589,7 @@ export const handleAvatarUpload = async (event) => {
       }
     } catch (error) {
       console.error("Erro ao converter imagem:", error)
-      showAlert(`Erro no processamento da imagem: ${error.message || 'Formato inválido ou arquivo corrompido'}.`)
+      showAlert("Não foi possível processar a imagem. Tente novamente.")
     }
   }
 }

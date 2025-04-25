@@ -54,13 +54,3 @@
 [21/04/2025, 12:36:53] [UPDATE] [User: system] {"id":"179","campos_atualizados":"grupo","grupo":"Astra"}
 [21/04/2025, 12:37:43] [CREATE] [User: system] {"id":200,"nome":"teste","sobrenome":"lulavive","email":"","telefone":"(32) 35666-7878","grupo":"todos"}
 [21/04/2025, 12:38:03] [DELETE] [User: system] {"id":"200","mensagem":"Contato ID 200 foi excluído"}
-[24/04/2025, 16:43:08] [UPDATE] [User: system] {"id":"201","campos_atualizados":"grupo","grupo":"aaaaaaaaaaaaaaaaaaaa"}
-[24/04/2025, 16:43:08] [UPDATE] [User: system] {"id":"178","campos_atualizados":"grupo","grupo":"aaaaaaaaaaaaaaaaaaaa"}
-[24/04/2025, 16:43:29] [UPDATE] [User: system] {"id":"178","campos_atualizados":"grupo","grupo":"todos"}
-[24/04/2025, 16:43:44] [UPDATE] [User: system] {"id":"198","campos_atualizados":"grupo","grupo":"aaaaaaaaaaaaaaaaaaaa"}
-[24/04/2025, 16:43:44] [UPDATE] [User: system] {"id":"107","campos_atualizados":"grupo","grupo":"aaaaaaaaaaaaaaaaaaaa"}
-[24/04/2025, 16:44:03] [UPDATE] [User: system] {"id":"201","campos_atualizados":"grupo","grupo":"todos"}
-[24/04/2025, 16:44:03] [UPDATE] [User: system] {"id":"198","campos_atualizados":"grupo","grupo":"todos"}
-[24/04/2025, 16:44:04] [UPDATE] [User: system] {"id":"107","campos_atualizados":"grupo","grupo":"todos"}
-[24/04/2025, 16:52:59] [UPDATE] [User: system] {"id":"179","campos_atualizados":"nome, sobrenome, email, telefone, grupo, imagem","grupo":"Astra"}
-[24/04/2025, 16:53:27] [UPDATE] [User: system] {"id":"107","campos_atualizados":"nome, sobrenome, email, telefone, grupo, imagem","grupo":""}

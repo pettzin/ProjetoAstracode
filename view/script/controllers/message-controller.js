@@ -37,17 +37,17 @@ export const sendMessage = (state) => {
   const time = messageTime.value
 
   if (!selectedContactId) {
-    showWarning("Selecione um contato para enviar a mensagem.")
+    showWarning("Por favor, selecione um contato.")
     return
   }
 
   if (!text) {
-    showWarning("O campo de mensagem não pode estar vazio.")
+    showWarning("Por favor, escreva uma mensagem.")
     return
   }
 
   if (!date || !time) {
-    showWarning("Data e hora de agendamento são obrigatórios.")
+    showWarning("Selecione uma data e hora para agendamento.")
     return
   }
 
@@ -57,13 +57,13 @@ export const sendMessage = (state) => {
 
     // Verificar se a data é válida
     if (isNaN(scheduledDateTime.getTime())) {
-      showError("Formato de data ou hora inválido. Use o formato DD/MM/AAAA para data e HH:MM para hora.")
+      showError("Data ou hora inválida. Por favor, verifique o formato.")
       return
     }
 
     // Verificar se a data não é no passado
     if (scheduledDateTime < new Date()) {
-      showError("Data de agendamento no passado. Selecione uma data e hora futura.")
+      showError("Não é possível agendar mensagens para o passado. Por favor, selecione uma data e hora futura.")
       return
     }
 
@@ -85,8 +85,6 @@ export const sendMessage = (state) => {
 
     showSuccess(`Mensagem agendada para ${contact.name} às ${scheduledDateTime.toLocaleString()}: ${text}`)
     closeDialogs()
-  } else {
-    showError("Contato selecionado não foi encontrado na lista de contatos.")
   }
 }
 
@@ -95,21 +93,16 @@ export const sendMessage = (state) => {
  * @param {Object} scheduledMessage - A mensagem agendada
  */
 export const saveScheduledMessage = (scheduledMessage) => {
-  try {
-    // Obter mensagens agendadas existentes
-    const scheduledMessages = JSON.parse(localStorage.getItem("scheduledMessages") || "[]")
+  // Obter mensagens agendadas existentes
+  const scheduledMessages = JSON.parse(localStorage.getItem("scheduledMessages") || "[]")
 
-    // Adicionar nova mensagem
-    scheduledMessages.push(scheduledMessage)
+  // Adicionar nova mensagem
+  scheduledMessages.push(scheduledMessage)
 
-    // Salvar de volta no localStorage
-    localStorage.setItem("scheduledMessages", JSON.stringify(scheduledMessages))
+  // Salvar de volta no localStorage
+  localStorage.setItem("scheduledMessages", JSON.stringify(scheduledMessages))
 
-    console.log("Mensagem agendada salva:", scheduledMessage)
-  } catch (error) {
-    console.error("Erro ao salvar mensagem no localStorage:", error)
-    showError("Falha ao salvar o agendamento. Verifique o espaço disponível no navegador.")
-  }
+  console.log("Mensagem agendada salva:", scheduledMessage)
 }
 
 /**
@@ -121,10 +114,7 @@ export const scheduleMessageAlert = (scheduledMessage, state) => {
   const delay = scheduledMessage.scheduledTime - now
 
   // Se o tempo já passou, não agendar
-  if (delay <= 0) {
-    console.warn("Tempo de agendamento já passou, não será agendado:", scheduledMessage)
-    return
-  }
+  if (delay <= 0) return
 
   console.log(`Agendando alerta para mensagem ID ${scheduledMessage.id} em ${Math.floor(delay / 1000)} segundos`)
 
@@ -134,12 +124,6 @@ export const scheduleMessageAlert = (scheduledMessage, state) => {
 
     if (contact) {
       const phoneNumber = contact.phone.replace(/\D/g, "")
-      if (!phoneNumber) {
-        showError(`Não foi possível enviar mensagem para ${contact.name}: número de telefone inválido.`)
-        removeScheduledMessage(scheduledMessage.id)
-        return
-      }
-      
       const encodedMessage = encodeURIComponent(scheduledMessage.message)
       const whatsappLink = `https://wa.me/${phoneNumber}/?text=${encodedMessage}`
 
@@ -153,9 +137,6 @@ export const scheduleMessageAlert = (scheduledMessage, state) => {
         // Remover a mensagem da lista de agendamentos
         removeScheduledMessage(scheduledMessage.id)
       })
-    } else {
-      showError("Contato não encontrado. O contato pode ter sido excluído desde o agendamento.")
-      removeScheduledMessage(scheduledMessage.id)
     }
   }, delay)
 }
@@ -165,21 +146,16 @@ export const scheduleMessageAlert = (scheduledMessage, state) => {
  * @param {number} messageId - O ID da mensagem a ser removida
  */
 export const removeScheduledMessage = (messageId) => {
-  try {
-    // Obter mensagens agendadas existentes
-    const scheduledMessages = JSON.parse(localStorage.getItem("scheduledMessages") || "[]")
+  // Obter mensagens agendadas existentes
+  const scheduledMessages = JSON.parse(localStorage.getItem("scheduledMessages") || "[]")
 
-    // Filtrar a mensagem a ser removida
-    const updatedMessages = scheduledMessages.filter((msg) => msg.id !== messageId)
+  // Filtrar a mensagem a ser removida
+  const updatedMessages = scheduledMessages.filter((msg) => msg.id !== messageId)
 
-    // Salvar de volta no localStorage
-    localStorage.setItem("scheduledMessages", JSON.stringify(updatedMessages))
+  // Salvar de volta no localStorage
+  localStorage.setItem("scheduledMessages", JSON.stringify(updatedMessages))
 
-    console.log("Mensagem agendada removida:", messageId)
-  } catch (error) {
-    console.error("Erro ao remover mensagem agendada:", error)
-    showError("Falha ao remover agendamento do armazenamento local.")
-  }
+  console.log("Mensagem agendada removida:", messageId)
 }
 
 /**
@@ -189,45 +165,31 @@ export const sendWhatsAppMessage = (state) => {
   const messageText = document.getElementById("messageText")
 
   // Verificar se o elemento existe
-  if (!elementExists(messageText, "messageText")) {
-    showError("Campo de mensagem não encontrado na interface.")
-    return
-  }
+  if (!elementExists(messageText, "messageText")) return
 
   const text = messageText.value.trim()
 
   if (!text) {
-    showWarning("O campo de mensagem não pode estar vazio.")
+    showWarning("Por favor, escreva uma mensagem.")
     return
   }
 
   const contact = state.contacts.find((c) => c.id === state.currentContactId)
-  if (!contact) {
-    showError("Contato não encontrado na lista de contatos.")
-    return
-  }
-  
-  if (!contact.phone) {
-    showError(`O contato ${contact.name} não possui número de telefone cadastrado.`)
-    return
-  }
+  if (contact && contact.phone) {
+    // Remover caracteres não numéricos do telefone
+    const phoneNumber = contact.phone.replace(/\D/g, "")
 
-  // Remover caracteres não numéricos do telefone
-  const phoneNumber = contact.phone.replace(/\D/g, "")
+    if (!phoneNumber) {
+      showError("Número de telefone inválido.")
+      return
+    }
 
-  if (!phoneNumber) {
-    showError(`Número de telefone inválido para o contato ${contact.name}.`)
-    return
-  }
+    const encodedMessage = encodeURIComponent(text)
+    const whatsappLink = `https://wa.me/${phoneNumber}/?text=${encodedMessage}`
 
-  const encodedMessage = encodeURIComponent(text)
-  const whatsappLink = `https://wa.me/${phoneNumber}/?text=${encodedMessage}`
-
-  try {
     window.open(whatsappLink, "_blank")
     closeDialogs()
-  } catch (error) {
-    console.error("Erro ao abrir WhatsApp:", error)
-    showError("Não foi possível abrir o WhatsApp. Verifique as permissões do navegador para abrir links.")
+  } else {
+    showError("Contato não encontrado ou sem número de telefone.")
   }
 }
