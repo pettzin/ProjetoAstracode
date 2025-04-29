@@ -4,7 +4,7 @@
 import { showLoading, hideLoading } from "./dom-controller.js"
 import { updateContactSelect, renderContacts } from "./view-controller.js"
 import { logContactCreated, logContactUpdated, logContactDeleted } from './log-controller.js';
-import {  showError, showSuccess } from "./notification-controller.js"
+import { showError, showSuccess } from "./notification-controller.js"
 
 // Configuração da API
 export const API = {
@@ -66,13 +66,13 @@ export const fetchContacts = async (state) => {
     updateContactSelect(state)
   } catch (error) {
     console.error("Erro ao buscar contatos:", error)
-    
+
     // Exibir mensagem no grid de contatos
     const contactsGrid = document.getElementById("contactsGrid")
     if (contactsGrid) {
       contactsGrid.innerHTML = '<div class="no-contacts">Erro ao carregar contatos. Por favor, tente novamente mais tarde.</div>'
     }
-    
+
     showError("Não foi possível carregar os contatos. Verifique sua conexão com a internet ou tente novamente mais tarde.")
   } finally {
     hideLoading()
@@ -227,32 +227,32 @@ export const deleteContactAPI = async (contactId, state) => {
   showLoading();
   try {
     console.log(`Tentando excluir contato ID: ${contactId}`);
-    
+
     const response = await fetch(`${API.BASE_URL}${API.ENDPOINTS.DELETE(contactId)}`, {
       method: "DELETE",
     });
-    
+
     console.log(`Resposta do servidor:`, response);
-    
+
     // Verificar o texto da resposta para depuração
     const responseText = await response.text();
     console.log(`Texto da resposta:`, responseText);
-    
+
     // Se chegou até aqui, consideramos a operação bem-sucedida
     console.log(`Contato ID ${contactId} excluído com sucesso`);
-    
+
     // Registrar log de exclusão de contato
-    logContactDeleted({id: contactId});
-    
+    logContactDeleted({ id: contactId });
+
     showSuccess("Contato excluído com sucesso! A lista foi atualizada.")
-    
+
     try {
       await fetchContacts(state);
     } catch (fetchError) {
       console.error("Erro ao atualizar lista de contatos:", fetchError);
       // Não tratamos como erro fatal, apenas logamos
     }
-    
+
     return true;
   } catch (error) {
     console.error("Erro ao excluir contato:", error);

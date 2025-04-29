@@ -31,7 +31,7 @@ export const logAction = (action, data, sendToServer = false) => {
   // Registrar no console
   const timestamp = getLocalTimestamp();
   console.log(`[${timestamp}] [${action.toUpperCase()}]`, data);
-  
+
   // Opcionalmente enviar para o servidor
   if (sendToServer) {
     try {
