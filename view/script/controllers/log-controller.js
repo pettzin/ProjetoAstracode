@@ -47,11 +47,11 @@ export const logAction = (action, data, sendToServer = false) => {
         })
       }).catch(err => {
         // Usar notificação personalizada em vez de console.log
-        showError('Não foi possível enviar log para o servidor');
+        showError('Não foi possível enviar o log para o servidor. Verifique sua conexão e tente novamente.');
       });
     } catch (error) {
       // Silenciar erros ou opcionalmente mostrar uma notificação
-      // showError('Erro ao tentar enviar logs: ' + error.message);
+      showError('Erro ao tentar enviar logs: ' + error.message);
     }
   }
 };

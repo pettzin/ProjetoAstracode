@@ -18,7 +18,7 @@ export const salvarUsuario = (nome, email, telefone, senha) => {
   // Verificar se o email já está cadastrado
   const emailExistente = usuarios.some((usuario) => usuario.email === email)
   if (emailExistente) {
-    showError("Este email já está cadastrado!")
+    showError("Este email já está cadastrado! Por favor, utilize outro email.")
     return false
   }
 
@@ -36,7 +36,7 @@ export const salvarUsuario = (nome, email, telefone, senha) => {
 
   // Salvar array atualizado
   localStorage.setItem("usuarios", JSON.stringify(usuarios))
-  showSuccess("Usuário cadastrado com sucesso!")
+  showSuccess("Usuário cadastrado com sucesso! Você já pode fazer login.")
   return true
 }
 
@@ -86,7 +86,7 @@ export const atualizarUsuario = (dadosAtualizados) => {
   const index = usuarios.findIndex((u) => u.email === dadosAtualizados.email)
 
   if (index === -1) {
-    showError("Usuário não encontrado!")
+    showError("Usuário não encontrado! Verifique os dados fornecidos.")
     return false
   }
 
@@ -102,7 +102,7 @@ export const atualizarUsuario = (dadosAtualizados) => {
     localStorage.setItem("usuarioLogado", JSON.stringify(usuarios[index]))
   }
 
-  showSuccess("Dados atualizados com sucesso!")
+  showSuccess("Dados atualizados com sucesso! As alterações foram salvas.")
   return true
 }
 
@@ -121,7 +121,7 @@ export const alterarSenha = (email, senhaAtual, novaSenha) => {
   const index = usuarios.findIndex((u) => u.email === email && u.senha === senhaAtual)
 
   if (index === -1) {
-    showError("Senha atual incorreta!")
+    showError("Senha atual incorreta! Por favor, tente novamente.")
     return false
   }
 
@@ -138,7 +138,7 @@ export const alterarSenha = (email, senhaAtual, novaSenha) => {
     localStorage.setItem("usuarioLogado", JSON.stringify(usuarioLogado))
   }
 
-  showSuccess("Senha alterada com sucesso!")
+  showSuccess("Senha alterada com sucesso! Use a nova senha no próximo login.")
   return true
 }
 
@@ -156,7 +156,7 @@ export const alterarEmail = (emailAtual, novoEmail, senha) => {
   // Verificar se o novo email já está cadastrado
   const emailExistente = usuarios.some((usuario) => usuario.email === novoEmail)
   if (emailExistente) {
-    showError("Este email já está cadastrado!")
+    showError("Este email já está cadastrado! Por favor, escolha outro email.")
     return false
   }
 
@@ -164,7 +164,7 @@ export const alterarEmail = (emailAtual, novoEmail, senha) => {
   const index = usuarios.findIndex((u) => u.email === emailAtual && u.senha === senha)
 
   if (index === -1) {
-    showError("Senha incorreta!")
+    showError("Senha incorreta! Não foi possível alterar o email.")
     return false
   }
 
@@ -181,6 +181,6 @@ export const alterarEmail = (emailAtual, novoEmail, senha) => {
     localStorage.setItem("usuarioLogado", JSON.stringify(usuarioLogado))
   }
 
-  showSuccess("Email alterado com sucesso!")
+  showSuccess("Email alterado com sucesso! Use o novo email para fazer login.")
   return true
 }

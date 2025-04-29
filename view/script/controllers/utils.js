@@ -14,7 +14,7 @@ export const imageToBase64 = (file) => {
     reader.readAsDataURL(file)
     reader.onload = () => resolve(reader.result)
     reader.onerror = (error) => {
-      showError("Erro ao processar o arquivo: " + (error.message || "Erro desconhecido"))
+      showError("Erro ao processar o arquivo: " + (error.message || "Erro desconhecido. Certifique-se de que o arquivo é válido e tente novamente."))
       reject(error)
     }
   })

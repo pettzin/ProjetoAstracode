@@ -74,3 +74,15 @@
 [29/04/2025, 00:38:02] [DELETE] [User: system] {"id":"213","mensagem":"Contato ID 213 foi excluído"}
 [29/04/2025, 00:39:20] [DELETE] [User: system] {"id":"192","mensagem":"Contato ID 192 foi excluído"}
 [29/04/2025, 00:39:26] [DELETE] [User: system] {"id":"204","mensagem":"Contato ID 204 foi excluído"}
+[29/04/2025, 01:09:58] [CREATE] [User: system] {"id":214,"nome":"miau","sobrenome":"","email":"","telefone":"(44) 4","grupo":"todos"}
+[29/04/2025, 01:12:46] [UPDATE] [User: system] {"id":"214","campos_atualizados":"nome, sobrenome, email, telefone, grupo, imagem","grupo":""}
+[29/04/2025, 01:12:50] [UPDATE] [User: system] {"id":"214","campos_atualizados":"nome, sobrenome, email, telefone, grupo, imagem","grupo":""}
+[29/04/2025, 01:12:55] [UPDATE] [User: system] {"id":"214","campos_atualizados":"nome, sobrenome, email, telefone, grupo, imagem","grupo":""}
+[29/04/2025, 01:12:59] [UPDATE] [User: system] {"id":"214","campos_atualizados":"nome, sobrenome, email, telefone, grupo, imagem","grupo":""}
+[29/04/2025, 01:15:17] [UPDATE] [User: system] {"id":"214","campos_atualizados":"nome, sobrenome, email, telefone, grupo, imagem","grupo":""}
+[29/04/2025, 01:15:28] [UPDATE] [User: system] {"id":"214","campos_atualizados":"nome, sobrenome, email, telefone, grupo, imagem","grupo":""}
+[29/04/2025, 01:18:50] [UPDATE] [User: system] {"id":"214","campos_atualizados":"nome, sobrenome, email, telefone, grupo, imagem","grupo":""}
+[29/04/2025, 01:19:02] [CREATE] [User: system] {"id":215,"nome":"bbbbb","sobrenome":"","email":"","telefone":"(22) 22222-2222","grupo":"todos"}
+[29/04/2025, 01:20:47] [UPDATE] [User: system] {"id":"206","campos_atualizados":"nome, sobrenome, email, telefone, grupo, imagem","grupo":"q"}
+[29/04/2025, 01:21:08] [UPDATE] [User: system] {"id":"206","campos_atualizados":"nome, sobrenome, email, telefone, grupo, imagem","grupo":"q"}
+[29/04/2025, 01:21:19] [UPDATE] [User: system] {"id":"206","campos_atualizados":"grupo","grupo":"todos"}

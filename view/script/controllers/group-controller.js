@@ -17,11 +17,11 @@ export const createGroup = async (groupName, contactIds) => {
 
   try {
     if (!groupName || groupName.trim() === "") {
-      throw new Error("O nome do grupo é obrigatório.")
+      throw new Error("O nome do grupo é obrigatório. Por favor, insira um nome válido.")
     }
 
     if (!contactIds || contactIds.length === 0) {
-      throw new Error("Selecione pelo menos um contato para o grupo.")
+      throw new Error("Selecione pelo menos um contato para associar ao grupo.")
     }
 
     // Atualizar o campo 'grupo' para cada contato selecionado
@@ -44,7 +44,7 @@ export const createGroup = async (groupName, contactIds) => {
     const allSuccessful = results.every((result) => result.status === "fulfilled" && result.value.ok)
 
     if (!allSuccessful) {
-      throw new Error("Não foi possível atualizar todos os contatos.")
+      throw new Error("Não foi possível atualizar todos os contatos. Verifique os dados e tente novamente.")
     }
 
     // Registrar log de criação de grupo
@@ -58,7 +58,7 @@ export const createGroup = async (groupName, contactIds) => {
     return true
   } catch (error) {
     console.error("Erro ao criar grupo:", error)
-    showError(error.message || "Não foi possível criar o grupo. Verifique a conexão com o servidor.")
+    showError(error.message || "Não foi possível criar o grupo. Verifique a conexão com o servidor e tente novamente.")
     return false
   } finally {
     hideLoading()
@@ -119,7 +119,7 @@ export const updateGroupMembers = async (groupName, contactsToAdd, contactsToRem
     const allSuccessful = results.every((result) => result.status === "fulfilled" && result.value.ok)
 
     if (!allSuccessful) {
-      throw new Error("Não foi possível atualizar todos os contatos do grupo.")
+      throw new Error("Não foi possível atualizar todos os contatos do grupo. Verifique os dados e tente novamente.")
     }
 
     // Registrar log de atualização de grupo
@@ -134,7 +134,7 @@ export const updateGroupMembers = async (groupName, contactsToAdd, contactsToRem
     return true
   } catch (error) {
     console.error("Erro ao atualizar grupo:", error)
-    showError(error.message || "Não foi possível atualizar o grupo. Verifique a conexão com o servidor.")
+    showError(error.message || "Não foi possível atualizar o grupo. Verifique a conexão com o servidor e tente novamente.")
     return false
   } finally {
     hideLoading()
@@ -210,7 +210,7 @@ export const deleteGroup = async (groupName, contacts) => {
     const allSuccessful = results.every((result) => result.status === "fulfilled" && result.value.ok)
 
     if (!allSuccessful) {
-      throw new Error("Não foi possível remover todos os contatos do grupo.")
+      throw new Error("Não foi possível remover todos os contatos do grupo. Verifique os dados e tente novamente.")
     }
 
     // Registrar log de exclusão de grupo
@@ -224,7 +224,7 @@ export const deleteGroup = async (groupName, contacts) => {
     return true
   } catch (error) {
     console.error("Erro ao excluir grupo:", error)
-    showError(error.message || "Não foi possível excluir o grupo. Verifique a conexão com o servidor.")
+    showError(error.message || "Não foi possível excluir o grupo. Verifique a conexão com o servidor e tente novamente.")
     return false
   } finally {
     hideLoading()

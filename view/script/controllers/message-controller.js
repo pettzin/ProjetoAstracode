@@ -37,17 +37,17 @@ export const sendMessage = (state) => {
   const time = messageTime.value
 
   if (!selectedContactId) {
-    showWarning("Por favor, selecione um contato.")
+    showWarning("Por favor, selecione um contato para enviar a mensagem.")
     return
   }
 
   if (!text) {
-    showWarning("Por favor, escreva uma mensagem.")
+    showWarning("Por favor, escreva o conteúdo da mensagem antes de agendar.")
     return
   }
 
   if (!date || !time) {
-    showWarning("Selecione uma data e hora para agendamento.")
+    showWarning("Selecione uma data e hora válidas para o agendamento.")
     return
   }
 
@@ -57,13 +57,13 @@ export const sendMessage = (state) => {
 
     // Verificar se a data é válida
     if (isNaN(scheduledDateTime.getTime())) {
-      showError("Data ou hora inválida. Por favor, verifique o formato.")
+      showError("Data ou hora inválida. Por favor, insira uma data e hora no formato correto.")
       return
     }
 
     // Verificar se a data não é no passado
     if (scheduledDateTime < new Date()) {
-      showError("Não é possível agendar mensagens para o passado. Por favor, selecione uma data e hora futura.")
+      showError("Não é possível agendar mensagens para o passado. Por favor, escolha uma data e hora futura.")
       return
     }
 
@@ -83,7 +83,7 @@ export const sendMessage = (state) => {
     // Configurar o temporizador para exibir o alerta no momento agendado
     scheduleMessageAlert(scheduledMessage, state)
 
-    showSuccess(`Mensagem agendada para ${contact.name} às ${scheduledDateTime.toLocaleString()}: ${text}`)
+    showSuccess(`Mensagem agendada com sucesso para ${contact.name} às ${scheduledDateTime.toLocaleString()}: "${text}"`)
     closeDialogs()
   }
 }
@@ -129,7 +129,7 @@ export const scheduleMessageAlert = (scheduledMessage, state) => {
 
       // Exibir alerta com opção para enviar a mensagem
       showConfirm(
-        `Hora de enviar a mensagem agendada para ${contact.name}:\n\n${scheduledMessage.message}\n\nClique em OK para abrir o WhatsApp e enviar a mensagem.`
+        `Hora de enviar a mensagem agendada para ${contact.name}:\n\n"${scheduledMessage.message}"\n\nClique em OK para abrir o WhatsApp e enviar a mensagem.`
       ).then((confirmed) => {
         if (confirmed) {
           window.open(whatsappLink, "_blank")
@@ -170,7 +170,7 @@ export const sendWhatsAppMessage = (state) => {
   const text = messageText.value.trim()
 
   if (!text) {
-    showWarning("Por favor, escreva uma mensagem.")
+    showWarning("Por favor, escreva o conteúdo da mensagem antes de enviar.")
     return
   }
 
@@ -180,7 +180,7 @@ export const sendWhatsAppMessage = (state) => {
     const phoneNumber = contact.phone.replace(/\D/g, "")
 
     if (!phoneNumber) {
-      showError("Número de telefone inválido.")
+      showError("Número de telefone inválido. Por favor, verifique o contato.")
       return
     }
 
@@ -190,6 +190,6 @@ export const sendWhatsAppMessage = (state) => {
     window.open(whatsappLink, "_blank")
     closeDialogs()
   } else {
-    showError("Contato não encontrado ou sem número de telefone.")
+    showError("Contato não encontrado ou sem número de telefone válido.")
   }
 }

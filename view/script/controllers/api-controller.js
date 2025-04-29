@@ -31,7 +31,7 @@ export const checkApiConnection = async () => {
     return true
   } catch (error) {
     console.error("Erro ao conectar com a API:", error)
-    showError("Não foi possível conectar ao servidor. Verifique se o servidor está rodando e tente novamente.")
+    showError("Falha ao conectar ao servidor. Certifique-se de que o servidor está ativo e acessível.")
     return false
   }
 }
@@ -70,10 +70,10 @@ export const fetchContacts = async (state) => {
     // Exibir mensagem no grid de contatos
     const contactsGrid = document.getElementById("contactsGrid")
     if (contactsGrid) {
-      contactsGrid.innerHTML = '<div class="no-contacts">Erro ao carregar contatos. Tente novamente mais tarde.</div>'
+      contactsGrid.innerHTML = '<div class="no-contacts">Erro ao carregar contatos. Por favor, tente novamente mais tarde.</div>'
     }
     
-    showError("Erro ao carregar contatos. Tente novamente mais tarde.")
+    showError("Não foi possível carregar os contatos. Verifique sua conexão com a internet ou tente novamente mais tarde.")
   } finally {
     hideLoading()
   }
@@ -87,17 +87,35 @@ export const fetchContacts = async (state) => {
 export const createContact = async (contact, state) => {
   showLoading()
   try {
-    // Verificar se nome e telefone estão presentes
-    if (!contact.name || !contact.phone) {
-      throw new Error("Os campos nome e telefone são obrigatórios.")
+    // Remover máscara do número de telefone
+    const unmaskedPhone = contact.phone.replace(/\D/g, "") // Remove tudo que não for dígito
+
+    // Verificar se o número de telefone tem exatamente 10 ou 11 dígitos
+    const phoneRegex = /^\d{10,11}$/
+    if (!phoneRegex.test(unmaskedPhone)) {
+      throw new Error("O número de telefone deve conter exatamente 10 ou 11 dígitos.")
     }
 
-    // Create the request body without requiring email
+    // Verificar se o número de telefone já existe
+    const isDuplicate = state.contacts.some((c) => c.phone.replace(/\D/g, "") === unmaskedPhone)
+    if (isDuplicate) {
+      throw new Error("O número de telefone já está cadastrado. Por favor, insira um número diferente.")
+    }
+
+    // Verificar se o e-mail é válido (se fornecido)
+    if (contact.email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      if (!emailRegex.test(contact.email)) {
+        throw new Error("O e-mail fornecido não é válido. Por favor, insira um e-mail no formato correto.")
+      }
+    }
+
+    // Criar o corpo da requisição
     const requestBody = {
       nome: contact.name,
       sobrenome: contact.sobrenome || "",
       email: contact.email || "",
-      telefone: contact.phone,
+      telefone: contact.phone, // Enviar o número com a máscara, se necessário
       grupo: contact.category || "todos",
     }
 
@@ -118,14 +136,14 @@ export const createContact = async (contact, state) => {
     }
 
     // Registrar log de criação de contato
-    logContactCreated(contact);
+    logContactCreated(contact)
 
     await fetchContacts(state)
-    showSuccess("Contato criado com sucesso!")
+    showSuccess("Contato criado com sucesso! O novo contato foi adicionado à lista.")
     return true
   } catch (error) {
     console.error("Erro ao criar contato:", error)
-    showError("Não foi possível criar o contato. Verifique a conexão com o servidor.")
+    showError(error.message || "Erro ao criar contato. Certifique-se de que os dados estão corretos e o servidor está acessível.")
     return false
   } finally {
     hideLoading()
@@ -140,11 +158,35 @@ export const createContact = async (contact, state) => {
 export const updateContact = async (contact, state) => {
   showLoading()
   try {
+    // Remover máscara do número de telefone
+    const unmaskedPhone = contact.phone.replace(/\D/g, "") // Remove tudo que não for dígito
+
+    // Verificar se o número de telefone tem exatamente 10 ou 11 dígitos
+    const phoneRegex = /^\d{10,11}$/
+    if (!phoneRegex.test(unmaskedPhone)) {
+      throw new Error("O número de telefone deve conter exatamente 10 ou 11 dígitos.")
+    }
+
+    // Verificar se o número de telefone já existe em outro contato
+    const isDuplicate = state.contacts.some((c) => c.phone.replace(/\D/g, "") === unmaskedPhone && c.id !== contact.id)
+    if (isDuplicate) {
+      throw new Error("O número de telefone já está cadastrado em outro contato. Por favor, insira um número diferente.")
+    }
+
+    // Verificar se o e-mail é válido (se fornecido)
+    if (contact.email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      if (!emailRegex.test(contact.email)) {
+        throw new Error("O e-mail fornecido não é válido. Por favor, insira um e-mail no formato correto.")
+      }
+    }
+
+    // Criar o corpo da requisição
     const requestBody = {
       nome: contact.name,
       sobrenome: contact.sobrenome,
       email: contact.email || "",
-      telefone: contact.phone,
+      telefone: contact.phone, // Enviar o número com a máscara, se necessário
       grupo: contact.category,
       imagem: contact.avatar,
     }
@@ -162,14 +204,14 @@ export const updateContact = async (contact, state) => {
     }
 
     // Registrar log de atualização de contato
-    logContactUpdated(contact);
+    logContactUpdated(contact)
 
     await fetchContacts(state)
-    showSuccess("Contato atualizado com sucesso!")
+    showSuccess("Contato atualizado com sucesso! As alterações foram salvas.")
     return true
   } catch (error) {
     console.error("Erro ao atualizar contato:", error)
-    showError("Não foi possível atualizar o contato. Verifique a conexão com o servidor.")
+    showError(error.message || "Erro ao atualizar contato. Verifique os dados fornecidos e tente novamente.")
     return false
   } finally {
     hideLoading()
@@ -202,7 +244,7 @@ export const deleteContactAPI = async (contactId, state) => {
     // Registrar log de exclusão de contato
     logContactDeleted({id: contactId});
     
-    showSuccess("Contato excluído com sucesso!");
+    showSuccess("Contato excluído com sucesso! A lista foi atualizada.")
     
     try {
       await fetchContacts(state);
@@ -214,7 +256,7 @@ export const deleteContactAPI = async (contactId, state) => {
     return true;
   } catch (error) {
     console.error("Erro ao excluir contato:", error);
-    showError("Não foi possível excluir o contato. Verifique a conexão com o servidor.");
+    showError("Erro ao excluir contato. Certifique-se de que o servidor está acessível e tente novamente.")
     return false;
   } finally {
     hideLoading();

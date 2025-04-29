@@ -250,7 +250,7 @@ export const openMessageDialog = (contactId, state) => {
     // Exibir o diálogo
     elements.dialogs.message.style.display = "flex"
   } else {
-    showAlert("Contato não encontrado.")
+    showAlert("Contato não encontrado. Por favor, verifique a lista de contatos.")
   }
 }
 
@@ -269,12 +269,12 @@ export const openProfileDialog = (contactId, state) => {
   if (contactId) {
     contact = state.contacts.find((c) => c.id === contactId)
     if (!contact) {
-      showAlert("Contato não encontrado.")
+      showAlert("Contato não encontrado. Por favor, tente novamente.")
       return
     }
     state.currentContactId = contactId
   } else {
-    // New contact
+    // Novo contato
     contact = {
       id: null,
       name: "",
@@ -589,7 +589,7 @@ export const handleAvatarUpload = async (event) => {
       }
     } catch (error) {
       console.error("Erro ao converter imagem:", error)
-      showAlert("Não foi possível processar a imagem. Tente novamente.")
+      showAlert("Não foi possível processar a imagem. Certifique-se de que o arquivo é válido e tente novamente.")
     }
   }
 }
