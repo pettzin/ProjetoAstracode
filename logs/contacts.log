@@ -99,3 +99,20 @@
 [29/04/2025, 01:54:47] [DELETE] [User: system] {"id":"221","mensagem":"Contato ID 221 foi excluído"}
 [29/04/2025, 01:55:00] [CREATE] [User: system] {"id":222,"nome":"111111111122222aaa","sobrenome":"","email":"","telefone":"(23) 33333-3333","grupo":"todos"}
 [29/04/2025, 01:55:05] [DELETE] [User: system] {"id":"222","mensagem":"Contato ID 222 foi excluído"}
+[29/04/2025, 02:15:27] [DELETE] [User: system] {"id":"225","mensagem":"Contato ID 225 foi excluído"}
+[29/04/2025, 02:15:43] [UPDATE] [User: system] {"id":"226","campos_atualizados":"nome, sobrenome, email, telefone, grupo, imagem","grupo":""}
+[29/04/2025, 02:16:13] [CREATE] [User: system] {"id":227,"nome":"ddddddddd","sobrenome":"","email":"","telefone":"(33) 33333-3333","grupo":"todos"}
+[29/04/2025, 02:16:19] [DELETE] [User: system] {"id":"227","mensagem":"Contato ID 227 foi excluído"}
+[29/04/2025, 02:18:52] [UPDATE] [User: system] {"id":"226","campos_atualizados":"nome, sobrenome, email, telefone, grupo, imagem","grupo":""}
+[29/04/2025, 02:19:02] [CREATE] [User: system] {"id":228,"nome":"miau33333","sobrenome":"","email":"","telefone":"(22) 22222-2222","grupo":"todos"}
+[29/04/2025, 02:21:15] [DELETE] [User: system] {"id":"226","mensagem":"Contato ID 226 foi excluído"}
+[29/04/2025, 02:22:06] [DELETE] [User: system] {"id":"228","mensagem":"Contato ID 228 foi excluído"}
+[29/04/2025, 02:24:44] [DELETE] [User: system] {"id":"223","mensagem":"Contato ID 223 foi excluído"}
+[29/04/2025, 02:27:51] [CREATE] [User: system] {"id":229,"nome":"aaaaaaaaaaaaaaa","sobrenome":"","email":"","telefone":"(22) 22222-2222","grupo":"todos"}
+[29/04/2025, 02:27:57] [DELETE] [User: system] {"id":"229","mensagem":"Contato ID 229 foi excluído"}
+[29/04/2025, 02:28:34] [CREATE] [User: system] {"id":230,"nome":"aaaaaaaaaaaaaaaaaaaaaaaaaa","sobrenome":"","email":"","telefone":"(55) 55555-5555","grupo":"todos"}
+[29/04/2025, 02:28:39] [DELETE] [User: system] {"id":"230","mensagem":"Contato ID 230 foi excluído"}
+[29/04/2025, 02:28:51] [CREATE] [User: system] {"id":231,"nome":"aaaaaaaaaaaaaaaaaaa","sobrenome":"","email":"","telefone":"(22) 22222-2222","grupo":"todos"}
+[29/04/2025, 02:29:27] [DELETE] [User: system] {"id":"231","mensagem":"Contato ID 231 foi excluído"}
+[29/04/2025, 02:31:53] [CREATE] [User: system] {"id":232,"nome":"iiiiiiiiiiiiii","sobrenome":"","email":"","telefone":"(42) 33333-3333","grupo":"todos"}
+[29/04/2025, 02:31:57] [DELETE] [User: system] {"id":"232","mensagem":"Contato ID 232 foi excluído"}
