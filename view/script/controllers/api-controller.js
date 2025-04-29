@@ -40,13 +40,17 @@ export const checkApiConnection = async () => {
  * Fetches all contacts from the API
  */
 export const fetchContacts = async (state) => {
-  showLoading()
+  showLoading();
   try {
-    const response = await fetch(`${API.BASE_URL}${API.ENDPOINTS.SELECT}`)
+    const response = await fetch(`${API.BASE_URL}${API.ENDPOINTS.SELECT}`);
     if (!response.ok) {
-      throw new Error("Erro ao buscar contatos")
+      const errorText = await response.text(); // Capturar o texto do erro
+      console.error("Erro ao buscar contatos:", errorText);
+      throw new Error("Erro ao buscar contatos");
     }
-    const data = await response.json()
+
+    const data = await response.json();
+    console.log("Contatos carregados com sucesso:", data);
 
     // Transform API data to our format
     state.contacts = data.map((contact) => ({
@@ -58,26 +62,26 @@ export const fetchContacts = async (state) => {
       avatar: contact.imagem || "../img/iconContact.png",
       category: contact.grupo || "todos",
       date: new Date(contact.data_criacao || Date.now()),
-    }))
+    }));
 
-    renderContacts(state)
+    renderContacts(state);
 
     // Atualizar o seletor de contatos no diálogo de mensagem
-    updateContactSelect(state)
+    updateContactSelect(state);
   } catch (error) {
-    console.error("Erro ao buscar contatos:", error)
+    console.error("Erro ao buscar contatos:", error);
 
     // Exibir mensagem no grid de contatos
-    const contactsGrid = document.getElementById("contactsGrid")
+    const contactsGrid = document.getElementById("contactsGrid");
     if (contactsGrid) {
-      contactsGrid.innerHTML = '<div class="no-contacts">Erro ao carregar contatos. Por favor, tente novamente mais tarde.</div>'
+      contactsGrid.innerHTML = '<div class="no-contacts">Erro ao carregar contatos. Por favor, tente novamente mais tarde.</div>';
     }
 
-    showError("Não foi possível carregar os contatos. Verifique sua conexão com a internet ou tente novamente mais tarde.")
+    showError("Não foi possível carregar os contatos. Verifique sua conexão com a internet ou tente novamente mais tarde.");
   } finally {
-    hideLoading()
+    hideLoading();
   }
-}
+};
 
 /**
  * Creates a new contact via API
@@ -235,15 +239,20 @@ export const deleteContactAPI = async (contactId, state) => {
     });
 
     if (!response.ok) {
+      const errorText = await response.text(); // Capturar o texto do erro
+      console.error("Erro ao excluir contato:", errorText);
       throw new Error("Erro ao excluir contato");
     }
 
     console.log(`Contato ID ${contactId} excluído com sucesso`);
     logContactDeleted({ id: contactId });
 
-    showSuccess("Contato excluído com sucesso! A lista foi atualizada.");
-
+    // Atualizar a lista de contatos
     await fetchContacts(state);
+
+    // Exibir o alerta de sucesso apenas após o carregamento bem-sucedido
+    showSuccess("Contato excluído com sucesso! A lista foi atualizada.", 7000);
+
     return true;
   } catch (error) {
     console.error("Erro ao excluir contato:", error);
