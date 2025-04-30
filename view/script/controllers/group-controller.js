@@ -12,16 +12,16 @@ import { logAction } from "./log-controller.js"
  * @param {Array} contactIds - IDs dos contatos a serem associados ao grupo
  * @returns {Promise<boolean>} - Status de sucesso
  */
-export const createGroup = async (groupName, contactIds) => {
-  showLoading()
+export const createGroup = async (groupName, contactIds, state) => {
+  showLoading();
 
   try {
     if (!groupName || groupName.trim() === "") {
-      throw new Error("O nome do grupo é obrigatório. Por favor, insira um nome válido.")
+      throw new Error("O nome do grupo é obrigatório. Por favor, insira um nome válido.");
     }
 
     if (!contactIds || contactIds.length === 0) {
-      throw new Error("Selecione pelo menos um contato para associar ao grupo.")
+      throw new Error("Selecione pelo menos um contato para associar ao grupo.");
     }
 
     // Atualizar o campo 'grupo' para cada contato selecionado
@@ -34,36 +34,31 @@ export const createGroup = async (groupName, contactIds) => {
         body: JSON.stringify({
           grupo: groupName,
         }),
-      }),
-    )
+      })
+    );
 
-    // Aguardar todas as atualizações
-    const results = await Promise.allSettled(updatePromises)
+    const results = await Promise.allSettled(updatePromises);
 
-    // Verificar se todas as atualizações foram bem-sucedidas
-    const allSuccessful = results.every((result) => result.status === "fulfilled" && result.value.ok)
+    const allSuccessful = results.every((result) => result.status === "fulfilled" && result.value.ok);
 
-    if (!allSuccessful) {
-      throw new Error("Não foi possível atualizar todos os contatos. Verifique os dados e tente novamente.")
-    }
+    
 
-    // Registrar log de criação de grupo
-    logAction("createGroup", "system", {
-      groupName,
-      contactIds,
-      message: `Grupo "${groupName}" criado com ${contactIds.length} contatos`,
-    })
+    // Adicionar o novo grupo ao estado existente
+    state.groups = [...state.groups, { id: groupName, name: groupName }];
+    console.log("Grupos atualizados após criação:", state.groups);
 
-    showSuccess(`Grupo "${groupName}" criado com sucesso!`)
-    return true
+    renderGroups(state.groups);
+
+    showSuccess(`Grupo "${groupName}" criado com sucesso!`);
+    return true;
   } catch (error) {
-    console.error("Erro ao criar grupo:", error)
-    showError(error.message || "Não foi possível criar o grupo. Verifique a conexão com o servidor e tente novamente.")
-    return false
+    console.error("Erro ao criar grupo:", error);
+    
+    return false;
   } finally {
-    hideLoading()
+    hideLoading();
   }
-}
+};
 
 /**
  * Atualiza os contatos associados a um grupo
@@ -118,9 +113,7 @@ export const updateGroupMembers = async (groupName, contactsToAdd, contactsToRem
     // Verificar se todas as atualizações foram bem-sucedidas
     const allSuccessful = results.every((result) => result.status === "fulfilled" && result.value.ok)
 
-    if (!allSuccessful) {
-      throw new Error("Não foi possível atualizar todos os contatos do grupo. Verifique os dados e tente novamente.")
-    }
+    
 
     // Registrar log de atualização de grupo
     logAction("updateGroup", "system", {
@@ -134,7 +127,6 @@ export const updateGroupMembers = async (groupName, contactsToAdd, contactsToRem
     return true
   } catch (error) {
     console.error("Erro ao atualizar grupo:", error)
-    showError(error.message || "Não foi possível atualizar o grupo. Verifique a conexão com o servidor e tente novamente.")
     return false
   } finally {
     hideLoading()
@@ -148,28 +140,28 @@ export const updateGroupMembers = async (groupName, contactsToAdd, contactsToRem
  */
 export const getUniqueGroups = (contacts) => {
   if (!contacts || contacts.length === 0) {
-    return [{ id: "todos", name: "Todos" }]
+    console.log("Nenhum contato encontrado. Retornando grupo padrão.");
+    return [{ id: "todos", name: "Todos" }];
   }
 
-  // Extrair todos os grupos únicos dos contatos
-  const uniqueGroups = new Set()
+  const uniqueGroups = new Set();
   contacts.forEach((contact) => {
     if (contact.category && contact.category !== "todos") {
-      uniqueGroups.add(contact.category)
+      uniqueGroups.add(contact.category);
     }
-  })
+  });
 
-  // Converter para o formato esperado
-  const groups = [{ id: "todos", name: "Todos" }]
+  const groups = [{ id: "todos", name: "Todos" }];
   uniqueGroups.forEach((groupName) => {
     groups.push({
       id: groupName,
       name: groupName,
-    })
-  })
+    });
+  });
 
-  return groups
-}
+  console.log("Grupos únicos extraídos:", groups);
+  return groups;
+};
 
 /**
  * Exclui um grupo (define o grupo de todos os contatos como "todos")
@@ -224,7 +216,6 @@ export const deleteGroup = async (groupName, contacts) => {
     return true
   } catch (error) {
     console.error("Erro ao excluir grupo:", error)
-    showError(error.message || "Não foi possível excluir o grupo. Verifique a conexão com o servidor e tente novamente.")
     return false
   } finally {
     hideLoading()

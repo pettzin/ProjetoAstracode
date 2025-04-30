@@ -131,3 +131,38 @@
 [29/04/2025, 23:07:54] [UPDATE] [User: system] {"id":"240","campos_atualizados":"grupo","grupo":"minhau 3"}
 [29/04/2025, 23:08:06] [UPDATE] [User: system] {"id":"241","campos_atualizados":"grupo","grupo":"todos"}
 [29/04/2025, 23:09:22] [CREATE] [User: system] {"id":262,"nome":"lua","sobrenome":"","email":"","telefone":"(77) 66666-6666","grupo":"todos"}
+[29/04/2025, 23:13:11] [CREATE] [User: system] {"id":263,"nome":"uuuuuuu","sobrenome":"","email":"","telefone":"(12) 12121-2222","grupo":"todos"}
+[29/04/2025, 23:13:37] [UPDATE] [User: system] {"id":"240","campos_atualizados":"grupo","grupo":"aaaaaaa"}
+[29/04/2025, 23:13:38] [UPDATE] [User: system] {"id":"249","campos_atualizados":"grupo","grupo":"aaaaaaa"}
+[29/04/2025, 23:13:38] [UPDATE] [User: system] {"id":"250","campos_atualizados":"grupo","grupo":"aaaaaaa"}
+[29/04/2025, 23:20:18] [UPDATE] [User: system] {"id":"250","campos_atualizados":"grupo","grupo":"gcc"}
+[29/04/2025, 23:20:19] [UPDATE] [User: system] {"id":"262","campos_atualizados":"grupo","grupo":"gcc"}
+[29/04/2025, 23:20:19] [UPDATE] [User: system] {"id":"261","campos_atualizados":"grupo","grupo":"gcc"}
+[29/04/2025, 23:20:33] [UPDATE] [User: system] {"id":"261","campos_atualizados":"grupo","grupo":"."}
+[29/04/2025, 23:20:45] [UPDATE] [User: system] {"id":"249","campos_atualizados":"grupo","grupo":"ad"}
+[29/04/2025, 23:21:23] [UPDATE] [User: system] {"id":"240","campos_atualizados":"grupo","grupo":"ll"}
+[29/04/2025, 23:21:51] [UPDATE] [User: system] {"id":"240","campos_atualizados":"grupo","grupo":"todos"}
+[29/04/2025, 23:22:03] [UPDATE] [User: system] {"id":"249","campos_atualizados":"grupo","grupo":"todos"}
+[29/04/2025, 23:22:18] [UPDATE] [User: system] {"id":"250","campos_atualizados":"grupo","grupo":"todos"}
+[29/04/2025, 23:22:18] [UPDATE] [User: system] {"id":"262","campos_atualizados":"grupo","grupo":"todos"}
+[29/04/2025, 23:22:29] [UPDATE] [User: system] {"id":"261","campos_atualizados":"grupo","grupo":"todos"}
+[29/04/2025, 23:22:43] [UPDATE] [User: system] {"id":"240","campos_atualizados":"grupo","grupo":"a"}
+[29/04/2025, 23:22:43] [UPDATE] [User: system] {"id":"249","campos_atualizados":"grupo","grupo":"a"}
+[29/04/2025, 23:23:26] [UPDATE] [User: system] {"id":"249","campos_atualizados":"grupo","grupo":"aa"}
+[29/04/2025, 23:23:46] [UPDATE] [User: system] {"id":"249","campos_atualizados":"grupo","grupo":"todos"}
+[29/04/2025, 23:23:57] [DELETE] [User: system] {"id":"250","mensagem":"Contato ID 250 foi excluído"}
+[29/04/2025, 23:24:05] [DELETE] [User: system] {"id":"248","mensagem":"Contato ID 248 foi excluído"}
+[29/04/2025, 23:24:15] [DELETE] [User: system] {"id":"241","mensagem":"Contato ID 241 foi excluído"}
+[29/04/2025, 23:24:19] [DELETE] [User: system] {"id":"263","mensagem":"Contato ID 263 foi excluído"}
+[29/04/2025, 23:24:22] [DELETE] [User: system] {"id":"262","mensagem":"Contato ID 262 foi excluído"}
+[29/04/2025, 23:24:28] [UPDATE] [User: system] {"id":"240","campos_atualizados":"grupo","grupo":"todos"}
+[29/04/2025, 23:24:40] [UPDATE] [User: system] {"id":"240","campos_atualizados":"grupo","grupo":"mingua"}
+[29/04/2025, 23:24:51] [UPDATE] [User: system] {"id":"240","campos_atualizados":"grupo","grupo":"todos"}
+[29/04/2025, 23:24:55] [UPDATE] [User: system] {"id":"249","campos_atualizados":"grupo","grupo":"1"}
+[29/04/2025, 23:25:01] [UPDATE] [User: system] {"id":"249","campos_atualizados":"grupo","grupo":"2"}
+[29/04/2025, 23:25:44] [UPDATE] [User: system] {"id":"240","campos_atualizados":"grupo","grupo":"2"}
+[29/04/2025, 23:26:12] [UPDATE] [User: system] {"id":"249","campos_atualizados":"grupo","grupo":"todos"}
+[29/04/2025, 23:26:22] [UPDATE] [User: system] {"id":"249","campos_atualizados":"grupo","grupo":"2"}
+[29/04/2025, 23:26:22] [UPDATE] [User: system] {"id":"261","campos_atualizados":"grupo","grupo":"2"}
+[29/04/2025, 23:26:23] [UPDATE] [User: system] {"id":"240","campos_atualizados":"grupo","grupo":"todos"}
+[29/04/2025, 23:26:28] [UPDATE] [User: system] {"id":"261","campos_atualizados":"grupo","grupo":"todos"}

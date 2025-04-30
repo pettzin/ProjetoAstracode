@@ -43,7 +43,7 @@ export const fetchContacts = async (state) => {
   try {
     const response = await fetch(`${API.BASE_URL}${API.ENDPOINTS.SELECT}`);
     if (!response.ok) {
-      const errorText = await response.text(); // Capturar o texto do erro
+      const errorText = await response.text();
       console.error("Erro ao buscar contatos:", errorText);
       throw new Error("Erro ao buscar contatos");
     }
@@ -51,7 +51,7 @@ export const fetchContacts = async (state) => {
     const data = await response.json();
     console.log("Contatos carregados com sucesso:", data);
 
-    // Transform API data to our format
+    // Transform API data to nosso formato
     state.contacts = data.map((contact) => ({
       id: contact.id,
       name: contact.nome || "",
@@ -63,18 +63,17 @@ export const fetchContacts = async (state) => {
       date: new Date(contact.data_criacao || Date.now()),
     }));
 
+    console.log("Estado inicial dos contatos:", state.contacts);
+
     renderContacts(state);
 
-    // Atualizar o seletor de contatos no diálogo de mensagem
-    updateContactSelect(state);
+    // Atualizar os grupos com base nos contatos carregados
+    state.groups = getUniqueGroups(state.contacts);
+    console.log("Grupos carregados:", state.groups);
+
+    renderGroups(state.groups);
   } catch (error) {
     console.error("Erro ao buscar contatos:", error);
-
-    // Exibir mensagem no grid de contatos
-    const contactsGrid = document.getElementById("contactsGrid");
-    if (contactsGrid) {
-      contactsGrid.innerHTML = '<div class="no-contacts">Erro ao carregar contatos. Por favor, tente novamente mais tarde.</div>';
-    }
   } finally {
     hideLoading();
   }
