@@ -166,3 +166,5 @@
 [29/04/2025, 23:26:22] [UPDATE] [User: system] {"id":"261","campos_atualizados":"grupo","grupo":"2"}
 [29/04/2025, 23:26:23] [UPDATE] [User: system] {"id":"240","campos_atualizados":"grupo","grupo":"todos"}
 [29/04/2025, 23:26:28] [UPDATE] [User: system] {"id":"261","campos_atualizados":"grupo","grupo":"todos"}
+[30/04/2025, 10:18:52] [CREATE] [User: system] {"id":267,"nome":"Renan","sobrenome":"Silva","email":"re.silva@icloud.com","telefone":"(11) 99540-7415","grupo":"todos"}
+[30/04/2025, 10:19:51] [UPDATE] [User: system] {"id":"267","campos_atualizados":"nome, sobrenome, email, telefone, grupo, imagem","grupo":""}
