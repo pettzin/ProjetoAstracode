@@ -116,3 +116,18 @@
 [29/04/2025, 02:29:27] [DELETE] [User: system] {"id":"231","mensagem":"Contato ID 231 foi excluído"}
 [29/04/2025, 02:31:53] [CREATE] [User: system] {"id":232,"nome":"iiiiiiiiiiiiii","sobrenome":"","email":"","telefone":"(42) 33333-3333","grupo":"todos"}
 [29/04/2025, 02:31:57] [DELETE] [User: system] {"id":"232","mensagem":"Contato ID 232 foi excluído"}
+[29/04/2025, 23:01:50] [DELETE] [User: system] {"id":"239","mensagem":"Contato ID 239 foi excluído"}
+[29/04/2025, 23:02:01] [DELETE] [User: system] {"id":"236","mensagem":"Contato ID 236 foi excluído"}
+[29/04/2025, 23:02:24] [DELETE] [User: system] {"id":"244","mensagem":"Contato ID 244 foi excluído"}
+[29/04/2025, 23:02:37] [DELETE] [User: system] {"id":"251","mensagem":"Contato ID 251 foi excluído"}
+[29/04/2025, 23:03:56] [DELETE] [User: system] {"id":"237","mensagem":"Contato ID 237 foi excluído"}
+[29/04/2025, 23:04:27] [CREATE] [User: system] {"id":260,"nome":"aaaa","sobrenome":"","email":"","telefone":"(21) 11111-1111","grupo":"todos"}
+[29/04/2025, 23:05:18] [DELETE] [User: system] {"id":"252","mensagem":"Contato ID 252 foi excluído"}
+[29/04/2025, 23:05:28] [DELETE] [User: system] {"id":"260","mensagem":"Contato ID 260 foi excluído"}
+[29/04/2025, 23:05:46] [CREATE] [User: system] {"id":261,"nome":"testeamm","sobrenome":"","email":"","telefone":"(49) 00000-0000","grupo":"todos"}
+[29/04/2025, 23:06:17] [UPDATE] [User: system] {"id":"240","campos_atualizados":"grupo","grupo":"minhau"}
+[29/04/2025, 23:06:18] [UPDATE] [User: system] {"id":"249","campos_atualizados":"grupo","grupo":"minhau"}
+[29/04/2025, 23:07:07] [UPDATE] [User: system] {"id":"250","campos_atualizados":"grupo","grupo":"minhau 2"}
+[29/04/2025, 23:07:54] [UPDATE] [User: system] {"id":"240","campos_atualizados":"grupo","grupo":"minhau 3"}
+[29/04/2025, 23:08:06] [UPDATE] [User: system] {"id":"241","campos_atualizados":"grupo","grupo":"todos"}
+[29/04/2025, 23:09:22] [CREATE] [User: system] {"id":262,"nome":"lua","sobrenome":"","email":"","telefone":"(77) 66666-6666","grupo":"todos"}

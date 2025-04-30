@@ -31,7 +31,6 @@ export const checkApiConnection = async () => {
     return true
   } catch (error) {
     console.error("Erro ao conectar com a API:", error)
-    showError("Falha ao conectar ao servidor. Certifique-se de que o servidor está ativo e acessível.")
     return false
   }
 }
@@ -76,8 +75,6 @@ export const fetchContacts = async (state) => {
     if (contactsGrid) {
       contactsGrid.innerHTML = '<div class="no-contacts">Erro ao carregar contatos. Por favor, tente novamente mais tarde.</div>';
     }
-
-    showError("Não foi possível carregar os contatos. Verifique sua conexão com a internet ou tente novamente mais tarde.");
   } finally {
     hideLoading();
   }
@@ -133,11 +130,6 @@ export const createContact = async (contact, state) => {
       body: JSON.stringify(requestBody),
     })
 
-    if (!response.ok) {
-      const errorText = await response.text()
-      console.error("Resposta do servidor:", errorText)
-      throw new Error("Erro ao criar contato")
-    }
 
     // Registrar log de criação de contato
     logContactCreated(contact)
