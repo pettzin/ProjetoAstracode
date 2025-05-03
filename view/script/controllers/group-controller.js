@@ -3,7 +3,7 @@
 
 import { API } from "./api-controller.js"
 import { showLoading, hideLoading } from "./dom-controller.js"
-import { showError, showSuccess } from "./notification-controller.js"
+import { showSuccess } from "./notification-controller.js"
 import { logAction } from "./log-controller.js"
 
 /**

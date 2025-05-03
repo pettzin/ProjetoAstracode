@@ -117,6 +117,7 @@ export const createContact = async (contact, state) => {
       email: contact.email || "",
       telefone: contact.phone, // Enviar o número com a máscara, se necessário
       grupo: contact.category || "todos",
+      imagem: contact.avatar,
     }
 
     console.log("Enviando dados:", requestBody)
