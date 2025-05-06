@@ -75,7 +75,7 @@ O Astracode é mais do que uma simples agenda digital é uma solução completa 
 
 ---
 
-Desenvolvido por [Matheus Domeneghetti](https://github.com/Sarito333), [Petterson Machado](https://github.com/pettzin), [Renan Alves](https://github.com/Renan01032) e [Veronica Neves](https://github.com/Renan01032)
+Desenvolvido por [Matheus Domeneghetti](https://github.com/Sarito333), [Petterson Machado](https://github.com/pettzin), [Renan Alves](https://github.com/Renan01032) e [Veronica Neves](https://github.com/VeehNB)
 
 ---
 
