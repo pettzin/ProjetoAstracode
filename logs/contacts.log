@@ -9,3 +9,12 @@
 [01/05/2025, 01:46:19] [UPDATE] [User: system] {"id":"271","campos_atualizados":"grupo","grupo":"todos"}
 [01/05/2025, 01:46:31] [UPDATE] [User: system] {"id":"269","campos_atualizados":"grupo","grupo":"todos"}
 [01/05/2025, 01:46:31] [UPDATE] [User: system] {"id":"270","campos_atualizados":"grupo","grupo":"todos"}
+[09/05/2025, 11:05:02] [UPDATE] [User: system] {"id":"306","campos_atualizados":"nome, sobrenome, email, telefone, grupo, imagem","grupo":""}
+[09/05/2025, 11:05:14] [UPDATE] [User: system] {"id":"309","campos_atualizados":"nome, sobrenome, email, telefone, grupo, imagem","grupo":"Alunos"}
+[09/05/2025, 11:05:31] [UPDATE] [User: system] {"id":"308","campos_atualizados":"nome, sobrenome, email, telefone, grupo, imagem","grupo":""}
+[09/05/2025, 11:05:43] [UPDATE] [User: system] {"id":"310","campos_atualizados":"nome, sobrenome, email, telefone, grupo, imagem","grupo":""}
+[09/05/2025, 11:05:57] [UPDATE] [User: system] {"id":"310","campos_atualizados":"grupo","grupo":"teste"}
+[09/05/2025, 11:05:57] [UPDATE] [User: system] {"id":"308","campos_atualizados":"grupo","grupo":"teste"}
+[09/05/2025, 11:06:09] [UPDATE] [User: system] {"id":"310","campos_atualizados":"grupo","grupo":"todos"}
+[09/05/2025, 11:06:09] [UPDATE] [User: system] {"id":"308","campos_atualizados":"grupo","grupo":"todos"}
+[09/05/2025, 11:06:18] [UPDATE] [User: system] {"id":"309","campos_atualizados":"grupo","grupo":"todos"}
