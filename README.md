@@ -39,6 +39,17 @@ Tudo isso com uma interface amigável, responsiva e compatível com todos os nav
 
 ---
 
+## 🚀 Principais recursos técnicos
+
+- Sistema de autenticação de usuários
+- CRUD completo de contatos
+- API REST com Node.js
+- Modelagem de banco de dados em MySQL
+- Integração entre frontend, backend e banco de dados
+- Interface responsiva com Bootstrap
+
+---
+
 ## 🛠️ Tecnologias utilizadas
 
 - **Frontend:** HTML + CSS + JavaScript + Bootstrap5
